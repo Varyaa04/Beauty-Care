@@ -73,8 +73,8 @@
             </ListView.ItemTemplate>
         </ListView>
         <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="985,-53,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16" Width="162"/>
-        <TextBox HorizontalAlignment="Left" Margin="23,-61,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <ComboBox HorizontalAlignment="Left" Margin="303,-53,0,0" VerticalAlignment="Top" Width="120"  RenderTransformOrigin="0.5,0.5">
+        <TextBox x:Name="textboxSearch" HorizontalAlignment="Left" Margin="30,-61,0,0" TextWrapping="Wrap" Text="Введите название..." VerticalAlignment="Top" Width="190" Height="27" TextChanged="TextBox_TextChanged"/>
+        <ComboBox x:Name="comboSort" HorizontalAlignment="Left" Margin="328,-85,0,0" VerticalAlignment="Top" Width="120"  RenderTransformOrigin="0.5,0.5" SelectionChanged="comboSort_SelectionChanged">
             <ComboBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -84,6 +84,10 @@
                 </TransformGroup>
             </ComboBox.RenderTransform>
         </ComboBox>
-        <ComboBox HorizontalAlignment="Left" Margin="507,-61,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="comboFilter" HorizontalAlignment="Left" Margin="330,-49,0,0" VerticalAlignment="Top" Width="120"/>
+        <TextBlock x:Name="tbSearch" HorizontalAlignment="Left" Margin="30,-82,0,0" TextWrapping="Wrap" Text="Поиск по названию:" VerticalAlignment="Top"/>
+        <Button x:Name="buttonSearch" Content="Поиск" HorizontalAlignment="Left" Margin="500,-64,0,0" VerticalAlignment="Top" Height="21" Width="65" Click="buttonSearch_Click"/>
+        <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="241,-81,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top"/>
+        <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="241,-42,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top"/>
     </Grid>
 </Page>
