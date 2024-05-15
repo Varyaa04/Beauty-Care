@@ -5,8 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Beauty_Care"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+               Title="Beauty and Care store" Height="700" Width="1200"
+        Background="#FCB4D5"
+        >
     <Grid>
-        
+        <Frame x:Name="FrmMain" Content="Frame" HorizontalAlignment="Center" Height="584" Margin="0,90,0,0" VerticalAlignment="Top" Width="1180" Background="#F9C7DE" Navigated="FrmMain_Navigated" >
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </UIElement.RenderTransform>
+        </Frame>
+        <TextBlock x:Name="tittleText" HorizontalAlignment="Center" Height="62" Margin="0,10,0,0" TextWrapping="Wrap" Text="Beauty and Care store" VerticalAlignment="Top" Width="436" Foreground="#FF9F70A7" FontFamily="Harlow Solid Italic" FontSize="48"/>
+
     </Grid>
 </Window>

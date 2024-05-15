@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Beauty_Care.goods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,15 @@ namespace Beauty_Care
         public MainWindow()
         {
             InitializeComponent();
+            AppConnect.modeldb = new Entities();
+            AppFrame.frameMain = FrmMain;
+
+            FrmMain.Navigate(new goods.beautyGoodsPages());
+        }
+
+        private void FrmMain_Navigated(object sender, NavigationEventArgs e)
+        {
+
         }
     }
 }
