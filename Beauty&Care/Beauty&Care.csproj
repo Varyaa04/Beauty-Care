@@ -172,6 +172,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="img\picture.png" />
     <Resource Include="img\1.png" />
     <Resource Include="img\10.png" />
     <Resource Include="img\12.png" />
