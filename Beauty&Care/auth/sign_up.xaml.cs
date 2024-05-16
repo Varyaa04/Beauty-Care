@@ -55,6 +55,7 @@ namespace Beauty_Care.auth
                 AppConnect.modeldb.SaveChanges();
                 MessageBox.Show("Вы успешно зарегистрировались!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                AppFrame.frameMain.GoBack();
             }
             catch
             {

@@ -45,7 +45,7 @@ namespace Beauty_Care.auth
                         case 1:
                             MessageBox.Show("Здравствуйте, Администратор " + userObj.nameUser + "!",
                                 "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                            AppFrame.frameMain.Navigate(new goods.beautyGoodsPages());
+                            AppFrame.frameMain.Navigate(new goodsAdmin.beautyGoodsAdmin());
                             break;
                         case 2:
                             MessageBox.Show("Здравствуйте, " + userObj.nameUser + "!",

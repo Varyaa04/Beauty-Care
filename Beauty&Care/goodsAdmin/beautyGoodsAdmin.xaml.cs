@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Beauty_Care.goods;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,16 +14,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Beauty_Care.goods
+namespace Beauty_Care.goodsAdmin
 {
-    /// <summary>
-    /// Логика взаимодействия для beautyGoods.xaml
-    /// </summary>
-    public partial class beautyGoodsPages : Page
+    public partial class beautyGoodsAdmin : Page
     {
-        public beautyGoodsPages()
+        public beautyGoodsAdmin()
         {
-            InitializeComponent();
             List<beautyGoods> goods = AppConnect.modeldb.beautyGoods.ToList();
 
             if (goods.Count > 0)
@@ -40,7 +37,7 @@ namespace Beauty_Care.goods
             comboSort.Items.Add("По названию от А-Я");
             comboSort.Items.Add("По названию от Я-А");
 
-            comboFilter.ItemsSource = Entities.GetContext().category.Select(x =>  x.nameCategory).ToList();
+            comboFilter.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
 
 
         }
@@ -104,10 +101,10 @@ namespace Beauty_Care.goods
         beautyGoods[] filterGoods()
         {
             List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
-           
-            if(comboFilter.SelectedIndex >= 0)
+
+            if (comboFilter.SelectedIndex >= 0)
             {
-                switch(comboFilter.SelectedIndex)
+                switch (comboFilter.SelectedIndex)
                 {
                     case 0:
                         products = products.Where(x => x.category == 1).ToList();
@@ -142,13 +139,39 @@ namespace Beauty_Care.goods
             sortGoods();
         }
 
-        private void buttonSearch_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             filterGoods();
+        }
+
+        private void btnDel_Click(object sender, RoutedEventArgs e)
+        {
+            var goodsDel = ListGoods.SelectedItems.Cast<beautyGoods>().ToList();
+            if (MessageBox.Show("Вы точно хотите удалить выбранный товар?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Entities.GetContext().beautyGoods.RemoveRange(goodsDel);
+                    Entities.GetContext().SaveChanges();
+                    MessageBox.Show("Данные успешно удалены!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                    List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
+                    ListGoods.ItemsSource = products;
+
+                    if (products.Count > 0)
+                    {
+                        tbCounter.Text = "Найдено " + products.Count + " товаров";
+                    }
+                    else
+                    {
+                        tbCounter.Text = "Ничего не найдено";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message.ToString());
+                }
+            }
         }
     }
 }
