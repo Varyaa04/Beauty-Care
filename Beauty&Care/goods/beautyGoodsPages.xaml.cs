@@ -37,8 +37,10 @@ namespace Beauty_Care.goods
 
             comboSort.Items.Add("По возрастанию цены");
             comboSort.Items.Add("По убыванию цены");
+            comboSort.Items.Add("По названию от А-Я");
+            comboSort.Items.Add("По названию от Я-А");
 
-            comboFilter.ItemsSource = Entities.GetContext().category.Select(x =>  x.Name).ToList();
+            comboFilter.ItemsSource = Entities.GetContext().category.Select(x =>  x.nameCategory).ToList();
 
 
         }
@@ -54,7 +56,7 @@ namespace Beauty_Care.goods
                 products = products.Where(x => x.nameGoods.ToLower().Contains(textboxSearch.Text.ToLower())).ToList();
             }
 
-            if(comboSort.SelectedIndex > 0) 
+            if(comboSort.SelectedIndex >= 0) 
             { 
                 switch (comboSort.SelectedIndex)
                 {
@@ -64,10 +66,16 @@ namespace Beauty_Care.goods
                     case 1:
                         products = products.OrderByDescending(x => x.price).ToList();
                         break;
+                    case 2:
+                        products = products.OrderBy(x => x.nameGoods).ToList();
+                        break;
+                    case 3:
+                        products = products.OrderByDescending(x => x.nameGoods).ToList();
+                        break ;
                 }
             }
 
-            if(comboFilter.SelectedIndex > 0)
+            if(comboFilter.SelectedIndex >= 0)
             {
                 switch(comboFilter.SelectedIndex)
                 {
