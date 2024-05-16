@@ -1,0 +1,28 @@
+﻿<Page x:Class="Beauty_Care.auth.sign_in"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Beauty_Care.auth"
+      mc:Ignorable="d" 
+      d:DesignHeight="584" d:DesignWidth="1180"
+      Title="Авторизация"
+      Background="#F9C7DE">
+
+    <Grid>
+        <Label x:Name="labelAuth" Content="Авторизация" HorizontalAlignment="Center" Margin="0,45,0,0" VerticalAlignment="Top" Height="55" Width="240" FontSize="30" FontFamily="Verdana" Foreground="#FF9E275D"/>
+        <StackPanel Margin="372,135,372,209">
+            <StackPanel Height="120">
+                <TextBlock x:Name="tbLogin" TextWrapping="Wrap" Text="Введите логин:" FontSize="22" FontFamily="Verdana"/>
+                <TextBox x:Name="inputLogin" TextWrapping="Wrap" Text="" Width="338" Height="42" VerticalAlignment="Stretch" FontSize="20" FontFamily="Verdana" Margin="0,20,0,0"/>
+            </StackPanel>
+            <StackPanel Height="120">
+                <TextBlock x:Name="tbPsw" TextWrapping="Wrap" Text="Введите пароль:" FontSize="22" FontFamily="Verdana"/>
+                <PasswordBox x:Name="inputPsw" Width="338" Height="42" FontSize="20" FontFamily="Verdana" Margin="0,20,0,0"/>
+            </StackPanel>
+        </StackPanel>
+        <Button x:Name="btnAuth" Content="Войти" HorizontalAlignment="Center" Margin="0,405,0,0" VerticalAlignment="Top" Height="55" Width="216" Background="#FCB4D5" Foreground="White"  FontSize="20" Click="btnAuth_Click"/>
+        <Button x:Name="btnRegistr" Content="Зарегистрироваться" HorizontalAlignment="Center" Margin="0,475,0,0" VerticalAlignment="Top" Width="216" Height="35" Background="{x:Null}" BorderBrush="{x:Null}" Foreground="#FF750390" FontSize="18" Click="btnRegistr_Click" Visibility="Visible"/>
+
+    </Grid>
+</Page>

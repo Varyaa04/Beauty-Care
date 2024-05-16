@@ -64,6 +64,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="auth\sign_in.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="auth\sign_up.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="goods\beautyGoodsPages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -75,6 +83,12 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="auth\sign_in.xaml.cs">
+      <DependentUpon>sign_in.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="auth\sign_up.xaml.cs">
+      <DependentUpon>sign_up.xaml</DependentUpon>
     </Compile>
     <Compile Include="goods\AppConnect.cs" />
     <Compile Include="goods\AppFrame.cs" />
@@ -186,6 +200,7 @@
     <Resource Include="img\7.png" />
     <Resource Include="img\8.png" />
     <Resource Include="img\9.png" />
+    <Resource Include="auth\bow.png" />
     <Content Include="goods\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>Model1.Context.cs</LastGenOutput>

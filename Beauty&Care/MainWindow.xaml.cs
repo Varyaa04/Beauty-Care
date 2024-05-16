@@ -24,7 +24,7 @@ namespace Beauty_Care
             AppConnect.modeldb = new Entities();
             AppFrame.frameMain = FrmMain;
 
-            FrmMain.Navigate(new goods.beautyGoodsPages());
+            FrmMain.Navigate(new auth.sign_in());
         }
 
         private void FrmMain_Navigated(object sender, NavigationEventArgs e)
