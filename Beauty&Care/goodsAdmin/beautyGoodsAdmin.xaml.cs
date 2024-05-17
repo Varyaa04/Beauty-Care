@@ -20,6 +20,7 @@ namespace Beauty_Care.goodsAdmin
     {
         public beautyGoodsAdmin()
         {
+            InitializeComponent();
             List<beautyGoods> goods = AppConnect.modeldb.beautyGoods.ToList();
 
             if (goods.Count > 0)
@@ -38,35 +39,34 @@ namespace Beauty_Care.goodsAdmin
             comboSort.Items.Add("По названию от Я-А");
 
             comboFilter.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
-
-
         }
 
-
-        beautyGoods[] searchGoods()
+        beautyGoods[] findGoods()
         {
+
             List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
-            var prodictall = products;
 
             if (textboxSearch != null)
             {
                 products = products.Where(x => x.nameGoods.ToLower().Contains(textboxSearch.Text.ToLower())).ToList();
             }
-            if (products.Count > 0)
-            {
-                tbCounter.Text = "Найдено " + products.Count + " товаров";
-            }
-            else
-            {
-                tbCounter.Text = "Ничего не найдено";
-            }
-            ListGoods.ItemsSource = products;
-            return products.ToArray();
-        }
 
-        beautyGoods[] sortGoods()
-        {
-            List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
+            if (comboFilter.SelectedIndex >= 0)
+            {
+                switch (comboFilter.SelectedIndex)
+                {
+                    case 0:
+                        products = products.Where(x => x.category == 1).ToList();
+                        break;
+                    case 1:
+                        products = products.Where(x => x.category == 2).ToList();
+                        break;
+                    case 2:
+                        products = products.Where(x => x.category == 3).ToList();
+                        break;
+                }
+            }
+
 
             if (comboSort.SelectedIndex >= 0)
             {
@@ -98,80 +98,52 @@ namespace Beauty_Care.goodsAdmin
             return products.ToArray();
 
         }
-        beautyGoods[] filterGoods()
-        {
-            List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
 
-            if (comboFilter.SelectedIndex >= 0)
-            {
-                switch (comboFilter.SelectedIndex)
-                {
-                    case 0:
-                        products = products.Where(x => x.category == 1).ToList();
-                        break;
-                    case 1:
-                        products = products.Where(x => x.category == 2).ToList();
-                        break;
-                    case 2:
-                        products = products.Where(x => x.category == 3).ToList();
-                        break;
-                }
-            }
-
-            if (products.Count > 0)
-            {
-                tbCounter.Text = "Найдено " + products.Count + " товаров";
-            }
-            else
-            {
-                tbCounter.Text = "Ничего не найдено";
-            }
-            ListGoods.ItemsSource = products;
-            return products.ToArray();
-        }
-        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            searchGoods();
-        }
-
-        private void comboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            sortGoods();
-        }
-
-        private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            filterGoods();
-        }
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
             var goodsDel = ListGoods.SelectedItems.Cast<beautyGoods>().ToList();
-            if (MessageBox.Show("Вы точно хотите удалить выбранный товар?", "Внимание", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+
+            if (MessageBox.Show($"Вы точно хотите удалить следующие {goodsDel.Count()} элементов?", "Внимание",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
                 {
                     Entities.GetContext().beautyGoods.RemoveRange(goodsDel);
                     Entities.GetContext().SaveChanges();
-                    MessageBox.Show("Данные успешно удалены!", "Успех!", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Данные удалены");
+                    ListGoods.SelectedItem = null;
 
-                    List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
-                    ListGoods.ItemsSource = products;
-
-                    if (products.Count > 0)
-                    {
-                        tbCounter.Text = "Найдено " + products.Count + " товаров";
-                    }
-                    else
-                    {
-                        tbCounter.Text = "Ничего не найдено";
-                    }
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message.ToString());
                 }
             }
+        }
+        
+
+        private void buttonSearch_Click(object sender, RoutedEventArgs e)
+        {
+            findGoods();
+        }
+
+        private void buttonReset_Click(object sender, RoutedEventArgs e)
+        {
+            textboxSearch.Text = string.Empty;
+            comboFilter.SelectedIndex = -1;
+            comboSort.SelectedIndex = -1;
+            findGoods();
+        }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new addGoods());
+        }
+
+        private void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new editGoods((sender as Button).DataContext as beautyGoods));
         }
     }
 }

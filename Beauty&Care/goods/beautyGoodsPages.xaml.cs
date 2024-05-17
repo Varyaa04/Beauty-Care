@@ -46,30 +46,32 @@ namespace Beauty_Care.goods
         }
 
 
-        beautyGoods[] searchGoods()
+        beautyGoods[] findGoods()
         {
+
             List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
-            var prodictall = products;
 
             if (textboxSearch != null)
             {
                 products = products.Where(x => x.nameGoods.ToLower().Contains(textboxSearch.Text.ToLower())).ToList();
             }
-            if (products.Count > 0)
-            {
-                tbCounter.Text = "Найдено " + products.Count + " товаров";
-            }
-            else
-            {
-                tbCounter.Text = "Ничего не найдено";
-            }
-            ListGoods.ItemsSource = products;
-            return products.ToArray();
-        }
 
-        beautyGoods[] sortGoods()
-        {
-            List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
+            if (comboFilter.SelectedIndex >= 0)
+            {
+                switch (comboFilter.SelectedIndex)
+                {
+                    case 0:
+                        products = products.Where(x => x.category == 1).ToList();
+                        break;
+                    case 1:
+                        products = products.Where(x => x.category == 2).ToList();
+                        break;
+                    case 2:
+                        products = products.Where(x => x.category == 3).ToList();
+                        break;
+                }
+            }
+
 
             if (comboSort.SelectedIndex >= 0)
             {
@@ -101,54 +103,30 @@ namespace Beauty_Care.goods
             return products.ToArray();
 
         }
-        beautyGoods[] filterGoods()
-        {
-            List<beautyGoods> products = AppConnect.modeldb.beautyGoods.ToList();
-           
-            if(comboFilter.SelectedIndex >= 0)
-            {
-                switch(comboFilter.SelectedIndex)
-                {
-                    case 0:
-                        products = products.Where(x => x.category == 1).ToList();
-                        break;
-                    case 1:
-                        products = products.Where(x => x.category == 2).ToList();
-                        break;
-                    case 2:
-                        products = products.Where(x => x.category == 3).ToList();
-                        break;
-                }
-            }
-
-            if (products.Count > 0)
-            {
-                tbCounter.Text = "Найдено " + products.Count + " товаров";
-            }
-            else
-            {
-                tbCounter.Text = "Ничего не найдено";
-            }
-            ListGoods.ItemsSource = products;
-            return products.ToArray();
-        }
+       
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            searchGoods();
         }
 
         private void comboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            sortGoods();
         }
 
         private void buttonSearch_Click(object sender, RoutedEventArgs e)
         {
+            findGoods();
         }
 
         private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            filterGoods();
+        }
+
+        private void buttonReset_Click(object sender, RoutedEventArgs e)
+        {
+            textboxSearch.Text = string.Empty;
+            comboFilter.SelectedIndex = -1;
+            comboSort.SelectedIndex = -1;
+            findGoods();
         }
     }
 }

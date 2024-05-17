@@ -1,0 +1,34 @@
+﻿<Page x:Class="Beauty_Care.goodsAdmin.addGoods"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Beauty_Care.goodsAdmin"
+      mc:Ignorable="d" 
+      d:DesignHeight="584" d:DesignWidth="1180"
+      Title="Добавление товара"
+      Background="#F9C7DE">
+
+    <Grid>
+        <Button x:Name="save" Content="Сохранить" HorizontalAlignment="Center" Height="45" Margin="0,473,0,0" VerticalAlignment="Top" Width="140" Click="save_Click" Background="#FCB4D5" Foreground="White" FontFamily="Verdana"/>
+        <TextBlock x:Name="txtPrice" HorizontalAlignment="Left" Height="30" Margin="168,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="92" FontFamily="Verdana" FontSize="16" RenderTransformOrigin="0.681,0.433"><Run Language="ru-ru" Text="Цена"/></TextBlock>
+        <TextBlock x:Name="txtComp" HorizontalAlignment="Left" Height="30" Margin="720,210,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91" Text="Состав" FontFamily="Verdana" FontSize="16"/>
+        <TextBlock x:Name="txtArtic" HorizontalAlignment="Left" Height="30" Margin="168,108,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91" FontFamily="Verdana" FontSize="16"><Run Language="ru-ru" Text="Артикул"/></TextBlock>
+        <TextBlock x:Name="txtType" HorizontalAlignment="Left" Height="43" Margin="168,402,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="103" Text="Тип продукта" FontFamily="Verdana" FontSize="16"/>
+        <TextBlock x:Name="txtMan" HorizontalAlignment="Left" Height="28" Margin="720,110,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="134" FontFamily="Verdana" FontSize="16"><Run Language="ru-ru" Text="Производитель"/></TextBlock>
+        <TextBlock x:Name="txtCat" HorizontalAlignment="Left" Height="30" Margin="168,213,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91" FontFamily="Verdana" FontSize="16"><Run Language="ru-ru" Text="Категория"/></TextBlock>
+        <TextBlock x:Name="txtInstock" HorizontalAlignment="Left" Height="30" Margin="168,0,0,0" TextWrapping="Wrap" VerticalAlignment="Center" Width="91" FontFamily="Verdana" FontSize="16" RenderTransformOrigin="0.319,0.867"><Run Language="ru-ru" Text="В наличии"/></TextBlock>
+        <TextBlock x:Name="txtDescr" HorizontalAlignment="Left" Height="30" Margin="720,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="91" FontFamily="Verdana" FontSize="16"><Run Language="ru-ru" Text="Описание"/></TextBlock>
+        <TextBlock x:Name="txtName" HorizontalAlignment="Left" Height="42" Margin="168,154,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="140" Text="Название товара" FontFamily="Verdana" FontSize="16"/>
+        <TextBox x:Name="article"  Text="{Binding article}" HorizontalAlignment="Left" Height="25" Margin="292,108,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana"/>
+        <TextBox x:Name="instock"  Text="{Binding instock}" HorizontalAlignment="Left" Height="25" Margin="292,278,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana" />
+        <TextBox x:Name="price"  Text="{Binding price}" HorizontalAlignment="Left" Height="25" Margin="292,337,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana"/>
+        <TextBox x:Name="desc"  Text="{Binding description}" HorizontalAlignment="Left" Height="95" Margin="869,338,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana"/>
+        <TextBox x:Name="compoundTB"  Text="{Binding compound}" HorizontalAlignment="Left" Height="94" Margin="869,198,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana"/>
+        <ComboBox x:Name="ComboType" SelectedItem="{Binding typeGoods}" HorizontalAlignment="Left" Height="25" Margin="292,408,0,0" VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana"/>
+        <ComboBox x:Name="ComboMan" SelectedItem="{Binding manufacturer}" HorizontalAlignment="Left" Height="25" Margin="869,112,0,0" VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana"/>
+        <ComboBox x:Name="ComboCategory" SelectedItem="{Binding category}" HorizontalAlignment="Left" Height="24" Margin="292,216,0,0" VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana"/>
+        <Button x:Name="Backbutton" Content="Назад" HorizontalAlignment="Left" Margin="25,25,0,0" VerticalAlignment="Top" Background="#FCB4D5" Foreground="White" Height="46" Width="115" Click="BGoBackbutton_Click" FontFamily="Verdana"/>
+        <TextBox x:Name="nameTB"  Text="{Binding nameGoods}" HorizontalAlignment="Left" Height="26" Margin="292,162,0,0" TextWrapping="Wrap"   VerticalAlignment="Top" Width="190" TextBlock.FontSize="14" TextBlock.FontFamily="Verdana"/>
+    </Grid>
+</Page>

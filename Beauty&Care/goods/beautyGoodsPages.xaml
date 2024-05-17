@@ -11,10 +11,11 @@
 
     <Grid x:Name="gridGoods" Margin="10,124,0,0" >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="29*"/>
-            <ColumnDefinition Width="49*"/>
+            <ColumnDefinition Width="435*"/>
+            <ColumnDefinition Width="161*"/>
+            <ColumnDefinition Width="574*"/>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="ListGoods" ScrollViewer.CanContentScroll="False" Background="Transparent" Margin="-8,-6,-5,-4" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" FontFamily="Bahnschrift SemiBold" RenderTransformOrigin="0.5,0.5" SelectedItem="{Binding selectedProductsEdit}" Foreground="#FF121212" BorderBrush="#FF8215AD" Grid.ColumnSpan="2">
+        <ListView x:Name="ListGoods" ScrollViewer.CanContentScroll="False" Background="Transparent" Margin="-8,-6,-5,-4" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" FontFamily="Bahnschrift SemiBold" RenderTransformOrigin="0.5,0.5" SelectedItem="{Binding selectedProductsEdit}" Foreground="#FF121212" BorderBrush="#FF8215AD" Grid.ColumnSpan="3">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -76,9 +77,9 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="450,-77,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="265" Foreground="#FF9E275D" Grid.Column="1"/>
+        <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="289,-77,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="265" Foreground="#FF9E275D" Grid.Column="2"/>
         <TextBox x:Name="textboxSearch" HorizontalAlignment="Left" Margin="30,-54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="27" TextChanged="TextBox_TextChanged" FontSize="14"/>
-        <ComboBox x:Name="comboSort" HorizontalAlignment="Left" Margin="348,-85,0,0" VerticalAlignment="Top" Width="190"  RenderTransformOrigin="0.5,0.5" SelectionChanged="comboSort_SelectionChanged" FontSize="14" Background="#FF9E275D" Foreground="#FF9E275D" BorderBrush="#FFFCB4D5" OpacityMask="#FFBF5050" SelectedIndex="0" Grid.ColumnSpan="2">
+        <ComboBox x:Name="comboSort" HorizontalAlignment="Left" Margin="348,-85,0,0" VerticalAlignment="Top" Width="190"  RenderTransformOrigin="0.5,0.5" SelectionChanged="comboSort_SelectionChanged" FontSize="14" Background="#FF9E275D" Foreground="#FF9E275D" BorderBrush="#FFFCB4D5" OpacityMask="#FFBF5050" Grid.ColumnSpan="2">
             <ComboBox.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
@@ -88,7 +89,7 @@
                 </TransformGroup>
             </ComboBox.RenderTransform>
         </ComboBox>
-        <ComboBox x:Name="comboFilter" HorizontalAlignment="Left" Margin="350,-45,0,0" VerticalAlignment="Top" Width="190" FontSize="14" BorderBrush="#FFFCB4D5" Foreground="#FF9E275D" SelectedIndex="0" Grid.ColumnSpan="2" SelectionChanged="comboFilter_SelectionChanged">
+        <ComboBox x:Name="comboFilter" HorizontalAlignment="Left" Margin="350,-45,0,0" VerticalAlignment="Top" Width="190" FontSize="14" BorderBrush="#FFFCB4D5" Foreground="#FF9E275D" Grid.ColumnSpan="2" SelectionChanged="comboFilter_SelectionChanged">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -97,8 +98,9 @@
             </ComboBox.Background>
         </ComboBox>
         <TextBlock x:Name="tbSearch" HorizontalAlignment="Left" Margin="30,-82,0,0" TextWrapping="Wrap" Text="Поиск по названию:" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="buttonSearch" Content="Поиск" HorizontalAlignment="Left" Margin="130,-71,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonSearch_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="1"/>
+        <Button x:Name="buttonSearch" Content="Поиск" HorizontalAlignment="Left" Margin="130,-95,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonSearch_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="242,-86,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top" FontSize="16"/>
         <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="241,-48,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top" FontSize="16"/>
+        <Button x:Name="buttonReset" Content="Сбросить" HorizontalAlignment="Left" Margin="130,-48,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonReset_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2"/>
     </Grid>
 </Page>

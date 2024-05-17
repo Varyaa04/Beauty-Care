@@ -72,7 +72,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="goodsAdmin\addGoods.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="goodsAdmin\beautyGoodsAdmin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="goodsAdmin\editGoods.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,8 +102,14 @@
     <Compile Include="auth\sign_up.xaml.cs">
       <DependentUpon>sign_up.xaml</DependentUpon>
     </Compile>
+    <Compile Include="goodsAdmin\addGoods.xaml.cs">
+      <DependentUpon>addGoods.xaml</DependentUpon>
+    </Compile>
     <Compile Include="goodsAdmin\beautyGoodsAdmin.xaml.cs">
       <DependentUpon>beautyGoodsAdmin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="goodsAdmin\editGoods.xaml.cs">
+      <DependentUpon>editGoods.xaml</DependentUpon>
     </Compile>
     <Compile Include="goods\AppConnect.cs" />
     <Compile Include="goods\AppFrame.cs" />
