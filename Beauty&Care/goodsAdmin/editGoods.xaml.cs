@@ -92,21 +92,21 @@ namespace Beauty_Care.goodsAdmin
 
             if (ComboCategory.SelectedIndex == 0)
             {
-                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                ComboType.ItemsSource = Entities.GetContext().typeGoods
                                            .Where(x => x.idType == 1 || x.idType == 2 || x.idType == 3)
                                            .Select(x => x.nameType)
                                            .ToList();
             }
             else if (ComboCategory.SelectedIndex == 1)
             {
-                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                ComboType.ItemsSource = Entities.GetContext().typeGoods
                                            .Where(x => x.idType == 4 || x.idType == 5 || x.idType == 6)
                                            .Select(x => x.nameType)
                                            .ToList();
             }
             else if (ComboCategory.SelectedIndex == 2)
             {
-                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                ComboType.ItemsSource = Entities.GetContext().typeGoods
                                            .Where(x => x.idType == 8 || x.idType == 7)
                                            .Select(x => x.nameType)
                                            .ToList();

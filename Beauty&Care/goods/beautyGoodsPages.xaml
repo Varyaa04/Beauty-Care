@@ -63,6 +63,7 @@
                                 <Run Text="{Binding price}"/>
                             </TextBlock>
                         </StackPanel>
+                        <Button x:Name="btnMore" Grid.Column="2" Content="Подробнее" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="11,131,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Click="btnMore"/>
                         <Button x:Name="addBasket" Grid.Column="3" Content="Добавить в корзину" Margin="58,74,46,76" Grid.Row="1" Background="#FCB4D5" Foreground="White" FontSize="18" Grid.ColumnSpan="3" Click="addBasket_Click">
                             <UIElement.RenderTransform>
                                 <TransformGroup>

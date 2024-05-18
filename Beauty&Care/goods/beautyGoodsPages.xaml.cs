@@ -131,27 +131,32 @@ namespace Beauty_Care.goods
 
         private void addBasket_Click(object sender, RoutedEventArgs e)
         {
-            AddToCart();
+            //AddToCart();
         }
 
         private void AddToCart(int userId, int productId)
         {
-            using (var context = new Entities1())
-            {
-                var existingCartItem = context.orders
-                    .FirstOrDefault(c => c.idUsers == userId && c.idGoods == productId);
+            //using (var context = new Entities())
+            //{
+            //    var existingCartItem = context.orders
+            //        .FirstOrDefault(c => c.idUsers == userId && c.idGoods == productId);
 
-                var newCartItem = new orders
-                {
-                    idUsers = userId,
-                    idGoods = productId,
-                };
+            //    var newCartItem = new orders
+            //    {
+            //        idUsers = userId,
+            //        idGoods = productId,
+            //    };
 
-                context.orders.Add(newCartItem);
+            //    context.orders.Add(newCartItem);
 
 
-                context.SaveChanges();
-            }
+            //    context.SaveChanges();
+            //}
+        }
+
+        private void btnMore(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new singleItem((sender as Button).DataContext as beautyGoods));
         }
     }
 }

@@ -70,7 +70,7 @@
                         </Button>
                         <Button x:Name="btnEdit" Grid.Column="3" Content="Изменить" HorizontalAlignment="Center" Background="#FCB4D5" Foreground="White" Margin="0,130,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Click="btnEdit_Click"/>
                         <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="181,130,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Grid.ColumnSpan="3" Click="btnDel_Click"/>
-
+                        <Button x:Name="btnMore" Grid.Column="2" Content="Подробнее" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="11,131,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Click="btnMore"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
