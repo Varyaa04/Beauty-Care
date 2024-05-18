@@ -109,8 +109,27 @@ namespace Beauty_Care.goodsAdmin
             {
                 try
                 {
-                    Entities.GetContext().beautyGoods.RemoveRange(goodsDel);
-                    Entities.GetContext().SaveChanges();
+                    var context = Entities.GetContext();
+                    foreach (var item in goodsDel)
+                    {
+                        var beautyGood = context.beautyGoods.Find(item.idGoods);
+                        if (beautyGood != null)
+                        {
+                            context.beautyGoods.Remove(beautyGood);
+                        }
+                    }
+                    List<beautyGoods> goods = AppConnect.modeldb.beautyGoods.ToList();
+                    if (goods.Count > 0)
+                    {
+                        tbCounter.Text = "Найдено " + goods.Count + " товаров";
+                    }
+                    else
+                    {
+                        tbCounter.Text = "Ничего не найдено";
+                    }
+                    ListGoods.ItemsSource = goods;
+
+                    context.SaveChanges();
                     MessageBox.Show("Данные удалены");
                     ListGoods.SelectedItem = null;
 
@@ -144,6 +163,15 @@ namespace Beauty_Care.goodsAdmin
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new editGoods((sender as Button).DataContext as beautyGoods));
+        }
+
+        private void pageVisible(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
+            }
         }
     }
 }

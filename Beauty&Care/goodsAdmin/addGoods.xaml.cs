@@ -25,10 +25,7 @@ namespace Beauty_Care.goodsAdmin
             InitializeComponent();
 
             ComboCategory.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
-            ComboType.ItemsSource = Entities.GetContext().typeGoods.Select(x => x.nameType).ToList();
             ComboMan.ItemsSource = Entities.GetContext().manufacturer.Select(x => x.namemManufacturer).ToList();
-            
-
 
         }
 
@@ -93,6 +90,32 @@ namespace Beauty_Care.goodsAdmin
         private void BGoBackbutton_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.GoBack();
+        }
+
+        private void ComboCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+            if (ComboCategory.SelectedIndex == 0)
+            {
+                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                                           .Where(x => x.idType == 1 || x.idType == 2 || x.idType == 3)
+                                           .Select(x => x.nameType)
+                                           .ToList();
+            }
+            else if (ComboCategory.SelectedIndex == 1)
+            {
+                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                                           .Where(x => x.idType == 4 || x.idType == 5 || x.idType == 6)
+                                           .Select(x => x.nameType)
+                                           .ToList();
+            }
+            else if (ComboCategory.SelectedIndex == 2)
+            {
+                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                                           .Where(x => x.idType == 8 || x.idType == 7)
+                                           .Select(x => x.nameType)
+                                           .ToList();
+            }
         }
     }
 }
