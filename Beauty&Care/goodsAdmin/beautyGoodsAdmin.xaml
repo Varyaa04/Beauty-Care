@@ -58,7 +58,7 @@
                             <Run Text="{Binding price}"/>
                             </TextBlock>
                         </StackPanel>
-                        <Button x:Name="addBasket" Grid.Column="3" Content="Добавить в корзину" Margin="59,37,45,113" Grid.Row="1" Background="#FCB4D5" Foreground="White" FontSize="18" Grid.ColumnSpan="3">
+                        <Button x:Name="addBasket" Grid.Column="3" Content="Добавить в корзину" Margin="59,37,45,113" Grid.Row="1" Background="#FCB4D5" Foreground="White" FontSize="18" Grid.ColumnSpan="3" Click="addBasket_Click">
                             <UIElement.RenderTransform>
                                 <TransformGroup>
                                     <ScaleTransform/>

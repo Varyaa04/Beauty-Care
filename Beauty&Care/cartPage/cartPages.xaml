@@ -1,0 +1,72 @@
+﻿<Page x:Class="Beauty_Care.cartPage.cartPages"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Beauty_Care.cartPage"
+      mc:Ignorable="d" 
+      d:DesignHeight="584" d:DesignWidth="1180"
+      Title="Корзина"
+      Background="#F9C7DE" IsVisibleChanged="Page_visible">
+
+    <Grid x:Name="gridGoods" Margin="10,80,0,0" >
+        <ListView x:Name="ListGoods" ScrollViewer.CanContentScroll="False" Background="Transparent" Margin="-8,-6,-5,96" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" FontFamily="Bahnschrift SemiBold" RenderTransformOrigin="0.5,0.5" SelectedItem="{Binding selectedProductsEdit}" Foreground="#FF121212" BorderBrush="#FF8215AD" SelectionChanged="ListGoods_SelectionChanged">
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="-0.086"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="-0.748"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
+            <ListView.ItemTemplate >
+                <DataTemplate>
+                    <Grid Width="1169" Margin="0,10,0,0" Background="#7FFFB3D6" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="3*"/>
+                            <RowDefinition Height="22*"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="242" />
+                            <ColumnDefinition Width="454" />
+                            <ColumnDefinition Width="154"/>
+                            <ColumnDefinition Width="194"/>
+                            <ColumnDefinition Width="22*"/>
+                            <ColumnDefinition Width="103*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2"/>
+                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" Grid.RowSpan="2">
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="39"   Margin="0,20,0,0" TextAlignment="Center">
+                            <Run Text="{Binding nameGoods}"/>
+                            </TextBlock>
+                            <TextBlock Width="543" TextWrapping="Wrap" Height="auto" Margin="5,30,0,0">
+                            <Run Text="Категория: " />
+                            <Run Text="{Binding category1.nameCategory}"/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto"  Margin="5,15,0,0">
+                            <Run Text="Тип продукта: " />
+                            <Run Text="{Binding typeGoods1.nameType}"/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="5,15,0,0" >
+                            <Run Text="Производитель: " />
+                            <Run Text="{Binding manufacturer1.namemManufacturer}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,69,0,93" Grid.Row="1">
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="0,15,0,0" >
+                             <Run Text="Цена: " />
+                            <Run Text="{Binding price}"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="112,72,0,0" Grid.Row="1" VerticalAlignment="Top" Height="50" Width="138" Grid.ColumnSpan="3" Click="btnDel_Click"/>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="10,440,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="480" Foreground="#FF9E275D"/>
+        <Button x:Name="btnBack" Content="Обратно к покупкам" HorizontalAlignment="Left" Margin="7,-70,0,0" VerticalAlignment="Top" Height="42" Width="213" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Click="btnAdd_Click"/>
+        <Button x:Name="btnCheckout" Content="Оформить заказ" HorizontalAlignment="Left" Margin="916,433,0,0" VerticalAlignment="Top" Height="44" Width="219" FontFamily="Verdana" FontSize="16" Background="#FCB4D5" Foreground="White" />
+        <Label x:Name="labelCart" Content="Корзина" HorizontalAlignment="Left" Margin="521,-67,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="26" Foreground="#FF9E275D"/>
+    </Grid>
+</Page>

@@ -72,6 +72,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="cartPage\cartPages.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="goodsAdmin\addGoods.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -101,6 +105,9 @@
     </Compile>
     <Compile Include="auth\sign_up.xaml.cs">
       <DependentUpon>sign_up.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="cartPage\cartPages.xaml.cs">
+      <DependentUpon>cartPages.xaml</DependentUpon>
     </Compile>
     <Compile Include="goodsAdmin\addGoods.xaml.cs">
       <DependentUpon>addGoods.xaml</DependentUpon>

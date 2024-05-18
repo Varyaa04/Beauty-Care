@@ -173,5 +173,30 @@ namespace Beauty_Care.goodsAdmin
                 ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
             }
         }
+
+        private void addBasket_Click(object sender, RoutedEventArgs e)
+        {
+            AddToCart();
+        }
+
+        private void AddToCart(int userId, int productId)
+        {
+            using (var context = new Entities())
+            {
+                var existingCartItem = context.orders
+                    .FirstOrDefault(c => c.idUsers == userId && c.idGoods == productId);
+
+                var newCartItem = new orders
+                {
+                    idUsers = userId,
+                    idGoods = productId,
+                };
+
+                context.orders.Add(newCartItem);
+
+
+                context.SaveChanges();
+            }
+        }
     }
 }

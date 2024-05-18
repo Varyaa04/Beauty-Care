@@ -128,5 +128,30 @@ namespace Beauty_Care.goods
             comboSort.SelectedIndex = -1;
             findGoods();
         }
+
+        private void addBasket_Click(object sender, RoutedEventArgs e)
+        {
+            AddToCart();
+        }
+
+        private void AddToCart(int userId, int productId)
+        {
+            using (var context = new Entities1())
+            {
+                var existingCartItem = context.orders
+                    .FirstOrDefault(c => c.idUsers == userId && c.idGoods == productId);
+
+                var newCartItem = new orders
+                {
+                    idUsers = userId,
+                    idGoods = productId,
+                };
+
+                context.orders.Add(newCartItem);
+
+
+                context.SaveChanges();
+            }
+        }
     }
 }
