@@ -103,5 +103,6 @@
         <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="242,-86,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top" FontSize="16"/>
         <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="241,-48,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top" FontSize="16"/>
         <Button x:Name="buttonReset" Content="Сбросить" HorizontalAlignment="Left" Margin="130,-48,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonReset_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="btnCart" Grid.Column="2" Content="Корзина" HorizontalAlignment="Left" Margin="104,-75,0,0" VerticalAlignment="Top" Height="32" Width="85"  Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="btnCart_Click" />
     </Grid>
 </Page>

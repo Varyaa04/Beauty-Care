@@ -23,7 +23,9 @@ namespace Beauty_Care.goods
         private beautyGoods _currentGoods = new beautyGoods();
         public singleItem(beautyGoods selectedGoods)
         {
-            InitializeComponent(); if (selectedGoods != null)
+            InitializeComponent();
+            
+            if (selectedGoods != null)
             {
                 _currentGoods = selectedGoods;
             }

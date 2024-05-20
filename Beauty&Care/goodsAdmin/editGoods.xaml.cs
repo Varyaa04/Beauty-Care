@@ -78,7 +78,7 @@ namespace Beauty_Care.goodsAdmin
             {
                 Entities.GetContext().SaveChanges();
                 MessageBox.Show("Данные успешно изменены!");
-                AppFrame.frameMain.Navigate(new beautyGoodsAdmin());
+                AppFrame.frameMain.GoBack();
             }
             catch (Exception ex)
             {
@@ -110,6 +110,38 @@ namespace Beauty_Care.goodsAdmin
                                            .Where(x => x.idType == 8 || x.idType == 7)
                                            .Select(x => x.nameType)
                                            .ToList();
+            }
+        }
+
+        private void article_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void nameTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.A || e.Key > Key.Z) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void instock_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void price_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
             }
         }
     }

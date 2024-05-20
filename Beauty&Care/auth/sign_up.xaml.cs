@@ -80,5 +80,24 @@ namespace Beauty_Care.auth
                 inputPswrepeat.BorderBrush = Brushes.Green;
             }
         }
+
+        private void inputName_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.A || e.Key > Key.Z) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+            else
+            {
+            }
+        }
+
+        private void inputPhone_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

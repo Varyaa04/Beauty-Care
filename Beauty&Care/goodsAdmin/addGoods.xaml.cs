@@ -73,10 +73,11 @@ namespace Beauty_Care.goodsAdmin
                         compound = compoundTB.Text,
                         description = desc.Text,
                         image = null
-                    }; AppConnect.modeldb.beautyGoods.Add(goodsobj);
+                    }; 
+                    AppConnect.modeldb.beautyGoods.Add(goodsobj);
                     AppConnect.modeldb.SaveChanges();
                     MessageBox.Show("Товар успешно добавлен!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                    AppFrame.frameMain.Navigate(new beautyGoodsAdmin());
+                    AppFrame.frameMain.GoBack();
                 }
                 catch
                 {
@@ -97,24 +98,57 @@ namespace Beauty_Care.goodsAdmin
 
             if (ComboCategory.SelectedIndex == 0)
             {
-                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                ComboType.ItemsSource = Entities.GetContext().typeGoods
                                            .Where(x => x.idType == 1 || x.idType == 2 || x.idType == 3)
                                            .Select(x => x.nameType)
                                            .ToList();
             }
             else if (ComboCategory.SelectedIndex == 1)
             {
-                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                ComboType.ItemsSource = Entities.GetContext().typeGoods
                                            .Where(x => x.idType == 4 || x.idType == 5 || x.idType == 6)
                                            .Select(x => x.nameType)
                                            .ToList();
             }
             else if (ComboCategory.SelectedIndex == 2)
             {
-                ComboType.ItemsSource = Entities1.GetContext().typeGoods
+                ComboType.ItemsSource = Entities.GetContext().typeGoods
                                            .Where(x => x.idType == 8 || x.idType == 7)
                                            .Select(x => x.nameType)
                                            .ToList();
+            }
+        }
+
+        private void article_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void instock_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void price_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void nameTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.Key < Key.A || e.Key > Key.Z) && e.Key != Key.Back)
+            {
+                e.Handled = true;
             }
         }
     }

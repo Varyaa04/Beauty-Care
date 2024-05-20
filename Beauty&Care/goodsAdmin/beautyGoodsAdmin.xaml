@@ -51,6 +51,9 @@
                             <Run Text="Производитель: " />
                             <Run Text="{Binding manufacturer1.namemManufacturer}"/>
                             </TextBlock>
+                            <Label x:Name="idForCart"  Visibility="Hidden">
+                                <Label x:Name="idCart" Content="{Binding idGoods}"/>
+                            </Label>
                         </StackPanel>
                         <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,69,0,93" Grid.Row="1">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="0,15,0,0" >
@@ -94,5 +97,6 @@
         <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="221,-103,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>
         <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="220,-65,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>
         <Button x:Name="btnAdd" Content="Добавить товар" HorizontalAlignment="Left" Margin="682,-88,0,0" VerticalAlignment="Top" Height="42" Width="143" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Click="btnAdd_Click"/>
+        <Button x:Name="btnCart" Content="Корзина" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Margin="868,-86,0,0" VerticalAlignment="Top" Height="33" Width="112" Click="btnCart_Click"/>
     </Grid>
 </Page>

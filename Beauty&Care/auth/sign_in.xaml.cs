@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Beauty_Care.goods;
+using Beauty_Care.goodsAdmin;
 
 namespace Beauty_Care.auth
 {
@@ -45,12 +46,14 @@ namespace Beauty_Care.auth
                         case 1:
                             MessageBox.Show("Здравствуйте, Администратор " + userObj.nameUser + "!",
                                 "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                            AppFrame.frameMain.Navigate(new goodsAdmin.beautyGoodsAdmin());
+                            App.Current.Properties["idUser"] = userObj.idUser;
+                            AppFrame.frameMain.Navigate(new beautyGoodsAdmin((sender as Button).DataContext as users));
                             break;
                         case 2:
                             MessageBox.Show("Здравствуйте, " + userObj.nameUser + "!",
                                 "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                            AppFrame.frameMain.Navigate(new goods.beautyGoodsPages());
+                            App.Current.Properties["idUser"] = userObj.idUser;
+                            AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
                             break;
                         default:
                             MessageBox.Show("Данные не обнаружены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);

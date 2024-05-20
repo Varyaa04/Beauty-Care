@@ -1,4 +1,5 @@
 ﻿using Beauty_Care.goods;
+using Beauty_Care.cartPage;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace Beauty_Care.goodsAdmin
 {
     public partial class beautyGoodsAdmin : Page
     {
-        public beautyGoodsAdmin()
+        private users _authAdmin = new users();
+        private orders order = new orders();
+        public beautyGoodsAdmin(users authUser)
         {
             InitializeComponent();
             List<beautyGoods> goods = AppConnect.modeldb.beautyGoods.ToList();
@@ -39,6 +42,12 @@ namespace Beauty_Care.goodsAdmin
             comboSort.Items.Add("По названию от Я-А");
 
             comboFilter.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
+
+            if(authUser != null)
+            {
+                _authAdmin = authUser;
+            }
+            DataContext = _authAdmin;
         }
 
         beautyGoods[] findGoods()
@@ -118,7 +127,7 @@ namespace Beauty_Care.goodsAdmin
                             context.beautyGoods.Remove(beautyGood);
                         }
                     }
-                    List<beautyGoods> goods = AppConnect.modeldb.beautyGoods.ToList();
+                    var goods = Entities.GetContext().beautyGoods.ToList();
                     if (goods.Count > 0)
                     {
                         tbCounter.Text = "Найдено " + goods.Count + " товаров";
@@ -127,8 +136,7 @@ namespace Beauty_Care.goodsAdmin
                     {
                         tbCounter.Text = "Ничего не найдено";
                     }
-                    ListGoods.ItemsSource = goods;
-
+                    ListGoods.ItemsSource =(goods);
                     context.SaveChanges();
                     MessageBox.Show("Данные удалены");
                     ListGoods.SelectedItem = null;
@@ -176,32 +184,49 @@ namespace Beauty_Care.goodsAdmin
 
         private void addBasket_Click(object sender, RoutedEventArgs e)
         {
-            //AddToCart();
-        }
+            try
+            {
+                var button = sender as Button;
+                int selectg = Convert.ToInt32(button.Tag);
+                int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
+                if (ListGoods.SelectedItem != null && ListGoods.SelectedItem is beautyGoods)
+                {
+                    int selectedGoodsId = ((beautyGoods)ListGoods.SelectedItem).idGoods;
 
-        private void AddToCart(int userId, int productId)
-        {
-            //using (var context = new Entities())
-            //{
-            //    var existingCartItem = context.orders
-            //        .FirstOrDefault(c => c.idUsers == userId && c.idGoods == productId);
+                    orders goodsobj = new orders()
+                {
+                    idUsers = idUsers,
+                    idGoods = selectedGoodsId,
+                    idStatus = 1
+                };
 
-            //    var newCartItem = new orders
-            //    {
-            //        idUsers = userId,
-            //        idGoods = productId,
-            //    };
+                AppConnect.modeldb.orders.Add(goodsobj);
+                    AppConnect.modeldb.SaveChanges();
 
-            //    context.orders.Add(newCartItem);
-
-
-            //    context.SaveChanges();
-            //}
+                    MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    AppFrame.frameMain.Navigate(new cartPages());
+             }
+                else
+                {
+                    MessageBox.Show("Выберите товар из списка!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при добавлении товара в корзину: " + ex.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnMore(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new singleItem((sender as Button).DataContext as beautyGoods));
+        }
+
+        private void btnCart_Click(object sender, RoutedEventArgs e)
+        {
+            int orderr = Convert.ToInt32(App.Current.Properties["idUser"] = order.idUsers.ToString());
+            AppFrame.frameMain.Navigate(new cartPages());
+
         }
     }
 }

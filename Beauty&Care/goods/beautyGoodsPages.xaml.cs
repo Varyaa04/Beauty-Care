@@ -1,6 +1,8 @@
-﻿using System;
+﻿using Beauty_Care.cartPage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,7 +22,9 @@ namespace Beauty_Care.goods
     /// </summary>
     public partial class beautyGoodsPages : Page
     {
-        public beautyGoodsPages()
+        private users _authOrd = new users();
+        private orders order = new orders();
+        public beautyGoodsPages(users authUser)
         {
             InitializeComponent();
             List<beautyGoods> goods = AppConnect.modeldb.beautyGoods.ToList();
@@ -42,7 +46,11 @@ namespace Beauty_Care.goods
 
             comboFilter.ItemsSource = Entities.GetContext().category.Select(x =>  x.nameCategory).ToList();
 
-
+            if( authUser != null)
+            {
+                _authOrd = authUser;
+            }
+            DataContext = _authOrd;
         }
 
 
@@ -131,32 +139,49 @@ namespace Beauty_Care.goods
 
         private void addBasket_Click(object sender, RoutedEventArgs e)
         {
-            //AddToCart();
-        }
 
-        private void AddToCart(int userId, int productId)
-        {
-            //using (var context = new Entities())
-            //{
-            //    var existingCartItem = context.orders
-            //        .FirstOrDefault(c => c.idUsers == userId && c.idGoods == productId);
+            try
+            {
+                var button = sender as Button;
+                int selectg = Convert.ToInt32(button.Tag);
+                int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
+                if (ListGoods.SelectedItem != null && ListGoods.SelectedItem is beautyGoods)
+                {
+                    int selectedGoodsId = ((beautyGoods)ListGoods.SelectedItem).idGoods;
 
-            //    var newCartItem = new orders
-            //    {
-            //        idUsers = userId,
-            //        idGoods = productId,
-            //    };
+                    orders goodsobj = new orders()
+                    {
+                        idUsers = idUsers,
+                        idGoods = selectedGoodsId,
+                        idStatus = 1
+                    };
 
-            //    context.orders.Add(newCartItem);
+                    AppConnect.modeldb.orders.Add(goodsobj);
+                    AppConnect.modeldb.SaveChanges();
+                    MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
 
-
-            //    context.SaveChanges();
-            //}
+                    AppFrame.frameMain.Navigate(new cartPages());
+                }
+                else
+                {
+                    MessageBox.Show("Выберите товар из списка!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при добавлении товара в корзину: " + ex.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void btnMore(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new singleItem((sender as Button).DataContext as beautyGoods));
+        }
+
+        private void btnCart_Click(object sender, RoutedEventArgs e)
+        {
+            App.Current.Properties["idUser"] = order.idUsers.ToString();
+            AppFrame.frameMain.Navigate(new cartPages());
         }
     }
 }
