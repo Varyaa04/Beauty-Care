@@ -155,11 +155,19 @@ namespace Beauty_Care.goods
                         idGoods = selectedGoodsId,
                         idStatus = 1
                     };
-
                     AppConnect.modeldb.orders.Add(goodsobj);
                     AppConnect.modeldb.SaveChanges();
-                    MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
 
+                    cart cartobj = new cart()
+                    {
+                        idOrder = goodsobj.idOrder
+                    };
+
+                    AppConnect.modeldb.cart.Add(cartobj);
+                    AppConnect.modeldb.SaveChanges();
+
+
+                    MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     AppFrame.frameMain.Navigate(new cartPages());
                 }
                 else
@@ -180,7 +188,6 @@ namespace Beauty_Care.goods
 
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
-            App.Current.Properties["idUser"] = order.idUsers.ToString();
             AppFrame.frameMain.Navigate(new cartPages());
         }
     }

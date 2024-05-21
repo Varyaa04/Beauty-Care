@@ -47,12 +47,14 @@ namespace Beauty_Care.auth
                             MessageBox.Show("Здравствуйте, Администратор " + userObj.nameUser + "!",
                                 "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                             App.Current.Properties["idUser"] = userObj.idUser;
+                            App.Current.Properties["roleUser"] = userObj.roleUsers;
                             AppFrame.frameMain.Navigate(new beautyGoodsAdmin((sender as Button).DataContext as users));
                             break;
                         case 2:
                             MessageBox.Show("Здравствуйте, " + userObj.nameUser + "!",
                                 "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                             App.Current.Properties["idUser"] = userObj.idUser;
+                            App.Current.Properties["roleUser"] = userObj.roleUsers;
                             AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
                             break;
                         default:

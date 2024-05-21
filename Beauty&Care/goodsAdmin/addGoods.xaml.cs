@@ -33,27 +33,33 @@ namespace Beauty_Care.goodsAdmin
         {
             if (AppConnect.modeldb.beautyGoods.Count(x => x.article == article.Text) > 0)
             {
-                MessageBox.Show("Товар с таким артиклем существует!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
+                MessageBox.Show("Товар с таким артиклем существует!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             else if (article.Text == "")
             {
-                MessageBox.Show("Введите значение 'артикль'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
+                MessageBox.Show("Введите значение 'артикль'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             else if (instock.Text == "")
             {
-                MessageBox.Show("Введите значение 'в наличии'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
+                MessageBox.Show("Введите значение 'в наличии'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             if (nameTB.Text == "")
             {
-                MessageBox.Show("Введите наименование товара!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
+                MessageBox.Show("Введите наименование товара!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             else if (compoundTB.Text == "")
             {
-                MessageBox.Show("Введите состав продукта!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
+                MessageBox.Show("Введите состав продукта!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             else if (price.Text == "")
             {
-                MessageBox.Show("Введите значение 'Цена'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
+                MessageBox.Show("Введите значение 'Цена'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
             else
             {

@@ -194,18 +194,26 @@ namespace Beauty_Care.goodsAdmin
                     int selectedGoodsId = ((beautyGoods)ListGoods.SelectedItem).idGoods;
 
                     orders goodsobj = new orders()
-                {
-                    idUsers = idUsers,
-                    idGoods = selectedGoodsId,
-                    idStatus = 1
-                };
-
-                AppConnect.modeldb.orders.Add(goodsobj);
+                    {
+                        idUsers = idUsers,
+                        idGoods = selectedGoodsId,
+                        idStatus = 1
+                    };
+                    AppConnect.modeldb.orders.Add(goodsobj);
                     AppConnect.modeldb.SaveChanges();
+
+                    cart cartobj = new cart()
+                    {
+                        idOrder = goodsobj.idOrder
+                    };
+
+                    AppConnect.modeldb.cart.Add(cartobj);
+                    AppConnect.modeldb.SaveChanges();
+
 
                     MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     AppFrame.frameMain.Navigate(new cartPages());
-             }
+                }
                 else
                 {
                     MessageBox.Show("Выберите товар из списка!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -224,7 +232,6 @@ namespace Beauty_Care.goodsAdmin
 
         private void btnCart_Click(object sender, RoutedEventArgs e)
         {
-            int orderr = Convert.ToInt32(App.Current.Properties["idUser"] = order.idUsers.ToString());
             AppFrame.frameMain.Navigate(new cartPages());
 
         }
