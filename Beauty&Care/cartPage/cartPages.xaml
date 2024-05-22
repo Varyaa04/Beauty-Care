@@ -34,15 +34,15 @@
                         </Grid.ColumnDefinitions>
                         <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2"/>
                         <TextBlock Width="auto" TextWrapping="Wrap" TextAlignment="Center" Grid.Column="1" Margin="109,86,103,91" Grid.Row="1"><Run Text="{Binding nameGoods}"/></TextBlock>
-                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Grid.Column="3" Margin="76,155,133,29" Grid.Row="1"/>
 
-                        <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,69,0,93" Grid.Row="1">
+                        <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,69,210,79" Grid.Row="1" Grid.ColumnSpan="2">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="0,15,0,0" >
                              <Run Text="Цена: " />
                             <Run Text="{Binding price}"/>
                             </TextBlock>
+
                         </StackPanel>
-                        <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="63,69,0,0" Grid.Row="1" VerticalAlignment="Top" Height="50" Width="138" Grid.ColumnSpan="2" Click="btnDel_Click"/>
+                        <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="59,82,0,0" Grid.Row="1" VerticalAlignment="Top" Height="50" Width="138" Click="btnDel_Click"/>
 
                     </Grid>
                 </DataTemplate>
@@ -50,7 +50,8 @@
         </ListView>
         <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="10,426,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="480" Foreground="#FF9E275D"/>
         <Button x:Name="btnBack" Content="Обратно к покупкам" HorizontalAlignment="Left" Margin="7,-70,0,0" VerticalAlignment="Top" Height="42" Width="213" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Click="btnAdd_Click"/>
-        <Button x:Name="btnCheckout" Content="Оформить заказ" HorizontalAlignment="Left" Margin="904,419,0,0" VerticalAlignment="Top" Height="44" Width="219" FontFamily="Verdana" FontSize="16" Background="#FCB4D5" Foreground="White" />
+        <Button x:Name="btnCheckout" Content="Оформить заказ" HorizontalAlignment="Left" Margin="904,419,0,0" VerticalAlignment="Top" Height="44" Width="219" FontFamily="Verdana" FontSize="16" Background="#FCB4D5" Foreground="White" Click="btnCheckout_Click" />
         <Label x:Name="labelCart" Content="Корзина" HorizontalAlignment="Left" Margin="521,-67,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="26" Foreground="#FF9E275D"/>
+        <Image HorizontalAlignment="Left" Height="530" Margin="186,-67,0,0" VerticalAlignment="Top" Width="794" Name="img"/>
     </Grid>
 </Page>

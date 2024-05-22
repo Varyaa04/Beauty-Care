@@ -14,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Aspose.BarCode.Generation;
 
 namespace Beauty_Care.cartPage
 {
@@ -48,6 +49,7 @@ namespace Beauty_Care.cartPage
                 tbCounter.Text = "Ваша корзина пуста!";
             }
 
+
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -70,7 +72,11 @@ namespace Beauty_Care.cartPage
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            var goodsDel = ListOrders.SelectedItems.Cast<orders>().ToList();
+            int idusercart = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
+
+            try
+            {
+                var goodsDel = ListOrders.SelectedItems.Cast<orders>().Where(x => x.idUsers == idusercart).ToList();
 
             if (MessageBox.Show($"Вы точно хотите удалить следующие {goodsDel.Count()} элементов?", "Внимание",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
@@ -106,10 +112,22 @@ namespace Beauty_Care.cartPage
                     MessageBox.Show(ex.Message.ToString());
                 }
             }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
         }
 
         private void ListOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+
+        }
+
+
+        private void btnCheckout_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new qrPage());
 
         }
     }
