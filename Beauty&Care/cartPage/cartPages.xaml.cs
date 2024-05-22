@@ -29,11 +29,15 @@ namespace Beauty_Care.cartPage
             int idusercart = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
 
 
-            ListOrders.ItemsSource = Entities.GetContext().orders
+
+            var goodsobj = Entities.GetContext().orders
                                         .Where(x => x.idUsers == idusercart)
                                         .Select(x => x.idGoods)
                                         .ToList();
-            List<orders> goods = AppConnect.modeldb.orders.ToList();
+            var listgoods = Entities.GetContext().beautyGoods.Where(x => goodsobj.Contains(x.idGoods)).ToList();
+
+
+            ListOrders.ItemsSource = listgoods;
 
             if (ListOrders.Items.Count > 0)
             {

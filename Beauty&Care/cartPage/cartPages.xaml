@@ -32,12 +32,14 @@
                             <ColumnDefinition Width="154"/>
                             <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding beautyGoods.CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2"/>
-                        <TextBlock Width="auto" TextWrapping="Wrap" TextAlignment="Center" Grid.Column="1" Margin="109,86,103,91" Grid.Row="1"><Run Text="{Binding beautyGoods.nameGoods}"/></TextBlock>
+                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2"/>
+                        <TextBlock Width="auto" TextWrapping="Wrap" TextAlignment="Center" Grid.Column="1" Margin="109,86,103,91" Grid.Row="1"><Run Text="{Binding nameGoods}"/></TextBlock>
+                        <CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}" Grid.Column="3" Margin="76,155,133,29" Grid.Row="1"/>
+
                         <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,69,0,93" Grid.Row="1">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="0,15,0,0" >
                              <Run Text="Цена: " />
-                            <Run Text="{Binding beautyGoods.price}"/>
+                            <Run Text="{Binding price}"/>
                             </TextBlock>
                         </StackPanel>
                         <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="63,69,0,0" Grid.Row="1" VerticalAlignment="Top" Height="50" Width="138" Grid.ColumnSpan="2" Click="btnDel_Click"/>
