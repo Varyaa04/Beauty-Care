@@ -101,7 +101,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="goodsAdmin\editUsers.xaml">
+    <Page Include="goodsAdmin\usersPages\addUser.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="goodsAdmin\usersPages\editUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="goodsAdmin\usersPages\UsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="goodsManager\ordersManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -142,8 +154,17 @@
     <Compile Include="goodsAdmin\editGoods.xaml.cs">
       <DependentUpon>editGoods.xaml</DependentUpon>
     </Compile>
-    <Compile Include="goodsAdmin\editUsers.xaml.cs">
+    <Compile Include="goodsAdmin\usersPages\addUser.xaml.cs">
+      <DependentUpon>addUser.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="goodsAdmin\usersPages\editUsers.xaml.cs">
       <DependentUpon>editUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="goodsAdmin\usersPages\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="goodsManager\ordersManager.xaml.cs">
+      <DependentUpon>ordersManager.xaml</DependentUpon>
     </Compile>
     <Compile Include="goods\AppConnect.cs" />
     <Compile Include="goods\AppFrame.cs" />

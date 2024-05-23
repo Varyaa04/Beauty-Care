@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
+using Beauty_Care.goodsAdmin.usersPages;
 using System.Windows.Shapes;
 
 namespace Beauty_Care.goodsAdmin
@@ -238,7 +239,7 @@ namespace Beauty_Care.goodsAdmin
 
         private void editUser_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new editUsers());
+            AppFrame.frameMain.Navigate(new UsersPage());
 
         }
     }

@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Beauty_Care.goods;
 using Beauty_Care.goodsAdmin;
+using Beauty_Care.goodsManager;
 
 namespace Beauty_Care.auth
 {
@@ -62,6 +63,13 @@ namespace Beauty_Care.auth
                             App.Current.Properties["idUser"] = userObj.idUser;
                             App.Current.Properties["roleUser"] = userObj.roleUsers;
                             AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
+                            break;
+                        case 3:
+                            MessageBox.Show("Здравствуйте, Менеджер " + userObj.nameUser + "!",
+                                "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                            App.Current.Properties["idUser"] = userObj.idUser;
+                            App.Current.Properties["roleUser"] = userObj.roleUsers;
+                            AppFrame.frameMain.Navigate(new ordersManager((sender as Button).DataContext as users));
                             break;
                         default:
                             MessageBox.Show("Данные не обнаружены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);
