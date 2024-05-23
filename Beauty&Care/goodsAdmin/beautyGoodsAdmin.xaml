@@ -96,7 +96,8 @@
         <TextBlock x:Name="tbSearch" HorizontalAlignment="Left" Margin="6,-99,0,0" TextWrapping="Wrap" Text="Поиск по названию:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana" Height="28"/>
         <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="221,-103,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>
         <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="220,-65,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>
-        <Button x:Name="btnAdd" Content="Добавить товар" HorizontalAlignment="Left" Margin="682,-88,0,0" VerticalAlignment="Top" Height="42" Width="143" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Click="btnAdd_Click"/>
-        <Button x:Name="btnCart" Content="Корзина" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Margin="868,-86,0,0" VerticalAlignment="Top" Height="33" Width="112" Click="btnCart_Click"/>
+        <Button x:Name="btnAdd" Content="Добавить товар" HorizontalAlignment="Left" Margin="675,-110,0,0" VerticalAlignment="Top" Height="42" Width="143" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Click="btnAdd_Click"/>
+        <Button x:Name="btnCart" Content="Корзина" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Margin="868,-86,0,0" VerticalAlignment="Top" Height="33" Width="112" Click="btnCart_Click" RenderTransformOrigin="0.821,0.667"/>
+        <Button x:Name="editUser" Content="Пользователи" HorizontalAlignment="Left" Margin="675,-55,0,0" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" VerticalAlignment="Top" Height="33" Width="143" Click="editUser_Click"/>
     </Grid>
 </Page>

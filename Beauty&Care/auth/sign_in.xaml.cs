@@ -33,6 +33,12 @@ namespace Beauty_Care.auth
         {
             try
             {
+                var password = AppConnect.modeldb.users.FirstOrDefault(x => x.password == inputPsw.Password);
+                if (password == null)
+                {
+                    MessageBox.Show("неверный пароль",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
                 var userObj = AppConnect.modeldb.users.FirstOrDefault(x => x.login == inputLogin.Text && x.password == inputPsw.Password);
                 if (userObj == null)
                 {

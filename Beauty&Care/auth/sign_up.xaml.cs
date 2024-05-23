@@ -21,6 +21,7 @@ namespace Beauty_Care.auth
     /// </summary>
     public partial class sign_up : Page
     {
+        users user = new users();
         public sign_up()
         {
             InitializeComponent();
@@ -44,14 +45,37 @@ namespace Beauty_Care.auth
                 return;
             }
 
-            if(inputPhone.Text.Length != 11)
+            if(inputPhone.Text.Length != 11 || string.IsNullOrWhiteSpace(user.phone))
             {
                 MessageBox.Show("Номер телефона состоит из 11 цифр!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
-            if (inputEmail.Text.Contains("@"))
+            if (string.IsNullOrWhiteSpace(user.login))
+            {
+                MessageBox.Show("Введите логин!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(user.nameUser))
+            {
+                MessageBox.Show("Введите имя!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(user.password))
+            {
+                MessageBox.Show("Введите пароль!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(user.email))
+            {
+                MessageBox.Show("Введите почту!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (inputEmail.Text.Contains("@") )
             {
                 try
                 {

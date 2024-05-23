@@ -235,5 +235,11 @@ namespace Beauty_Care.goodsAdmin
             AppFrame.frameMain.Navigate(new cartPages());
 
         }
+
+        private void editUser_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new editUsers());
+
+        }
     }
 }

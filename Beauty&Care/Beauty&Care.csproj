@@ -101,6 +101,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="goodsAdmin\editUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="goods\beautyGoodsPages.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -137,6 +141,9 @@
     </Compile>
     <Compile Include="goodsAdmin\editGoods.xaml.cs">
       <DependentUpon>editGoods.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="goodsAdmin\editUsers.xaml.cs">
+      <DependentUpon>editUsers.xaml</DependentUpon>
     </Compile>
     <Compile Include="goods\AppConnect.cs" />
     <Compile Include="goods\AppFrame.cs" />
