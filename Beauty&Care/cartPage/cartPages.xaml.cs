@@ -28,11 +28,12 @@ namespace Beauty_Care.cartPage
     /// </summary>
     public partial class cartPages : Page
     {
+        int idusercart = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
+
         public cartPages()
         {
             InitializeComponent();
 
-            int idusercart = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
 
 
 
@@ -81,36 +82,16 @@ namespace Beauty_Care.cartPage
 
             try
             {
-                var goodsDel = ListOrders.SelectedItems.Cast<orders>().Where(x => x.idUsers == idusercart).ToList();
 
-                if (MessageBox.Show($"Вы точно хотите удалить следующие {goodsDel.Count()} элементов?", "Внимание",
+                var goodsIds = Entities.GetContext().orders
+                    .Where(x => x.idUsers == idusercart)
+                    .ToList();
+                if (MessageBox.Show($"Вы точно хотите удалить следующие элементов?", "Внимание",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     try
                     {
-                        var context = Entities.GetContext();
-                        foreach (var item in goodsDel)
-                        {
-                            var beautyGood = context.orders.Find(item.idGoods);
-                            if (beautyGood != null)
-                            {
-                                context.orders.Remove(beautyGood);
-                            }
-                        }
-                        var goods = Entities.GetContext().orders.ToList();
-                        if (goods.Count > 0)
-                        {
-                            tbCounter.Text = "Найдено " + goods.Count + " товаров";
-                        }
-                        else
-                        {
-                            tbCounter.Text = "Ничего не найдено";
-                        }
-                        ListOrders.ItemsSource = (goods);
-                        context.SaveChanges();
-                        MessageBox.Show("Данные удалены");
-                        ListOrders.SelectedItem = null;
-
+                        RemoveItemsFromCart(goodsIds);
                     }
                     catch (Exception ex)
                     {
@@ -122,6 +103,7 @@ namespace Beauty_Care.cartPage
             {
                 MessageBox.Show(ex.Message.ToString());
             }
+
         }
 
         private void ListOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -132,9 +114,19 @@ namespace Beauty_Care.cartPage
 
         private void btnCheckout_Click(object sender, RoutedEventArgs e)
         {
-            CreatePDF();
-            MessageBox.Show("PDF документ был успешно загружен!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-            AppFrame.frameMain.Navigate(new qrPage());
+            if(MessageBox.Show("Вы точно хотите оформить заказ? Все товары из вашей корзины будут удалены!", "Внимание!",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                
+                CreatePDF();
+                MessageBox.Show("PDF документ был успешно загружен!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                var goodsIds = Entities.GetContext().orders
+                    .Where(x => x.idUsers == idusercart)
+                    .ToList();
+                RemoveItemsFromCart(goodsIds);
+                AppFrame.frameMain.Navigate(new qrPage());
+            }
+
 
         }
 
@@ -144,19 +136,22 @@ namespace Beauty_Care.cartPage
 
             try
             {
-                PdfWriter.GetInstance(document, new FileStream("..\\..\\order.pdf", FileMode.Create));
-
+                string fileName = System.IO.Path.Combine("C:\\Users\\10210808\\Downloads", $"order_{DateTime.Now:yyyyMMddHH}.pdf");
+                PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
                 document.Open();
                 BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\Arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 
-                Font font = new Font(baseFont, 14);
+                Font font = new Font(baseFont, 12);
                 Font font1 = new Font(baseFont, 24, 2, BaseColor.GRAY);
                 Paragraph paragraph1 = new Paragraph("Список товаров", font1);
                 paragraph1.Alignment = Element.ALIGN_CENTER;
                 document.Add(paragraph1);
                 decimal sum = 0;
 
-                foreach (var item in AppConnect.modeldb.orders.ToList())
+                var goodsobj = Entities.GetContext().orders
+                                     .Where(x => x.idUsers == idusercart)
+                                     .ToList();
+                foreach (var item in goodsobj)
                 {
                     if (item is orders)
                     {
@@ -191,6 +186,27 @@ namespace Beauty_Care.cartPage
             {
                 document.Close();
             }
+        }
+        public void RemoveItemsFromCart(List<orders> goodsfordeleting)
+        {
+            int idusercart = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
+            var context = Entities.GetContext();
+
+            var goodsIds = goodsfordeleting.Select(x => x.idGoods).ToList();
+
+            var ordersToRemove = context.orders
+                                       .Where(x => x.idUsers == idusercart && goodsIds.Contains(x.idGoods))
+                                       .ToList();
+
+            context.orders.RemoveRange(ordersToRemove);
+
+            context.SaveChanges();
+
+            var remainingGoodsInCart = context.beautyGoods
+                                              .Where(x => context.orders.Any(o => o.idUsers == idusercart && o.idGoods == x.idGoods))
+                                              .ToList();
+
+            ListOrders.ItemsSource = remainingGoodsInCart;
         }
     }
 }
