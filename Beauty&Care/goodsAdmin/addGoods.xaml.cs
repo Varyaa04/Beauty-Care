@@ -27,6 +27,11 @@ namespace Beauty_Care.goodsAdmin
             ComboCategory.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
             ComboMan.ItemsSource = Entities.GetContext().manufacturer.Select(x => x.namemManufacturer).ToList();
 
+            article.MaxLength = 16;
+            nameTB.MaxLength = 30;
+            instock.MaxLength = 3;
+            price.MaxLength = 8;
+
         }
 
         private void save_Click(object sender, RoutedEventArgs e)

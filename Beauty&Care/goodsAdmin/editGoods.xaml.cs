@@ -34,6 +34,11 @@ namespace Beauty_Care.goodsAdmin
 
             ComboCategory.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
             ComboMan.ItemsSource = Entities.GetContext().manufacturer.Select(x => x.namemManufacturer).ToList();
+
+            article.MaxLength = 16;
+            nameTB.MaxLength = 30;
+            instock.MaxLength = 3;
+            price.MaxLength = 8;
         }
 
         private void BGoBackbutton_Click(object sender, RoutedEventArgs e)
@@ -47,6 +52,7 @@ namespace Beauty_Care.goodsAdmin
             if (string.IsNullOrEmpty(_currentGoods.article))
             {
                 errors.AppendLine("Введите артикль");
+
             }
             else if (instock.Text == "")
             {
@@ -77,7 +83,7 @@ namespace Beauty_Care.goodsAdmin
             try
             {
                 Entities.GetContext().SaveChanges();
-                MessageBox.Show("Данные успешно изменены!");
+                MessageBox.Show("Данные успешно изменены!","Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                 AppFrame.frameMain.GoBack();
             }
             catch (Exception ex)

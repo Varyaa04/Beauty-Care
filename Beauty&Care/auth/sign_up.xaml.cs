@@ -24,6 +24,10 @@ namespace Beauty_Care.auth
         public sign_up()
         {
             InitializeComponent();
+            inputPhone.MaxLength = 11;
+            inputName.MaxLength = 25;
+            inputPsw.MaxLength = 30;
+            inputLogin.MaxLength = 30;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -40,29 +44,46 @@ namespace Beauty_Care.auth
                 return;
             }
 
-            try
+            if(inputPhone.Text.Length != 11)
             {
-                users userObj = new users()
-                {
-                    login = inputLogin.Text,
-                    nameUser = inputName.Text,
-                    email = inputEmail.Text,
-                    phone = inputPhone.Text,
-                    password = inputPsw.Text,
-                    roleUsers = 2
-                };
-                AppConnect.modeldb.users.Add(userObj);
-                AppConnect.modeldb.SaveChanges();
-                MessageBox.Show("Вы успешно зарегистрировались!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                AppFrame.frameMain.GoBack();
+                MessageBox.Show("Номер телефона состоит из 11 цифр!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
-            catch
-            {
-                MessageBox.Show("Ошибка при регистрации!!",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 
+            if (inputEmail.Text.Contains("@"))
+            {
+                try
+                {
+                    users userObj = new users()
+                    {
+                        login = inputLogin.Text,
+                        nameUser = inputName.Text,
+                        email = inputEmail.Text,
+                        phone = inputPhone.Text,
+                        password = inputPsw.Text,
+                        roleUsers = 2
+                    };
+                    AppConnect.modeldb.users.Add(userObj);
+                    AppConnect.modeldb.SaveChanges();
+                    MessageBox.Show("Вы успешно зарегистрировались!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    AppFrame.frameMain.GoBack();
+                }
+                catch
+                {
+                    MessageBox.Show("Ошибка при регистрации!!",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                }
             }
+            else
+            {
+                MessageBox.Show("Введите почту со специальным символом!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            
         }
 
         private void inputPswrepeat_PasswordChanged(object sender, RoutedEventArgs e)
@@ -98,6 +119,11 @@ namespace Beauty_Care.auth
             {
                 e.Handled = true;
             }
+        }
+
+        private void inputLogin_TouchEnter(object sender, TouchEventArgs e)
+        {
+
         }
     }
 }
