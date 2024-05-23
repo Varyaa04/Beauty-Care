@@ -23,8 +23,8 @@
                 <DataTemplate>
                     <Grid Width="1072" Margin="0,10,0,0" Background="#7FFFB3D6" >
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="3*"/>
-                            <RowDefinition Height="22*"/>
+                            <RowDefinition Height="62*"/>
+                            <RowDefinition Height="269*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="242" />
@@ -32,17 +32,16 @@
                             <ColumnDefinition Width="154"/>
                             <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2"/>
-                        <TextBlock Width="auto" TextWrapping="Wrap" TextAlignment="Center" Grid.Column="1" Margin="109,86,103,91" Grid.Row="1"><Run Text="{Binding nameGoods}"/></TextBlock>
+                        <Image Source="{Binding beautyGoods.CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="2,27,452,0"/>
+                        <TextBlock Width="auto" TextWrapping="Wrap" TextAlignment="Center" Grid.Column="1" Margin="100,108,112,69" Grid.Row="1"><Run Text="{Binding beautyGoods.nameGoods}"/></TextBlock>
 
-                        <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,69,210,79" Grid.Row="1" Grid.ColumnSpan="2">
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="0,15,0,0" >
-                             <Run Text="Цена: " />
-                            <Run Text="{Binding price}"/>
-                            </TextBlock>
-
+                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" Margin="451,111,213,100" Grid.Row="1" Grid.ColumnSpan="3" >
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" ><Run Text="Цена: " /><Run Text=" "/><Run Text="{Binding beautyGoods.price}"/></TextBlock>
                         </StackPanel>
-                        <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="59,82,0,0" Grid.Row="1" VerticalAlignment="Top" Height="50" Width="138" Click="btnDel_Click"/>
+                        <StackPanel Grid.Column="3" Margin="10,20,39,111" Grid.Row="1"  >
+                            <TextBlock Text="{Binding idOrder}" Visibility="Collapsed" Height="100" Width="22"/>
+                            <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="59,82,0,0" Grid.Row="1" Height="47" Width="138" Click="btnDel_Click" />
+                        </StackPanel>
 
                     </Grid>
                 </DataTemplate>
@@ -52,6 +51,5 @@
         <Button x:Name="btnBack" Content="Обратно к покупкам" HorizontalAlignment="Left" Margin="7,-70,0,0" VerticalAlignment="Top" Height="42" Width="213" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" Click="btnAdd_Click"/>
         <Button x:Name="btnCheckout" Content="Оформить заказ" HorizontalAlignment="Left" Margin="904,419,0,0" VerticalAlignment="Top" Height="44" Width="219" FontFamily="Verdana" FontSize="16" Background="#FCB4D5" Foreground="White" Click="btnCheckout_Click" />
         <Label x:Name="labelCart" Content="Корзина" HorizontalAlignment="Left" Margin="521,-67,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="26" Foreground="#FF9E275D"/>
-        <Image HorizontalAlignment="Left" Height="530" Margin="186,-67,0,0" VerticalAlignment="Top" Width="794" Name="img"/>
     </Grid>
 </Page>

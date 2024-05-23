@@ -33,18 +33,11 @@ namespace Beauty_Care.cartPage
         public cartPages()
         {
             InitializeComponent();
-
-
-
-
             var goodsobj = Entities.GetContext().orders
                                         .Where(x => x.idUsers == idusercart)
-                                        .Select(x => x.idGoods)
                                         .ToList();
-            var listgoods = Entities.GetContext().beautyGoods.Where(x => goodsobj.Contains(x.idGoods)).ToList();
 
-
-            ListOrders.ItemsSource = listgoods;
+            ListOrders.ItemsSource = goodsobj;
 
             if (ListOrders.Items.Count > 0)
             {
@@ -57,7 +50,7 @@ namespace Beauty_Care.cartPage
 
 
         }
-
+       
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             var userObj = AppConnect.modeldb.users;
@@ -78,34 +71,23 @@ namespace Beauty_Care.cartPage
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            int idusercart = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
-
-            try
+            if (MessageBox.Show("Вы точно хотите удалить выбранный товар из заказа?", "Подтверждение удаления",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
 
-                var goodsIds = Entities.GetContext().orders
-                    .Where(x => x.idUsers == idusercart)
-                    .ToList();
-                if (MessageBox.Show($"Вы точно хотите удалить следующие элементов?", "Внимание",
-                    MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    try
-                    {
-                        RemoveItemsFromCart(goodsIds);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message.ToString());
-                    }
-                }
+                ListOrders.ItemsSource = Entities.GetContext().orders.ToList();
+                Button b = sender as Button;
+                int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
+                Console.WriteLine(ID);
+                AppConnect.modeldb.orders.Remove(
+                    AppConnect.modeldb.orders.Where(x => x.idOrder == ID).First() );
+                AppConnect.modeldb.SaveChanges();
+                AppFrame.frameMain.GoBack();
+                AppFrame.frameMain.Navigate(new cartPages());
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message.ToString());
-            }
-
         }
 
+       
         private void ListOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -165,7 +147,7 @@ namespace Beauty_Care.cartPage
                         document.Add(new Paragraph("Тип товара: " + data.beautyGoods.typeGoods1.nameType, font));
                         document.Add(new Paragraph("Описание: " + data.beautyGoods.description, font));
                         document.Add(new Paragraph("Цена: " + data.beautyGoods.price.ToString() + " руб.", font));
-
+                        document.Add(new Paragraph(" "));
                         sum += data.beautyGoods.price;
 
                     }
