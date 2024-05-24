@@ -26,7 +26,8 @@ namespace Beauty_Care.goodsManager
             InitializeComponent();
 
 
-            ListOrders.ItemsSource = Entities.GetContext().ordersManager.ToList();
+            //var ordersUser = Entities3.GetContext().ordersManager.GroupBy(x => x.orders.idUsers ).ToList();
+            ListOrders.ItemsSource = AppConnect.modeldb.ordersManager.GroupBy(x => x.orders.idUsers).ToList();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -36,7 +37,7 @@ namespace Beauty_Care.goodsManager
 
         private void btnMore(object sender, RoutedEventArgs e)
         {
-            //AppFrame.frameMain.Navigate(new moreOrders(sender as Button).DataContext as ordersManager);
+            AppFrame.frameMain.Navigate(new moreOrders((sender as Button).DataContext as ordersManager));
         }
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
@@ -48,9 +49,11 @@ namespace Beauty_Care.goodsManager
                 ListOrders.ItemsSource = Entities.GetContext().ordersManager.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
-                Console.WriteLine(ID);
                 AppConnect.modeldb.ordersManager.Remove(
                     AppConnect.modeldb.ordersManager.Where(x => x.idOrderManager == ID).First());
+
+                AppConnect.modeldb.orders.Remove(
+                    AppConnect.modeldb.orders.Where(x => x.idOrder == ID).First());
                 AppConnect.modeldb.SaveChanges();
                 AppFrame.frameMain.GoBack();
                 AppFrame.frameMain.Navigate(new managerOrders());
