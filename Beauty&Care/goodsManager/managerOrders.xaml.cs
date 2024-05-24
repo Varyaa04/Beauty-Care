@@ -36,7 +36,7 @@ namespace Beauty_Care.goodsManager
 
         private void btnMore(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new moreOrders());
+            //AppFrame.frameMain.Navigate(new moreOrders(sender as Button).DataContext as ordersManager);
         }
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
