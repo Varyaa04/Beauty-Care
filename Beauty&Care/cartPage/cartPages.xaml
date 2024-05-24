@@ -7,7 +7,7 @@
       mc:Ignorable="d" 
       d:DesignHeight="584" d:DesignWidth="1180"
       Title="Корзина"
-      Background="#F9C7DE">
+      Background="#F9C7DE"  IsVisibleChanged="pageVisible">
 
     <Grid x:Name="gridGoods" Margin="10,80,0,0" >
         <ListView x:Name="ListOrders" ScrollViewer.CanContentScroll="False" Background="Transparent" Margin="37,4,30,96" d:ItemsSource="{d:SampleData ItemCount=5}" FontSize="18" FontFamily="Bahnschrift SemiBold" RenderTransformOrigin="0.5,0.5" SelectedItem="{Binding selectedProductsEdit}" Foreground="#FF121212" BorderBrush="#FF8215AD" SelectionChanged="ListOrders_SelectionChanged">
@@ -39,7 +39,7 @@
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" ><Run Text="Цена: " /><Run Text=" "/><Run Text="{Binding beautyGoods.price}"/></TextBlock>
                         </StackPanel>
                         <StackPanel Grid.Column="3" Margin="10,20,39,111" Grid.Row="1"  >
-                            <TextBlock Text="{Binding idOrder}" Visibility="Collapsed" Height="100" Width="22"/>
+                            <TextBlock Text="{Binding idCart}" Visibility="Collapsed" Height="100" Width="22"/>
                             <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="59,82,0,0" Grid.Row="1" Height="47" Width="138" Click="btnDel_Click" />
                         </StackPanel>
 

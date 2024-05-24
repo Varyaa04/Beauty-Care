@@ -17,7 +17,8 @@ namespace Beauty_Care.goods
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public beautyGoods()
         {
-            this.orders = new HashSet<orders>();
+            this.cart = new HashSet<cart>();
+            this.ordersManager = new HashSet<ordersManager>();
         }
     
         public int idGoods { get; set; }
@@ -46,10 +47,13 @@ namespace Beauty_Care.goods
                 }
             }
         }
+
         public virtual category category1 { get; set; }
         public virtual manufacturer manufacturer1 { get; set; }
         public virtual typeGoods typeGoods1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<orders> orders { get; set; }
+        public virtual ICollection<cart> cart { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ordersManager> ordersManager { get; set; }
     }
 }

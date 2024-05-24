@@ -63,8 +63,8 @@ namespace Beauty_Care.goodsAdmin.usersPages
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 Console.WriteLine(ID);
-                AppConnect.modeldb.orders.Remove(
-                    AppConnect.modeldb.orders.Where(x => x.idUser == ID).First());
+                AppConnect.modeldb.users.Remove(
+                    AppConnect.modeldb.users.Where(x => x.idUser == ID).First());
                 AppConnect.modeldb.SaveChanges();
                 AppFrame.frameMain.GoBack();
                 AppFrame.frameMain.Navigate(new UsersPage());

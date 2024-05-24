@@ -26,6 +26,7 @@ namespace Beauty_Care.goodsAdmin.usersPages
         public addUser()
         {
             InitializeComponent();
+
             ComboRole.ItemsSource = Entities.GetContext().role.Select(x => x.nameRole).ToList();
 
             phoneT.MaxLength = 11;

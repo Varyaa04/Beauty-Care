@@ -27,6 +27,7 @@
           </Key>
           <Property Name="idCart" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idOrder" Type="int" Nullable="false" />
+          <Property Name="idGoods" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="category">
           <Key>
@@ -47,9 +48,16 @@
             <PropertyRef Name="idOrder" />
           </Key>
           <Property Name="idOrder" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idGoods" Type="int" Nullable="false" />
           <Property Name="idUsers" Type="int" Nullable="false" />
           <Property Name="idStatus" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ordersManager">
+          <Key>
+            <PropertyRef Name="idOrderManager" />
+          </Key>
+          <Property Name="idOrderManager" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idOrder" Type="int" Nullable="false" />
+          <Property Name="idGoods" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -136,6 +144,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_cart_beautyGoods1">
+          <End Role="beautyGoods" Type="Self.beautyGoods" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="cart" Type="Self.cart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="beautyGoods">
+              <PropertyRef Name="idGoods" />
+            </Principal>
+            <Dependent Role="cart">
+              <PropertyRef Name="idGoods" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_cart_orders">
           <End Role="orders" Type="Self.orders" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -147,20 +169,6 @@
             </Principal>
             <Dependent Role="cart">
               <PropertyRef Name="idOrder" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_orders_beautyGoods">
-          <End Role="beautyGoods" Type="Self.beautyGoods" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="orders" Type="Self.orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="beautyGoods">
-              <PropertyRef Name="idGoods" />
-            </Principal>
-            <Dependent Role="orders">
-              <PropertyRef Name="idGoods" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -178,7 +186,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_orders_users">
+        <Association Name="FK_orders_users1">
           <End Role="users" Type="Self.users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -189,6 +197,34 @@
             </Principal>
             <Dependent Role="orders">
               <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ordersManager_beautyGoods">
+          <End Role="beautyGoods" Type="Self.beautyGoods" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ordersManager" Type="Self.ordersManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="beautyGoods">
+              <PropertyRef Name="idGoods" />
+            </Principal>
+            <Dependent Role="ordersManager">
+              <PropertyRef Name="idGoods" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ordersManager_orders1">
+          <End Role="orders" Type="Self.orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ordersManager" Type="Self.ordersManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="idOrder" />
+            </Principal>
+            <Dependent Role="ordersManager">
+              <PropertyRef Name="idOrder" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -243,6 +279,7 @@
           <EntitySet Name="category" EntityType="Self.category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="manufacturer" EntityType="Self.manufacturer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="orders" EntityType="Self.orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ordersManager" EntityType="Self.ordersManager" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="role" EntityType="Self.role" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="status" EntityType="Self.status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -260,21 +297,29 @@
             <End Role="typeGoods" EntitySet="typeGoods" />
             <End Role="beautyGoods" EntitySet="beautyGoods" />
           </AssociationSet>
+          <AssociationSet Name="FK_cart_beautyGoods1" Association="Self.FK_cart_beautyGoods1">
+            <End Role="beautyGoods" EntitySet="beautyGoods" />
+            <End Role="cart" EntitySet="cart" />
+          </AssociationSet>
           <AssociationSet Name="FK_cart_orders" Association="Self.FK_cart_orders">
             <End Role="orders" EntitySet="orders" />
             <End Role="cart" EntitySet="cart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_orders_beautyGoods" Association="Self.FK_orders_beautyGoods">
-            <End Role="beautyGoods" EntitySet="beautyGoods" />
-            <End Role="orders" EntitySet="orders" />
           </AssociationSet>
           <AssociationSet Name="FK_orders_status" Association="Self.FK_orders_status">
             <End Role="status" EntitySet="status" />
             <End Role="orders" EntitySet="orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_orders_users" Association="Self.FK_orders_users">
+          <AssociationSet Name="FK_orders_users1" Association="Self.FK_orders_users1">
             <End Role="users" EntitySet="users" />
             <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ordersManager_beautyGoods" Association="Self.FK_ordersManager_beautyGoods">
+            <End Role="beautyGoods" EntitySet="beautyGoods" />
+            <End Role="ordersManager" EntitySet="ordersManager" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ordersManager_orders1" Association="Self.FK_ordersManager_orders1">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="ordersManager" EntitySet="ordersManager" />
           </AssociationSet>
           <AssociationSet Name="FK_users_role" Association="Self.FK_users_role">
             <End Role="role" EntitySet="role" />
@@ -304,7 +349,8 @@
           <NavigationProperty Name="category1" Relationship="Self.FK_beautyGoods_category" FromRole="beautyGoods" ToRole="category" />
           <NavigationProperty Name="manufacturer1" Relationship="Self.FK_beautyGoods_manufacturer" FromRole="beautyGoods" ToRole="manufacturer" />
           <NavigationProperty Name="typeGoods1" Relationship="Self.FK_beautyGoods_typeGoods" FromRole="beautyGoods" ToRole="typeGoods" />
-          <NavigationProperty Name="orders" Relationship="Self.FK_orders_beautyGoods" FromRole="beautyGoods" ToRole="orders" />
+          <NavigationProperty Name="cart" Relationship="Self.FK_cart_beautyGoods1" FromRole="beautyGoods" ToRole="cart" />
+          <NavigationProperty Name="ordersManager" Relationship="Self.FK_ordersManager_beautyGoods" FromRole="beautyGoods" ToRole="ordersManager" />
         </EntityType>
         <EntityType Name="cart">
           <Key>
@@ -312,6 +358,8 @@
           </Key>
           <Property Name="idCart" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="idOrder" Type="Int32" Nullable="false" />
+          <Property Name="idGoods" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="beautyGoods" Relationship="Self.FK_cart_beautyGoods1" FromRole="cart" ToRole="beautyGoods" />
           <NavigationProperty Name="orders" Relationship="Self.FK_cart_orders" FromRole="cart" ToRole="orders" />
         </EntityType>
         <EntityType Name="category">
@@ -335,13 +383,22 @@
             <PropertyRef Name="idOrder" />
           </Key>
           <Property Name="idOrder" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idGoods" Type="Int32" Nullable="false" />
           <Property Name="idUsers" Type="Int32" Nullable="false" />
           <Property Name="idStatus" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="beautyGoods" Relationship="Self.FK_orders_beautyGoods" FromRole="orders" ToRole="beautyGoods" />
           <NavigationProperty Name="cart" Relationship="Self.FK_cart_orders" FromRole="orders" ToRole="cart" />
           <NavigationProperty Name="status" Relationship="Self.FK_orders_status" FromRole="orders" ToRole="status" />
-          <NavigationProperty Name="users" Relationship="Self.FK_orders_users" FromRole="orders" ToRole="users" />
+          <NavigationProperty Name="users" Relationship="Self.FK_orders_users1" FromRole="orders" ToRole="users" />
+          <NavigationProperty Name="ordersManager" Relationship="Self.FK_ordersManager_orders1" FromRole="orders" ToRole="ordersManager" />
+        </EntityType>
+        <EntityType Name="ordersManager">
+          <Key>
+            <PropertyRef Name="idOrderManager" />
+          </Key>
+          <Property Name="idOrderManager" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idOrder" Type="Int32" Nullable="false" />
+          <Property Name="idGoods" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="beautyGoods" Relationship="Self.FK_ordersManager_beautyGoods" FromRole="ordersManager" ToRole="beautyGoods" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_ordersManager_orders1" FromRole="ordersManager" ToRole="orders" />
         </EntityType>
         <EntityType Name="role">
           <Key>
@@ -388,7 +445,7 @@
           <Property Name="roleUsers" Type="Int32" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="orders" Relationship="Self.FK_orders_users" FromRole="users" ToRole="orders" />
+          <NavigationProperty Name="orders" Relationship="Self.FK_orders_users1" FromRole="users" ToRole="orders" />
           <NavigationProperty Name="role" Relationship="Self.FK_users_role" FromRole="users" ToRole="role" />
         </EntityType>
         <Association Name="FK_beautyGoods_category">
@@ -433,16 +490,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_orders_beautyGoods">
+        <Association Name="FK_cart_beautyGoods1">
           <End Role="beautyGoods" Type="Self.beautyGoods" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
-          <End Role="orders" Type="Self.orders" Multiplicity="*" />
+          <End Role="cart" Type="Self.cart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="beautyGoods">
               <PropertyRef Name="idGoods" />
             </Principal>
-            <Dependent Role="orders">
+            <Dependent Role="cart">
+              <PropertyRef Name="idGoods" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ordersManager_beautyGoods">
+          <End Role="beautyGoods" Type="Self.beautyGoods" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ordersManager" Type="Self.ordersManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="beautyGoods">
+              <PropertyRef Name="idGoods" />
+            </Principal>
+            <Dependent Role="ordersManager">
               <PropertyRef Name="idGoods" />
             </Dependent>
           </ReferentialConstraint>
@@ -475,7 +546,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_orders_users">
+        <Association Name="FK_orders_users1">
           <End Role="users" Type="Self.users" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
@@ -486,6 +557,20 @@
             </Principal>
             <Dependent Role="orders">
               <PropertyRef Name="idUsers" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ordersManager_orders1">
+          <End Role="orders" Type="Self.orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ordersManager" Type="Self.ordersManager" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="orders">
+              <PropertyRef Name="idOrder" />
+            </Principal>
+            <Dependent Role="ordersManager">
+              <PropertyRef Name="idOrder" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -503,12 +588,13 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="beautyGoods" EntityType="Self.beautyGoods" />
           <EntitySet Name="cart" EntityType="Self.cart" />
           <EntitySet Name="category" EntityType="Self.category" />
           <EntitySet Name="manufacturer" EntityType="Self.manufacturer" />
           <EntitySet Name="orders" EntityType="Self.orders" />
+          <EntitySet Name="ordersManager" EntityType="Self.ordersManager" />
           <EntitySet Name="role" EntityType="Self.role" />
           <EntitySet Name="status" EntityType="Self.status" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
@@ -526,9 +612,13 @@
             <End Role="typeGoods" EntitySet="typeGoods" />
             <End Role="beautyGoods" EntitySet="beautyGoods" />
           </AssociationSet>
-          <AssociationSet Name="FK_orders_beautyGoods" Association="Self.FK_orders_beautyGoods">
+          <AssociationSet Name="FK_cart_beautyGoods1" Association="Self.FK_cart_beautyGoods1">
             <End Role="beautyGoods" EntitySet="beautyGoods" />
-            <End Role="orders" EntitySet="orders" />
+            <End Role="cart" EntitySet="cart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ordersManager_beautyGoods" Association="Self.FK_ordersManager_beautyGoods">
+            <End Role="beautyGoods" EntitySet="beautyGoods" />
+            <End Role="ordersManager" EntitySet="ordersManager" />
           </AssociationSet>
           <AssociationSet Name="FK_cart_orders" Association="Self.FK_cart_orders">
             <End Role="orders" EntitySet="orders" />
@@ -538,9 +628,13 @@
             <End Role="status" EntitySet="status" />
             <End Role="orders" EntitySet="orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_orders_users" Association="Self.FK_orders_users">
+          <AssociationSet Name="FK_orders_users1" Association="Self.FK_orders_users1">
             <End Role="users" EntitySet="users" />
             <End Role="orders" EntitySet="orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ordersManager_orders1" Association="Self.FK_ordersManager_orders1">
+            <End Role="orders" EntitySet="orders" />
+            <End Role="ordersManager" EntitySet="ordersManager" />
           </AssociationSet>
           <AssociationSet Name="FK_users_role" Association="Self.FK_users_role">
             <End Role="role" EntitySet="role" />
@@ -593,7 +687,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities1">
           <EntitySetMapping Name="beautyGoods">
             <EntityTypeMapping TypeName="Model.beautyGoods">
               <MappingFragment StoreEntitySet="beautyGoods">
@@ -616,6 +710,7 @@
               <MappingFragment StoreEntitySet="cart">
                 <ScalarProperty Name="idCart" ColumnName="idCart" />
                 <ScalarProperty Name="idOrder" ColumnName="idOrder" />
+                <ScalarProperty Name="idGoods" ColumnName="idGoods" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -639,9 +734,17 @@
             <EntityTypeMapping TypeName="Model.orders">
               <MappingFragment StoreEntitySet="orders">
                 <ScalarProperty Name="idOrder" ColumnName="idOrder" />
-                <ScalarProperty Name="idGoods" ColumnName="idGoods" />
                 <ScalarProperty Name="idUsers" ColumnName="idUsers" />
                 <ScalarProperty Name="idStatus" ColumnName="idStatus" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ordersManager">
+            <EntityTypeMapping TypeName="Model.ordersManager">
+              <MappingFragment StoreEntitySet="ordersManager">
+                <ScalarProperty Name="idOrderManager" ColumnName="idOrderManager" />
+                <ScalarProperty Name="idOrder" ColumnName="idOrder" />
+                <ScalarProperty Name="idGoods" ColumnName="idGoods" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

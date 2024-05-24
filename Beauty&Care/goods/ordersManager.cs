@@ -12,9 +12,9 @@ namespace Beauty_Care.goods
     using System;
     using System.Collections.Generic;
     
-    public partial class cart
+    public partial class ordersManager
     {
-        public int idCart { get; set; }
+        public int idOrderManager { get; set; }
         public int idOrder { get; set; }
         public int idGoods { get; set; }
     

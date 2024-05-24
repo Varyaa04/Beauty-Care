@@ -17,19 +17,18 @@ namespace Beauty_Care.goods
     
     public partial class Entities : DbContext
     {
-        private static Entities _context;
-
+        public static Entities _context;
         public Entities()
             : base("name=Entities")
         {
         }
+    
         public static Entities GetContext()
         {
             if (_context == null)
                 _context = new Entities();
             return _context;
         }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
@@ -40,6 +39,7 @@ namespace Beauty_Care.goods
         public virtual DbSet<category> category { get; set; }
         public virtual DbSet<manufacturer> manufacturer { get; set; }
         public virtual DbSet<orders> orders { get; set; }
+        public virtual DbSet<ordersManager> ordersManager { get; set; }
         public virtual DbSet<role> role { get; set; }
         public virtual DbSet<status> status { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }

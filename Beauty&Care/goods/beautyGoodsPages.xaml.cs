@@ -148,23 +148,26 @@ namespace Beauty_Care.goods
                 if (ListGoods.SelectedItem != null && ListGoods.SelectedItem is beautyGoods)
                 {
                     int selectedGoodsId = ((beautyGoods)ListGoods.SelectedItem).idGoods;
-
-                    orders goodsobj = new orders()
+                    var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
+                    if (order == null)
                     {
-                        idUsers = idUsers,
-                        idGoods = selectedGoodsId,
-                        idStatus = 1
-                    };
-                    AppConnect.modeldb.orders.Add(goodsobj);
-                    AppConnect.modeldb.SaveChanges();
+                        order = new orders()
+                        {
+                            idUsers = idUsers,
+                            idStatus = 1
+                        };
+                        Entities.GetContext().orders.Add(order);
+                        Entities.GetContext().SaveChanges();
+                    }
 
-                    cart cartobj = new cart()
+                    var cartnew = new cart()
                     {
-                        idOrder = goodsobj.idOrder
+                        idOrder = order.idOrder,
+                        idGoods = selectedGoodsId
                     };
 
-                    AppConnect.modeldb.cart.Add(cartobj);
-                    AppConnect.modeldb.SaveChanges();
+                    Entities.GetContext().cart.Add(cartnew);
+                    Entities.GetContext().SaveChanges();
 
 
                     MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);

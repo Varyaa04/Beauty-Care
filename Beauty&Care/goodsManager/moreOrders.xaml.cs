@@ -1,5 +1,4 @@
-﻿using Beauty_Care.goods;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,22 +16,13 @@ using System.Windows.Shapes;
 namespace Beauty_Care.goodsManager
 {
     /// <summary>
-    /// Логика взаимодействия для ordersManager.xaml
+    /// Логика взаимодействия для moreOrders.xaml
     /// </summary>
-    public partial class ordersManager : Page
+    public partial class moreOrders : Page
     {
-        private users _authManager = new users();
-
-        public ordersManager(users authUser)
+        public moreOrders()
         {
             InitializeComponent();
-
-
-            if (authUser != null)
-            {
-                _authManager = authUser;
-            }
-            DataContext = _authManager;
         }
     }
 }

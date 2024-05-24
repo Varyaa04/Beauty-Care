@@ -18,17 +18,18 @@ namespace Beauty_Care.goods
         public orders()
         {
             this.cart = new HashSet<cart>();
+            this.ordersManager = new HashSet<ordersManager>();
         }
     
         public int idOrder { get; set; }
-        public int idGoods { get; set; }
         public int idUsers { get; set; }
         public int idStatus { get; set; }
     
-        public virtual beautyGoods beautyGoods { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cart> cart { get; set; }
         public virtual status status { get; set; }
         public virtual users users { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ordersManager> ordersManager { get; set; }
     }
 }

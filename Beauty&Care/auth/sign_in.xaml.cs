@@ -66,10 +66,10 @@ namespace Beauty_Care.auth
                             break;
                         case 3:
                             MessageBox.Show("Здравствуйте, Менеджер " + userObj.nameUser + "!",
-                                "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                               "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                             App.Current.Properties["idUser"] = userObj.idUser;
                             App.Current.Properties["roleUser"] = userObj.roleUsers;
-                            AppFrame.frameMain.Navigate(new ordersManager((sender as Button).DataContext as users));
+                            AppFrame.frameMain.Navigate(new managerOrders());
                             break;
                         default:
                             MessageBox.Show("Данные не обнаружены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Warning);

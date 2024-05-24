@@ -36,6 +36,7 @@ namespace Beauty_Care.goodsAdmin
             nameT.MaxLength = 25;
             passwT.MaxLength = 30;
             loginT.MaxLength = 30;
+
             ComboRole.ItemsSource = Entities.GetContext().role.Select(x => x.nameRole).ToList();
 
         }
@@ -77,7 +78,7 @@ namespace Beauty_Care.goodsAdmin
             {
                 if (_currentUser.idUser == 0)
                 {
-                    Entities.GetContext().beautyGoods.Add(_currentUser);
+                    Entities.GetContext().users.Add(_currentUser);
                 }
                 try
                 {
@@ -100,14 +101,6 @@ namespace Beauty_Care.goodsAdmin
         }
 
 
-        private void pageVisible(object sender, DependencyPropertyChangedEventArgs e)
-        {
-            if (Visibility == Visibility.Visible)
-            {
-                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                ListGoods.ItemsSource = Entities.GetContext().users.ToList();
-            }
-        }
 
         private void name_KeyDown(object sender, KeyEventArgs e)
         {
