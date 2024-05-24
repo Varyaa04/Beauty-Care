@@ -20,6 +20,7 @@ using iTextSharp.text.pdf;
 using Image = iTextSharp.text.Image;
 using Paragraph = iTextSharp.text.Paragraph;
 using System.IO;
+using System.Xml.Linq;
 
 namespace Beauty_Care.cartPage
 {
@@ -33,24 +34,36 @@ namespace Beauty_Care.cartPage
         public cartPages()
         {
             InitializeComponent();
-            var goodsobj = Entities.GetContext().cart
-                                        .Where(x => x.orders.idUsers == idusercart)
-                                        .ToList();
 
-            ListOrders.ItemsSource = goodsobj;
+            var orderobj = Entities.GetContext().orders
+                              .Where(x => x.idUsers == idusercart)
+                              .Select(x => x.idOrder)
+                              .ToList();
+
+            var cartobj = Entities.GetContext().cart
+                               .Where(c => orderobj.Contains(c.idOrder))
+                               .Select(x => x.idGoods)
+                               .ToList();
+            var goodsInCart = Entities.GetContext().beautyGoods
+                                         .Where(x => cartobj.Contains(x.idGoods))
+                                         .ToList();
+            ListOrders.ItemsSource = goodsInCart;
+
 
             if (ListOrders.Items.Count > 0)
             {
+                btnCheckout.IsEnabled = true;
                 tbCounter.Text = "Всего в корзине " + ListOrders.Items.Count + " товаров";
             }
             else
             {
-                tbCounter.Text = "Ваша корзина пуста!";
+                btnCheckout.IsEnabled = false;
+                btnCheckout.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#F6C5DC"));
+                tbCounter.Text = "Ваша корзина пустая!";
             }
 
-
         }
-       
+
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             var userObj = AppConnect.modeldb.users;
@@ -80,14 +93,14 @@ namespace Beauty_Care.cartPage
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 Console.WriteLine(ID);
                 AppConnect.modeldb.cart.Remove(
-                    AppConnect.modeldb.cart.Where(x => x.idCart == ID).First() );
+                    AppConnect.modeldb.cart.Where(x => x.idCart == ID).First());
                 AppConnect.modeldb.SaveChanges();
                 AppFrame.frameMain.GoBack();
                 AppFrame.frameMain.Navigate(new cartPages());
             }
         }
 
-       
+
         private void ListOrders_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
@@ -96,25 +109,23 @@ namespace Beauty_Care.cartPage
 
         private void btnCheckout_Click(object sender, RoutedEventArgs e)
         {
-            if(MessageBox.Show("Вы точно хотите оформить заказ? Все товары из вашей корзины будут удалены!", "Внимание!",
+            if (MessageBox.Show("Вы точно хотите оформить заказ? Все товары из вашей корзины будут удалены!", "Внимание!",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
                 try
                 {
                     addManager();
-
+                    RemoveItemsFromCart();
                     CreatePDF();
                     MessageBox.Show("PDF документ был успешно загружен!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
-
-
-                    RemoveItemsFromCart();
                     AppFrame.frameMain.Navigate(new qrPage());
+
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
                 }
-             
+
             }
 
 
@@ -126,8 +137,16 @@ namespace Beauty_Care.cartPage
 
             try
             {
-                string fileName = System.IO.Path.Combine("C:\\Users\\10210808\\Downloads", $"order_{DateTime.Now:yyyyMMddHHss}.pdf");
+                string downloadFolder = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + "\\Downloads\\";
+                int fileIndex = 1;
+                string fileName = "";
+                do
+                {
+                    fileName = System.IO.Path.Combine(downloadFolder, $"order_{fileIndex}.pdf");
+                    fileIndex++;
+                } while (File.Exists(fileName));
                 PdfWriter.GetInstance(document, new FileStream(fileName, FileMode.Create));
+
                 document.Open();
                 BaseFont baseFont = BaseFont.CreateFont("C:\\Windows\\Fonts\\Arial.ttf", BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);
 
@@ -138,13 +157,14 @@ namespace Beauty_Care.cartPage
                 document.Add(paragraph1);
                 decimal sum = 0;
 
-                var goodsobj = Entities.GetContext().cart
+                var goodsobj = Entities.GetContext().ordersManager
                                      .Where(x => x.orders.idUsers == idusercart)
                                      .ToList();
                 foreach (var item in goodsobj)
                 {
-                    if (item is cart data)
+                    if (item is ordersManager data)
                     {
+
                         Image img = Image.GetInstance("C:\\Users\\10210808\\Desktop\\q\\Beauty&Care\\" + data.beautyGoods.CurrentPhoto);
                         img.ScaleAbsolute(100f, 100f);
                         document.Add(img);
@@ -186,34 +206,25 @@ namespace Beauty_Care.cartPage
 
         public void RemoveItemsFromCart()
         {
-            int idusercart = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
-            //var context = Entities.GetContext();
+            //int userId = Convert.ToInt32(App.Current.Properties["idUsers"]);
+            //var order = Entities3.GetContext().orders.FirstOrDefault(o => o.idUsers == userId && o.idStatus == 1);
 
-            //var goodsIds = goodsfordeleting.Select(x => x.idOrder).ToList();
+            //var cartItems = Entities3.GetContext().cart.Where(c => c.idOrder == order.idOrder).ToList();
+            //Entities3.GetContext().cart.RemoveRange(cartItems);
+            //Entities3.GetContext().SaveChanges();
 
-            //var ordersToRemove = context.cart
-            //                           .Where(x => x.orders.idUsers == idusercart && goodsIds.Contains(x.beautyGoods.idGoods))
-            //                           .ToList();
+            //ListOrders.ItemsSource = new List<cart>(); 
 
-            //context.cart.RemoveRange(ordersToRemove);
+            var context = Entities.GetContext();
+            var itemsToDelete = context.cart
+            .Where(x => x.orders.idUsers == idusercart)
+            .ToList();
 
-            //context.SaveChanges();
-
-            //var remainingGoodsInCart = context.beautyGoods
-            //                                  .Where(x => context.cart.Any(o => o.orders.idUsers == idusercart && o.idGoods == x.idGoods))
-            //                                  .ToList();
-
-            //ListOrders.ItemsSource = remainingGoodsInCart;
-
-            var orderId = Entities.GetContext().orders.Where(x => x.idUsers == idusercart && x.idStatus == 1).ToList();
-            List<cart> ordersRemove = AppConnect.modeldb.cart.ToList();
-            ordersRemove.Select(x => x.idOrder == x.orders.idOrder).ToList();
-            foreach (cart item in ordersRemove)
+            if (itemsToDelete.Any())
             {
-                Entities.GetContext().cart.Remove(item);
-                Entities.GetContext().SaveChanges();
+                context.cart.RemoveRange(itemsToDelete);
+                context.SaveChanges();
             }
-        
         }
 
         public void addManager()
@@ -221,21 +232,17 @@ namespace Beauty_Care.cartPage
             int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
             var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
             var cartt = Entities.GetContext().cart.FirstOrDefault(o => o.orders.idUsers == idUsers);
-            List<ordersManager> orders = AppConnect.modeldb.ordersManager.ToList();
-            orders.Where(x => x.orders.idUsers == idUsers).ToList();
-            foreach (var item in orders)
+            var cartnew = new ordersManager()
             {
-                var cartnew = new ordersManager()
-                {
-                    idOrder = order.idOrder,
-                    idGoods = cartt.idGoods
-                };
-                Entities.GetContext().ordersManager.Add(cartnew);
-                Entities.GetContext().SaveChanges();
-            }
-            
+                idOrder = order.idOrder,
+                idGoods = cartt.idGoods
+            };
 
-           
+            Entities.GetContext().ordersManager.Add(cartnew);
+            Entities.GetContext().SaveChanges();
         }
+
     }
+
+
 }
