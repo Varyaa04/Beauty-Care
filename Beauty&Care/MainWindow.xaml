@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Beauty_Care"
         mc:Ignorable="d"
         Title="Beauty and Care store" Height="700"
-        Background="#FCB4D5" Width="1200" MinWidth="1200" MinHeight="700" MaxWidth="1200" MaxHeight="700"
+        Background="#FCB4D5" Width="1200" MinWidth="1200" MinHeight="700" MaxWidth="1200" MaxHeight="700" Closing="Window_Closing"
         >
     <Grid>
         <Frame x:Name="FrmMain" Content="Frame" HorizontalAlignment="Center" Height="584" Margin="0,90,0,0" VerticalAlignment="Top" Width="1180" Background="#F9C7DE" Navigated="FrmMain_Navigated" >
