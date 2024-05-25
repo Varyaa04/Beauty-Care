@@ -11,10 +11,17 @@
 
     <Grid>
         <Button x:Name="btnBack" Content="Назад" Background="#FCB4D5" Foreground="White" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="50" Width="115" Click="btnBack_Click" FontFamily="Verdana" FontSize="16"/>
-        <ComboBox x:Name="comboStatus"  SelectedItem="{Binding status.nameStatus}"  HorizontalAlignment="Left" Margin="804,485,0,0" VerticalAlignment="Top" Width="210" Height="36" FontFamily="Verdana" FontSize="16"/>
+        <ComboBox x:Name="comboStatus"  SelectedItem="{Binding orders.status.nameStatus}"  HorizontalAlignment="Left" Margin="804,485,0,0" VerticalAlignment="Top" Width="210" Height="36" FontFamily="Verdana" FontSize="16"/>
         <Button x:Name="btnEdit" Content="Изменить" Background="#FCB4D5" Foreground="White" HorizontalAlignment="Left" Margin="1039,476,0,0" VerticalAlignment="Top" Height="50" Width="115" FontFamily="Verdana" FontSize="16" Click="btnEdit_Click"/>
         <Label x:Name="statusTxt" Content="Изменить статус" HorizontalAlignment="Left" Margin="789,446,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
-        <TextBlock HorizontalAlignment="Left" Margin="35,140,0,0" TextWrapping="Wrap" Text="{Binding beautyGoods1.nameGoods}" VerticalAlignment="Top" Height="31" Width="410"/>
-
+        <TextBlock x:Name="txtGoods" HorizontalAlignment="Left" Margin="55,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="110" Width="770" FontFamily="Verdana" FontSize="16">
+        <Run Text="{Binding beautyGoods.nameGoods}" />
+        <Run Text=" Цена: " />
+         <Run Text="{Binding beautyGoods.price}" />
+        </TextBlock>
+        <TextBlock x:Name="txtUser" Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left" Margin="55,120,775,425" FontFamily="Verdana" FontSize="16"><Run Text="Пользователь: "/><Run  Text="{Binding orders.users.nameUser}"/></TextBlock>
+        <TextBlock x:Name="txtUserLo" Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left" Margin="512,120,318,425" FontFamily="Verdana" FontSize="16"><Run Text="Логин: "/><Run  Text="{Binding orders.users.login}"/></TextBlock>
+        <TextBlock x:Name="txtUserEm" Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left" Margin="55,201,775,344" FontFamily="Verdana" FontSize="16"><Run Text="Email: "/><Run  Text="{Binding orders.users.email}"/></TextBlock>
+        <TextBlock x:Name="txtUserPh" Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left" Margin="512,201,318,344" FontFamily="Verdana" FontSize="16"><Run Text="Номер телефона: "/><Run  Text="{Binding orders.users.phone}"/></TextBlock>
     </Grid>
 </Page>

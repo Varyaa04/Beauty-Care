@@ -33,6 +33,8 @@ namespace Beauty_Care.goodsManager
             }
             DataContext = _currentOrders;
 
+            AppConnect.modeldb.ordersManager.ToArray();
+
 
             comboStatus.ItemsSource = Entities.GetContext().status.Select(x => x.nameStatus).ToList();
         }
