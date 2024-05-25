@@ -34,10 +34,14 @@ namespace Beauty_Care
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-                var dbContext = Entities.GetContext();
+            var dbContext = Entities.GetContext();
+
+            if (dbContext.cart.Any())
+            {
                 var allCartRecords = dbContext.cart.ToList();
                 dbContext.cart.RemoveRange(allCartRecords);
                 dbContext.SaveChanges();
+            }
         }
     }
 }

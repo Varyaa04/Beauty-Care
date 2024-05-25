@@ -25,8 +25,6 @@ namespace Beauty_Care.goodsManager
         {
             InitializeComponent();
 
-
-            //var ordersUser = Entities3.GetContext().ordersManager.GroupBy(x => x.orders.idUsers ).ToList();
             ListOrders.ItemsSource = AppConnect.modeldb.ordersManager.GroupBy(x => x.orders.idUsers).ToList();
         }
 
@@ -46,14 +44,15 @@ namespace Beauty_Care.goodsManager
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
 
-                ListOrders.ItemsSource = Entities.GetContext().ordersManager.ToList();
+                ListOrders.ItemsSource = Entities3.GetContext().ordersManager.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
+                int IDOrder = int.Parse(((b.Parent as StackPanel).Children[1] as TextBlock).Text);
                 AppConnect.modeldb.ordersManager.Remove(
                     AppConnect.modeldb.ordersManager.Where(x => x.idOrderManager == ID).First());
 
                 AppConnect.modeldb.orders.Remove(
-                    AppConnect.modeldb.orders.Where(x => x.idOrder == ID).First());
+                    AppConnect.modeldb.orders.Where(x => x.idOrder == IDOrder).First());
                 AppConnect.modeldb.SaveChanges();
                 AppFrame.frameMain.GoBack();
                 AppFrame.frameMain.Navigate(new managerOrders());
