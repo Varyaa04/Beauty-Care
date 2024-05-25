@@ -216,7 +216,7 @@ namespace Beauty_Care.goodsAdmin
 
                     MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
 
-                    AppFrame.frameMain.Navigate(new cart());
+                    AppFrame.frameMain.Navigate(new cartPages());
                 }
                 else
                 {

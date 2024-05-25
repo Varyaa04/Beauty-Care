@@ -115,9 +115,9 @@ namespace Beauty_Care.cartPage
                 try
                 {
                     addManager();
-                    RemoveItemsFromCart();
                     CreatePDF();
                     MessageBox.Show("PDF документ был успешно загружен!", "Информация", MessageBoxButton.OK, MessageBoxImage.Information);
+                    RemoveItemsFromCart();
                     AppFrame.frameMain.Navigate(new qrPage());
 
                 }
@@ -157,12 +157,12 @@ namespace Beauty_Care.cartPage
                 document.Add(paragraph1);
                 decimal sum = 0;
 
-                var goodsobj = Entities.GetContext().ordersManager
+                var goodsobj = Entities.GetContext().cart
                                      .Where(x => x.orders.idUsers == idusercart)
                                      .ToList();
                 foreach (var item in goodsobj)
                 {
-                    if (item is ordersManager data)
+                    if (item is cart data)
                     {
 
                         Image img = Image.GetInstance("C:\\Users\\10210808\\Desktop\\q\\Beauty&Care\\" + data.beautyGoods.CurrentPhoto);
@@ -206,14 +206,6 @@ namespace Beauty_Care.cartPage
 
         public void RemoveItemsFromCart()
         {
-            //int userId = Convert.ToInt32(App.Current.Properties["idUsers"]);
-            //var order = Entities3.GetContext().orders.FirstOrDefault(o => o.idUsers == userId && o.idStatus == 1);
-
-            //var cartItems = Entities3.GetContext().cart.Where(c => c.idOrder == order.idOrder).ToList();
-            //Entities3.GetContext().cart.RemoveRange(cartItems);
-            //Entities3.GetContext().SaveChanges();
-
-            //ListOrders.ItemsSource = new List<cart>(); 
 
             var context = Entities.GetContext();
             var itemsToDelete = context.cart
