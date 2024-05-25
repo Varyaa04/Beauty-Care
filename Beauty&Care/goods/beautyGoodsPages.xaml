@@ -34,13 +34,11 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="242" />
                             <ColumnDefinition Width="454" />
-                            <ColumnDefinition Width="154"/>
-                            <ColumnDefinition Width="194"/>
-                            <ColumnDefinition Width="22*"/>
-                            <ColumnDefinition Width="103*"/>
+                            <ColumnDefinition Width="160"/>
+                            <ColumnDefinition Width="313"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2"/>
-                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" Grid.RowSpan="2">
+                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2" Margin="0,0,0,-8"/>
+                        <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" Grid.RowSpan="2" Margin="0,0,0,-8">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="39"   Margin="0,20,0,0" TextAlignment="Center">
                                 <Run Text="{Binding nameGoods}"/>
                             </TextBlock>
@@ -57,23 +55,17 @@
                                 <Run Text="{Binding manufacturer1.namemManufacturer}"/>
                             </TextBlock>
                         </StackPanel>
-                        <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,69,0,93" Grid.Row="1">
+                        <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,84,0,85" Grid.Row="1">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="0,15,0,0" >
                                  <Run Text="Цена: " />
                                 <Run Text="{Binding price}"/>
                             </TextBlock>
                         </StackPanel>
-                        <Button x:Name="btnMore" Grid.Column="2" Content="Подробнее" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="11,131,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Click="btnMore"/>
-                        <Button x:Name="addBasket" Grid.Column="3" Content="Добавить в корзину" Margin="58,74,46,76" Grid.Row="1" Background="#FCB4D5" Foreground="White" FontSize="18" Grid.ColumnSpan="3" Click="addBasket_Click">
-                            <UIElement.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </UIElement.RenderTransform>
-                        </Button>
+                        <Button x:Name="btnMore" Grid.Column="2" Content="Подробнее" Background="#FCB4D5" Foreground="White" Margin="34,176,24,22" Grid.Row="1" Click="btnMore"/>
+                        <StackPanel Grid.Column="3" Margin="9,2,-4,8" Grid.Row="1">
+                            <TextBlock Text="{Binding idGoods}" Visibility="Collapsed" Height="100" Width="22"/>
+                            <Button x:Name="addBasket" Grid.Column="3" Content="Добавить в корзину" Margin="58,74,46,76" Grid.Row="1" Background="#FCB4D5" Foreground="White" FontSize="18" Grid.ColumnSpan="3" Click="addBasket_Click" Height="74" Width="195"/>
+                        </StackPanel>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
@@ -99,10 +91,9 @@
             </ComboBox.Background>
         </ComboBox>
         <TextBlock x:Name="tbSearch" HorizontalAlignment="Left" Margin="30,-82,0,0" TextWrapping="Wrap" Text="Поиск по названию:" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="buttonSearch" Content="Поиск" HorizontalAlignment="Left" Margin="130,-95,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonSearch_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2"/>
         <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="242,-86,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top" FontSize="16"/>
         <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="241,-48,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="buttonReset" Content="Сбросить" HorizontalAlignment="Left" Margin="130,-48,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonReset_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2"/>
+        <Button x:Name="buttonReset" Content="Сбросить" HorizontalAlignment="Left" Margin="130,-73,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonReset_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2"/>
         <Button x:Name="btnCart" Grid.Column="2" Content="Корзина" HorizontalAlignment="Left" Margin="104,-75,0,0" VerticalAlignment="Top" Height="32" Width="85"  Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="btnCart_Click" />
     </Grid>
 </Page>

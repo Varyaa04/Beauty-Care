@@ -30,9 +30,8 @@
                             <ColumnDefinition Width="242" />
                             <ColumnDefinition Width="454" />
                             <ColumnDefinition Width="154"/>
-                            <ColumnDefinition Width="194"/>
-                            <ColumnDefinition Width="22*"/>
-                            <ColumnDefinition Width="103*"/>
+                            <ColumnDefinition Width="319"/>
+                            <ColumnDefinition Width="0*"/>
                         </Grid.ColumnDefinitions>
                         <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Grid.RowSpan="2"/>
                         <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" Grid.RowSpan="2">
@@ -61,29 +60,26 @@
                             <Run Text="{Binding price}"/>
                             </TextBlock>
                         </StackPanel>
-                        <Button x:Name="addBasket" Grid.Column="3" Content="Добавить в корзину" Margin="59,37,45,113" Grid.Row="1" Background="#FCB4D5" Foreground="White" FontSize="18" Grid.ColumnSpan="3" Click="addBasket_Click">
-                            <UIElement.RenderTransform>
-                                <TransformGroup>
-                                    <ScaleTransform/>
-                                    <SkewTransform/>
-                                    <RotateTransform/>
-                                    <TranslateTransform/>
-                                </TransformGroup>
-                            </UIElement.RenderTransform>
-                        </Button>
-                        <Button x:Name="btnEdit" Grid.Column="3" Content="Изменить" HorizontalAlignment="Center" Background="#FCB4D5" Foreground="White" Margin="0,130,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Click="btnEdit_Click"/>
-                        <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="181,130,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Grid.ColumnSpan="3" Click="btnDel_Click"/>
+                        <StackPanel Grid.Column="3" Margin="9,2,18,8" Grid.Row="1">
+                            <TextBlock Text="{Binding idGoods}" Visibility="Collapsed" Height="100" Width="22"/>
+                            <Button x:Name="addBasket" Grid.Column="3" Content="Добавить в корзину" Margin="59,37,45,113" Grid.Row="1" Background="#FCB4D5" Foreground="White" FontSize="18" Grid.ColumnSpan="3" Click="addBasket_Click" Height="58" Width="187"/>
+                        </StackPanel>
+                        <Button x:Name="btnEdit" Grid.Column="3" Content="Изменить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="40,133,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Click="btnEdit_Click"/>
+                        <StackPanel Grid.Column="3" Margin="9,2,-136,-45" Grid.Row="1" Grid.ColumnSpan="2">
+                            <TextBlock Text="{Binding idGoods}" Visibility="Collapsed" Height="100" Width="22"/>
+                            <Button x:Name="btnDel" Grid.Column="3" Content="Удалить" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="181,130,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Grid.ColumnSpan="3" Click="btnDel_Click"/>
+                        </StackPanel>
                         <Button x:Name="btnMore" Grid.Column="2" Content="Подробнее" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="11,131,0,0" Grid.Row="1" VerticalAlignment="Top" Height="37" Width="112" Click="btnMore"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="901,-44,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="265" Foreground="#FF9E275D"/>
-        <TextBox x:Name="textboxSearch" HorizontalAlignment="Left" Margin="6,-71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="27" FontSize="14"/>
-        <ComboBox x:Name="comboSort" HorizontalAlignment="Left" Margin="327,-102,0,0" VerticalAlignment="Top" Width="190"  RenderTransformOrigin="0.5,0.5" FontSize="14" Background="#FF9E275D" Foreground="#FF9E275D" BorderBrush="#FFFCB4D5" OpacityMask="#FFBF5050">
+        <TextBox x:Name="textboxSearch" HorizontalAlignment="Left" Margin="6,-71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="27" FontSize="14" TextChanged="textboxSearch_TextChanged"/>
+        <ComboBox x:Name="comboSort" HorizontalAlignment="Left" Margin="327,-102,0,0" VerticalAlignment="Top" Width="190"  RenderTransformOrigin="0.5,0.5" FontSize="14" Background="#FF9E275D" Foreground="#FF9E275D" BorderBrush="#FFFCB4D5" OpacityMask="#FFBF5050" SelectionChanged="comboSort_SelectionChanged">
 
         </ComboBox>
-        <ComboBox x:Name="comboFilter" HorizontalAlignment="Left" Margin="329,-62,0,0" VerticalAlignment="Top" Width="190" FontSize="14" BorderBrush="#FFFCB4D5" Foreground="#FF9E275D">
+        <ComboBox x:Name="comboFilter" HorizontalAlignment="Left" Margin="329,-62,0,0" VerticalAlignment="Top" Width="190" FontSize="14" BorderBrush="#FFFCB4D5" Foreground="#FF9E275D" SelectionChanged="comboFilter_SelectionChanged">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -91,8 +87,7 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <Button x:Name="buttonSearch" Content="Поиск" HorizontalAlignment="Left" Margin="542,-108,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonSearch_Click" FontSize="16"  Background="#FCB4D5" Foreground="White"/>
-        <Button x:Name="buttonReset" Content="Сбросить" HorizontalAlignment="Left" Margin="542,-59,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonReset_Click" FontSize="16"  Background="#FCB4D5" Foreground="White"/>
+        <Button x:Name="buttonReset" Content="Сбросить" HorizontalAlignment="Left" Margin="540,-83,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonReset_Click" FontSize="16"  Background="#FCB4D5" Foreground="White"/>
         <TextBlock x:Name="tbSearch" HorizontalAlignment="Left" Margin="6,-99,0,0" TextWrapping="Wrap" Text="Поиск по названию:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana" Height="28"/>
         <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="221,-103,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>
         <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="220,-65,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>

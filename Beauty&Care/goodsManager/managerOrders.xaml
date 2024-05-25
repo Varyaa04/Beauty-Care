@@ -31,8 +31,8 @@
                             <ColumnDefinition Width="628"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Width="auto" Orientation="Vertical" Margin="18,18,0,8" Grid.Row="1">
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left"><Run Text="Пользователь: "/><Run Text="{Binding idUsers.users.nameUser}"/></TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left"><Run Text="Логин: "/><Run Text="{Binding idUsers.users.login}"/></TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left"><Run Text="Пользователь: "/><Run Text="{Binding orders.users.nameUser}"/></TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left"><Run Text="Логин: "/><Run Text="{Binding orders.users.login}"/></TextBlock>
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="5,15,0,0" ><Run Text="Товары: " /><Run Text="{Binding beautyGoods.nameGoods}"/></TextBlock>
 
                         </StackPanel>

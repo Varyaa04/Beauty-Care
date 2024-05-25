@@ -112,50 +112,22 @@ namespace Beauty_Care.goodsAdmin
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            var goodsDel = ListGoods.SelectedItems.Cast<beautyGoods>().ToList();
-
-            if (MessageBox.Show($"Вы точно хотите удалить следующие {goodsDel.Count()} элементов?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (MessageBox.Show("Вы точно хотите удалить выбранный товар из заказа?", "Подтверждение удаления",
+               MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                try
-                {
-                    var context = Entities.GetContext();
-                    foreach (var item in goodsDel)
-                    {
-                        var beautyGood = context.beautyGoods.Find(item.idGoods);
-                        if (beautyGood != null)
-                        {
-                            context.beautyGoods.Remove(beautyGood);
-                        }
-                    }
-                    var goods = Entities.GetContext().beautyGoods.ToList();
-                    if (goods.Count > 0)
-                    {
-                        tbCounter.Text = "Найдено " + goods.Count + " товаров";
-                    }
-                    else
-                    {
-                        tbCounter.Text = "Ничего не найдено";
-                    }
-                    ListGoods.ItemsSource =(goods);
-                    context.SaveChanges();
-                    MessageBox.Show("Данные удалены");
-                    ListGoods.SelectedItem = null;
 
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
+                ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
+                Button b = sender as Button;
+                int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
+                Console.WriteLine(ID);
+                AppConnect.modeldb.beautyGoods.Remove(
+                    AppConnect.modeldb.beautyGoods.Where(x => x.idGoods == ID).First());
+                AppConnect.modeldb.SaveChanges();
+                AppFrame.frameMain.GoBack();
+                AppFrame.frameMain.Navigate(new beautyGoodsAdmin((sender as Button).DataContext as users));
             }
         }
         
-
-        private void buttonSearch_Click(object sender, RoutedEventArgs e)
-        {
-            findGoods();
-        }
-
         private void buttonReset_Click(object sender, RoutedEventArgs e)
         {
             textboxSearch.Text = string.Empty;
@@ -187,41 +159,36 @@ namespace Beauty_Care.goodsAdmin
         {
             try
             {
-                var button = sender as Button;
-                int selectg = Convert.ToInt32(button.Tag);
+                ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
+                Button b = sender as Button;
+                int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
-                if (ListGoods.SelectedItem != null && ListGoods.SelectedItem is beautyGoods)
-                {
-                    int selectedGoodsId = ((beautyGoods)ListGoods.SelectedItem).idGoods;
-                    var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
-                    if (order == null)
-                    {
-                        order = new orders()
-                        {
-                            idUsers = idUsers,
-                            idStatus = 1
-                        };
-                        Entities.GetContext().orders.Add(order);
-                        Entities.GetContext().SaveChanges();
-                    }
 
-                    var cartnew = new cart()
+                int selectedGoodsId = ID;
+                var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
+                if (order == null)
+                {
+                    order = new orders()
                     {
-                        idOrder = order.idOrder,
-                        idGoods = selectedGoodsId
+                        idUsers = idUsers,
+                        idStatus = 1
                     };
-
-                    Entities.GetContext().cart.Add(cartnew);
+                    Entities.GetContext().orders.Add(order);
                     Entities.GetContext().SaveChanges();
-
-                    MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-
-                    AppFrame.frameMain.Navigate(new cartPages());
                 }
-                else
+
+                var cartnew = new cart()
                 {
-                    MessageBox.Show("Выберите товар из списка!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
+                    idOrder = order.idOrder,
+                    idGoods = selectedGoodsId
+                };
+
+                Entities.GetContext().cart.Add(cartnew);
+                Entities.GetContext().SaveChanges();
+
+
+                MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                AppFrame.frameMain.Navigate(new cartPages());
             }
             catch (Exception ex)
             {
@@ -244,6 +211,21 @@ namespace Beauty_Care.goodsAdmin
         {
             AppFrame.frameMain.Navigate(new UsersPage());
 
+        }
+
+        private void textboxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findGoods();
+        }
+
+        private void comboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            findGoods();
+        }
+
+        private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            findGoods();
         }
     }
 }

@@ -26,6 +26,7 @@ namespace Beauty_Care.goodsManager
             InitializeComponent();
 
             ListOrders.ItemsSource = AppConnect.modeldb.ordersManager.GroupBy(x => x.orders.idUsers).ToList();
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -44,7 +45,7 @@ namespace Beauty_Care.goodsManager
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
 
-                ListOrders.ItemsSource = Entities3.GetContext().ordersManager.ToList();
+                ListOrders.ItemsSource = Entities.GetContext().ordersManager.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 int IDOrder = int.Parse(((b.Parent as StackPanel).Children[1] as TextBlock).Text);

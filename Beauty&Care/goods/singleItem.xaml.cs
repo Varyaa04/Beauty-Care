@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Beauty_Care.cartPage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,46 @@ namespace Beauty_Care.goods
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.GoBack();
+        }
+
+        private void addBasket_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Button b = sender as Button;
+                int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
+                int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
+
+                int selectedGoodsId = ID;
+                var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
+                if (order == null)
+                {
+                    order = new orders()
+                    {
+                        idUsers = idUsers,
+                        idStatus = 1
+                    };
+                    Entities.GetContext().orders.Add(order);
+                    Entities.GetContext().SaveChanges();
+                }
+
+                var cartnew = new cart()
+                {
+                    idOrder = order.idOrder,
+                    idGoods = selectedGoodsId
+                };
+
+                Entities.GetContext().cart.Add(cartnew);
+                Entities.GetContext().SaveChanges();
+
+
+                MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                AppFrame.frameMain.Navigate(new cartPages());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Произошла ошибка при добавлении товара в корзину: " + ex.ToString(), "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 }
