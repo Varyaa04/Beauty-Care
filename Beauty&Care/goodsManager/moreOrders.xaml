@@ -5,23 +5,65 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Beauty_Care.goodsManager"
       mc:Ignorable="d" 
-        d:DesignHeight="584" d:DesignWidth="1180"
+      d:DesignHeight="584" d:DesignWidth="1180"
         Title="Заказ отдельный"
         Background="#F9C7DE">
-
     <Grid>
         <Button x:Name="btnBack" Content="Назад" Background="#FCB4D5" Foreground="White" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="50" Width="115" Click="btnBack_Click" FontFamily="Verdana" FontSize="16"/>
-        <ComboBox x:Name="comboStatus"  SelectedItem="{Binding orders.status.nameStatus}"  HorizontalAlignment="Left" Margin="804,485,0,0" VerticalAlignment="Top" Width="210" Height="36" FontFamily="Verdana" FontSize="16"/>
-        <Button x:Name="btnEdit" Content="Изменить" Background="#FCB4D5" Foreground="White" HorizontalAlignment="Left" Margin="1039,476,0,0" VerticalAlignment="Top" Height="50" Width="115" FontFamily="Verdana" FontSize="16" Click="btnEdit_Click"/>
-        <Label x:Name="statusTxt" Content="Изменить статус" HorizontalAlignment="Left" Margin="789,446,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="16"/>
-        <TextBlock x:Name="txtGoods" HorizontalAlignment="Left" Margin="55,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Height="110" Width="770" FontFamily="Verdana" FontSize="16">
-        <Run Text="{Binding beautyGoods.nameGoods}" />
-        <Run Text=" Цена: " />
-         <Run Text="{Binding beautyGoods.price}" />
-        </TextBlock>
-        <TextBlock x:Name="txtUser" Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left" Margin="55,120,775,425" FontFamily="Verdana" FontSize="16"><Run Text="Пользователь: "/><Run  Text="{Binding orders.users.nameUser}"/></TextBlock>
-        <TextBlock x:Name="txtUserLo" Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left" Margin="512,120,318,425" FontFamily="Verdana" FontSize="16"><Run Text="Логин: "/><Run  Text="{Binding orders.users.login}"/></TextBlock>
-        <TextBlock x:Name="txtUserEm" Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left" Margin="55,201,775,344" FontFamily="Verdana" FontSize="16"><Run Text="Email: "/><Run  Text="{Binding orders.users.email}"/></TextBlock>
-        <TextBlock x:Name="txtUserPh" Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left" Margin="512,201,318,344" FontFamily="Verdana" FontSize="16"><Run Text="Номер телефона: "/><Run  Text="{Binding orders.users.phone}"/></TextBlock>
+        <Label x:Name="txtOrder" Content="Заказ" HorizontalAlignment="Center" Margin="0,28,0,0" VerticalAlignment="Top" Foreground="White" FontSize="26" FontFamily="Verdana"/>
+        <Label x:Name="labeluser" Content="" HorizontalAlignment="Left" Margin="170,130,0,0" VerticalAlignment="Top" Height="39" Width="100" Background="{x:Null}" Panel.ZIndex="1" FontSize="14"/>
+        <Label Content="Пользователь" HorizontalAlignment="Left" Margin="92,100,0,0" VerticalAlignment="Top" Panel.ZIndex="1" FontSize="16"/>
+        <Label x:Name="labelstatus" Content="" HorizontalAlignment="Left" Margin="264,131,0,0" VerticalAlignment="Top" Height="39" Width="154" Background="{x:Null}" Panel.ZIndex="1" FontSize="14"/>
+        <Label Content="Статус" HorizontalAlignment="Left" Margin="242,100,0,0" VerticalAlignment="Top" Panel.ZIndex="1" FontSize="16"/>
+        <Label x:Name="labelId" Content="" HorizontalAlignment="Left" Margin="42,131,0,0" VerticalAlignment="Top" Height="39" Width="50" Background="{x:Null}" Panel.ZIndex="1" FontSize="14"/>
+        <Label Content="Id" HorizontalAlignment="Left" Margin="32,100,0,0" VerticalAlignment="Top" Panel.ZIndex="1" FontSize="16"/>
+        <ListView x:Name="listgoodsorder" ScrollViewer.CanContentScroll="False" Background="#FFF9D9FF" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="26,193,26,0" Panel.ZIndex="1">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="700" />
+                            <ColumnDefinition Width="200"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Margin="0,0,10,0"/>
+                        <StackPanel Grid.Column="1" Margin="423,0,139,0">
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Width="146" Orientation="Vertical" HorizontalAlignment="Left" Margin="10,0,0,0">
+                            <TextBlock Width="110" TextWrapping="Wrap" Height="98" >
+                <Run Text="Наименование:"/> 
+                <Run Text="{Binding nameGoods}"/>
+
+                <Run Text=" "/>
+                <Run Text=" "/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" ><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Width="244" Orientation="Vertical" HorizontalAlignment="Left" Margin="156,0,0,0">
+                            <TextBlock Width="110" TextWrapping="Wrap" Height="98" >
+                        <Run Text="Описание:"/>
+                        <Run Text="{Binding description}"/>
+                        <Run Text=" "/>
+                        <Run Text=" "/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" ><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1" Width="138" Orientation="Vertical" HorizontalAlignment="Left" Margin="442,0,0,0">
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" >
+               <Run Text="Цена: "/> 
+                <Run Text="{Binding price}"/>
+                            </TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" >
+                <Run Text=" "/> 
+                <Run Text=" "/>
+                            </TextBlock>
+
+                        </StackPanel>
+
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Label Content="Содержание" HorizontalAlignment="Left" Margin="22,154,0,0" VerticalAlignment="Top" FontSize="16"/>
     </Grid>
 </Page>
