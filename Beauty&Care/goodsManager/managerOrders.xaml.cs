@@ -59,5 +59,10 @@ namespace Beauty_Care.goodsManager
                 AppFrame.frameMain.Navigate(new managerOrders());
             }
         }
+
+        private void btnCatalog_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
+        }
     }
 }

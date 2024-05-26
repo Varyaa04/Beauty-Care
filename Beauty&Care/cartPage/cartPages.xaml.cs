@@ -72,12 +72,14 @@ namespace Beauty_Care.cartPage
             {
                 AppFrame.frameMain.Navigate(new beautyGoodsAdmin((sender as Button).DataContext as users));
             }
-
             else if (us == 2)
             {
                 AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
             }
-
+            else if(us == 3)
+            {
+                AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
+            }
         }
 
 
@@ -93,7 +95,7 @@ namespace Beauty_Care.cartPage
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 Console.WriteLine(ID);
                 AppConnect.modeldb.cart.Remove(
-                    AppConnect.modeldb.cart.Where(x => x.idCart == ID).First());
+                AppConnect.modeldb.cart.Where(x => x.idCart == ID).First());
                 AppConnect.modeldb.SaveChanges();
                 AppFrame.frameMain.GoBack();
                 AppFrame.frameMain.Navigate(new cartPages());
@@ -223,14 +225,28 @@ namespace Beauty_Care.cartPage
         {
             int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
             var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
-            var cartt = Entities.GetContext().cart.FirstOrDefault(o => o.orders.idUsers == idUsers);
-            var cartnew = new ordersManager()
+            var cartItems = Entities.GetContext().cart.Where(c => c.orders.idUsers == idUsers);
+
+            order = new orders()
             {
-                idOrder = order.idOrder,
-                idGoods = cartt.idGoods
+                idUsers = idUsers,
+                idStatus = 1
             };
 
-            Entities.GetContext().ordersManager.Add(cartnew);
+            Entities.GetContext().orders.Add(order);
+            Entities.GetContext().SaveChanges();
+
+            foreach (var cartItem in cartItems)
+            {
+                var cartnew = new ordersManager()
+                {
+                    idOrder = order.idOrder,
+                    idGoods = cartItem.idGoods
+                };
+
+                Entities.GetContext().ordersManager.Add(cartnew);
+            }
+
             Entities.GetContext().SaveChanges();
         }
 

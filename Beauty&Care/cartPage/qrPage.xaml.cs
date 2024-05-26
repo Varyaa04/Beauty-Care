@@ -1,5 +1,6 @@
 ﻿using Aspose.BarCode.Generation;
 using Beauty_Care.goods;
+using Beauty_Care.auth;
 using Beauty_Care.goodsAdmin;
 using System;
 using System.Collections.Generic;
@@ -47,6 +48,11 @@ namespace Beauty_Care.cartPage
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             Environment.Exit(0);
+        }
+
+        private void btnLoginBack_Click(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frameMain.Navigate(new sign_in());
         }
     }
 }
