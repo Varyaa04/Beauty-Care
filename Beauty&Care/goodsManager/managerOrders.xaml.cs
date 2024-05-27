@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,11 +25,9 @@ namespace Beauty_Care.goodsManager
         public managerOrders()
         {
             InitializeComponent();
-
-            ListOrders.ItemsSource = AppConnect.modeldb.ordersManager.GroupBy(x => x.orders.idUsers).ToList();
+            ListOrders.ItemsSource = AppConnect.modeldb.ordersManager.GroupBy(x => x.idOrder).ToList();
 
         }
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new auth.sign_in());
@@ -36,7 +35,18 @@ namespace Beauty_Care.goodsManager
 
         private void btnMore(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new moreOrders((sender as Button).DataContext as ordersManager));
+            Button b = sender as Button;
+            int IDOrder = int.Parse(((b.Parent as StackPanel).Children[1] as TextBlock).Text);
+            ordersManager selectedOrder = Entities.GetContext().ordersManager
+                .FirstOrDefault(om => om.idOrder == IDOrder);
+            if (selectedOrder != null)
+            {
+                AppFrame.frameMain.Navigate(new moreOrders(selectedOrder));
+            }
+            else
+            {
+                MessageBox.Show("Заказ с таким ID не найден.");
+            }
         }
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
@@ -64,5 +74,7 @@ namespace Beauty_Care.goodsManager
         {
             AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
         }
+
+
     }
 }

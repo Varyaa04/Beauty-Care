@@ -1,8 +1,8 @@
 ﻿using Beauty_Care.goods;
+using Org.BouncyCastle.Asn1.X509;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -22,42 +22,72 @@ namespace Beauty_Care.goodsManager
     /// </summary>
     public partial class moreOrders : Page
     {
+        private ordersManager _currentOrders = new ordersManager();
         public moreOrders(ordersManager selectedorder)
         {
-            var curentorderid = selectedorder.idOrderManager;
-            var curentorderuser = selectedorder.orders.idUsers;
-            var curentorderstatus = selectedorder.orders.idStatus;
             InitializeComponent();
+            if (selectedorder != null)
+            {
+                _currentOrders = selectedorder;
+                DataContext = _currentOrders;
 
-            var moreorder = Entities.GetContext().ordersManager
-                               .Where(m => m.idOrder == curentorderid)
-                               .Select(m => m.idGoods)
-                               .ToList();
-            var goodsInorder = Entities.GetContext().beautyGoods
-                                         .Where(x => moreorder.Contains(x.idGoods))
-                                         .ToList();
-            listgoodsorder.ItemsSource = goodsInorder;
+                var currentOrderId = _currentOrders.idOrder;
 
-            var userlogin = Entities.GetContext().users
-                               .FirstOrDefault(s => s.idUser == curentorderuser);
-            labeluser.Content = userlogin.login;
+                var goodsInOrder = Entities.GetContext().beautyGoods
+                    .Where(bg => bg.ordersManager.Any(om => om.idOrder == currentOrderId))
+                    .ToList();
+                listgoodsorder.ItemsSource = goodsInOrder;
 
-            labelId.Content = selectedorder.orders.idUsers;
+                var user = Entities.GetContext().users
+                    .FirstOrDefault(u => u.orders.Any(o => o.idOrder == currentOrderId));
 
-            var statusorder = Entities.GetContext().status
-                               .FirstOrDefault(s => s.idStatus == curentorderstatus);
+                labeluser.Content = user?.nameUser;
+                labelName.Content = user?.nameUser;
+                labelPhone.Content = user?.phone;
+                labelEmai.Content = user?.email;
 
-            labelstatus.Content = statusorder.idStatus;
+                var statusOrder = Entities.GetContext().status
+                    .FirstOrDefault(s => s.orders.Any(o => o.idOrder == currentOrderId));
+                comboStatus.ItemsSource = Entities.GetContext().status.ToList();
+                comboStatus.SelectedValue = statusOrder?.idStatus;
+            }
+            else
+            {
+                _currentOrders = new ordersManager();
+                DataContext = _currentOrders;
+            }
         }
 
-        private void ToOrders_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new managerOrders());
-        }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.GoBack();
+        }
+
+        private void btnChange_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show($"Вы точно хотите поменять статус заказа?", "Внимание",
+                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    int Id = _currentOrders.idOrder;
+                    var StatusToUpdate = AppConnect.modeldb.ordersManager.FirstOrDefault(u => u.idOrder == Id);
+                    if (comboStatus.SelectedItem != null)
+                    {
+                        StatusToUpdate.orders.idStatus = Convert.ToInt32(comboStatus.SelectedIndex + 1);
+
+                        AppConnect.modeldb.SaveChanges();
+                        MessageBox.Show("Статус заказа успешно изменен!",
+                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+
         }
     }
 }

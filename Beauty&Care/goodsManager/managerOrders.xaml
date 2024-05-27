@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Beauty_Care.goodsManager"
       mc:Ignorable="d" 
-       d:DesignHeight="584" d:DesignWidth="1180"
+      d:DesignHeight="584" d:DesignWidth="1180"
       Title="Менеджер"
       Background="#F9C7DE">
 
@@ -21,7 +21,7 @@
             </ListView.RenderTransform>
             <ListView.ItemTemplate >
                 <DataTemplate>
-                    <Grid Width="1100" Background="#7FFFB3D6" Height="216" >
+                    <Grid Width="1100" Background="#7FFFB3D6" Height="221" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="3*"/>
                             <RowDefinition Height="22*"/>
@@ -30,11 +30,11 @@
                             <ColumnDefinition Width="541" />
                             <ColumnDefinition Width="628"/>
                         </Grid.ColumnDefinitions>
-                        <StackPanel Width="auto" Orientation="Vertical" Margin="18,18,0,8" Grid.Row="1">
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left"><Run Text="Пользователь: "/><Run Text="{Binding orders.users.nameUser}"/></TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="39" TextAlignment="Left"><Run Text="Логин: "/><Run Text="{Binding orders.users.login}"/></TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="5,15,0,0" ><Run Text="Товары: " /><Run Text="{Binding beautyGoods.nameGoods}"/></TextBlock>
-
+                        <StackPanel Width="auto" Orientation="Vertical" Margin="18,18,540,0" Grid.Row="1" Grid.ColumnSpan="2" Height="171" VerticalAlignment="Top">
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="36" TextAlignment="Left"><Run Text="Пользователь: "/><Run Text="{Binding orders.users.nameUser}"/></TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="32" TextAlignment="Left"><Run Text="Логин: "/><Run Text="{Binding orders.users.login}"/></TextBlock>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="21" TextAlignment="Left"><Run Text="Роль: "/><Run Text="{Binding orders.users.role.nameRole}"/></TextBlock>
+                            <TextBlock Width="626" TextWrapping="Wrap" Height="auto" Margin="0,15,0,0" ><Run Text="Статус заказа: " /><Run Text="{Binding orders.status.nameStatus}"/></TextBlock>
                         </StackPanel>
                         <StackPanel Margin="51,0,70,15" Grid.RowSpan="2" Grid.Column="1">
                             <TextBlock Text="{Binding idOrderManager}" Visibility="Collapsed" Height="100" Width="22"/>
@@ -49,6 +49,5 @@
         <Label x:Name="txtOrder" Content="Заказы" HorizontalAlignment="Left" Margin="524,-70,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="26"/>
         <Button Content="Назад" HorizontalAlignment="Left" Margin="24,-73,0,0" VerticalAlignment="Top" Height="38" Width="116" Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="Button_Click"/>
         <Button x:Name="btnCatalog" Content="Перейти в каталог" HorizontalAlignment="Left" Margin="900,-70,0,0" VerticalAlignment="Top" Height="38" Width="211" Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="btnCatalog_Click"/>
-
     </Grid>
 </Page>
