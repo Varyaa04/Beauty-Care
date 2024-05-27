@@ -32,8 +32,8 @@ namespace Beauty_Care.goodsAdmin
             }
             DataContext = _currentGoods;
 
-            ComboCategory.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
-            ComboMan.ItemsSource = Entities.GetContext().manufacturer.Select(x => x.namemManufacturer).ToList();
+            ComboCategory.ItemsSource = Entities.GetContext().category.ToList();
+            ComboMan.ItemsSource = Entities.GetContext().manufacturer.ToList();
 
             article.MaxLength = 16;
             nameTB.MaxLength = 30;
@@ -82,9 +82,33 @@ namespace Beauty_Care.goodsAdmin
             }
             try
             {
-                Entities.GetContext().SaveChanges();
-                MessageBox.Show("Данные успешно изменены!","Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                AppFrame.frameMain.GoBack();
+                int goodsId = _currentGoods.idGoods;
+                var goodsToUpdate = AppConnect.modeldb.beautyGoods.FirstOrDefault(u => u.idGoods == goodsId);
+                int stock = Convert.ToInt32(instock.Text);
+                int cost = Convert.ToInt32(price.Text);
+                if (goodsToUpdate != null)
+                {
+                    goodsToUpdate.article = article.Text;
+                    goodsToUpdate.nameGoods = nameTB.Text;
+                    goodsToUpdate.price = cost;
+                    goodsToUpdate.manufacturer = Convert.ToInt32(ComboMan.SelectedIndex + 1);
+                    goodsToUpdate.typeGoods = Convert.ToInt32(ComboType.SelectedIndex + 1);
+                    goodsToUpdate.category = Convert.ToInt32(ComboCategory.SelectedIndex + 1);
+                    goodsToUpdate.instock = stock;
+                    goodsToUpdate.compound = compoundTB.Text;
+                    goodsToUpdate.description = desc.Text;
+                    goodsToUpdate.image = null;
+
+                    AppConnect.modeldb.SaveChanges();
+                    MessageBox.Show("Данные пользователя успешно изменены!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    AppFrame.frameMain.GoBack();
+                }
+                else
+                {
+                    MessageBox.Show("Пользователь не найден!",
+                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
             catch (Exception ex)
             {

@@ -37,7 +37,8 @@ namespace Beauty_Care.goodsAdmin
             passwT.MaxLength = 30;
             loginT.MaxLength = 30;
 
-            ComboRole.ItemsSource = Entities.GetContext().role.Select(x => x.nameRole).ToList();
+            ComboRole.ItemsSource = Entities.GetContext().role.ToList();
+            AppConnect.modeldb.users.ToArray();
 
         }
 
@@ -82,9 +83,27 @@ namespace Beauty_Care.goodsAdmin
                 }
                 try
                 {
-                    Entities.GetContext().SaveChanges();
-                    MessageBox.Show("Данные успешно изменены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                    AppFrame.frameMain.GoBack();
+                    int userId = _currentUser.idUser;
+                    var userToUpdate = AppConnect.modeldb.users.FirstOrDefault(u => u.idUser == userId);
+                    if (userToUpdate != null)
+                    {
+                        userToUpdate.login = loginT.Text;
+                        userToUpdate.nameUser = nameT.Text;
+                        userToUpdate.email = emailT1.Text;
+                        userToUpdate.phone = phoneT.Text;
+                        userToUpdate.password = passwT.Text;
+                        userToUpdate.roleUsers = Convert.ToInt32(ComboRole.SelectedIndex + 1);
+
+                        AppConnect.modeldb.SaveChanges();
+                        MessageBox.Show("Данные пользователя успешно изменены!",
+                            "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                        AppFrame.frameMain.GoBack();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Пользователь не найден!",
+                            "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
                 }
                 catch (Exception ex)
                 {
