@@ -10,7 +10,7 @@
         Background="#F9C7DE">
     <Grid>
         <Button x:Name="btnBack" Content="Назад" Background="#FCB4D5" Foreground="White" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top" Height="50" Width="115" Click="btnBack_Click" FontFamily="Verdana" FontSize="16"/>
-        <Label x:Name="txtOrder" Content="Заказ" HorizontalAlignment="Center" Margin="0,28,0,0" VerticalAlignment="Top" Foreground="White" FontSize="26" FontFamily="Verdana" Width="90"/>
+        <Label x:Name="txtOrder" Content="Заказ" HorizontalAlignment="Center" Margin="0,28,0,0" VerticalAlignment="Top" Foreground="#FF64163A" FontSize="26" FontFamily="Verdana" Width="90" Background="#FFFCB4D5"/>
         <Label x:Name="labeluser" Content="" HorizontalAlignment="Left" Margin="185,102,0,0" VerticalAlignment="Top" Height="39" Width="100" Background="{x:Null}" Panel.ZIndex="1" FontSize="18" FontFamily="Verdana" Foreground="#FF2E073C"/>
         <Label Content="Пользователь" HorizontalAlignment="Left" Margin="38,100,0,0" VerticalAlignment="Top" Panel.ZIndex="1" FontSize="16" FontFamily="Verdana"/>
         <Label x:Name="stLabel" Content="Статус" HorizontalAlignment="Left" Margin="739,106,0,0" VerticalAlignment="Top" Panel.ZIndex="1" FontSize="16" FontFamily="Verdana"/>
@@ -25,19 +25,11 @@
                         <Image Source="{Binding CurrentPhoto}" Grid.Column="0" Margin="0,0,675,35" Grid.ColumnSpan="2"/>
                         <StackPanel Grid.Column="1" Margin="423,0,139,0">
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Width="146" Orientation="Vertical" HorizontalAlignment="Left" Margin="30,31,0,31">
-                            <TextBlock Width="110" TextWrapping="Wrap" Height="98" FontFamily="Verdana" FontSize="14" ><Run Text="Наименование:" /><Run Text=" "/><Run Text="{Binding nameGoods}" TextBlock.FontFamily="Verdana" TextBlock.FontSize="14" /><Run Text=" "/><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
+                        <StackPanel Grid.Column="1" Width="270" Orientation="Vertical" HorizontalAlignment="Left" Margin="30,31,0,31">
+                            <TextBlock Width="245" TextWrapping="Wrap" Height="98" FontFamily="Verdana" FontSize="14" ><Run Text="Наименование:" /><Run Text=" "/><Run Text="{Binding nameGoods}" TextBlock.FontFamily="Verdana" TextBlock.FontSize="14" /><Run Text=" "/><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" ><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
                         </StackPanel>
-                        <StackPanel Grid.Column="1" Width="244" Orientation="Vertical" HorizontalAlignment="Left" Margin="156,31,0,-31">
-                            <TextBlock Width="110" TextWrapping="Wrap" Height="98" FontFamily="Verdana" FontSize="14" Margin="0,0,0,35" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                        <Run Text="Описание:"/>
-                        <Run Text="{Binding description}"/>
-                        <Run Text=" "/>
-                        <Run Text=" "/>
-                            </TextBlock>
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" ><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
-                        </StackPanel>
+                        <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" ><Run Text=" "/><Run Text=" "/><Run Text=" "/></TextBlock>
                         <StackPanel Grid.Column="1" Width="138" Orientation="Vertical" HorizontalAlignment="Left" Margin="423,31,0,-31">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" FontFamily="Verdana" FontSize="14" Margin="0,0,0,35" HorizontalAlignment="Center" VerticalAlignment="Center" >
                <Run Text="Цена: "/> 

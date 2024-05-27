@@ -112,10 +112,9 @@ namespace Beauty_Care.goodsAdmin
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Вы точно хотите удалить выбранный товар из заказа?", "Подтверждение удаления",
+            if (MessageBox.Show("Вы точно хотите удалить выбранного пользователя?", "Подтверждение удаления",
                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-
                 ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
@@ -124,8 +123,9 @@ namespace Beauty_Care.goodsAdmin
                     AppConnect.modeldb.beautyGoods.Where(x => x.idGoods == ID).First());
                 AppConnect.modeldb.SaveChanges();
                 AppFrame.frameMain.GoBack();
-                AppFrame.frameMain.Navigate(new beautyGoodsAdmin((sender as Button).DataContext as users));
+                AppFrame.frameMain.Navigate(new UsersPage());
             }
+
         }
         
         private void buttonReset_Click(object sender, RoutedEventArgs e)

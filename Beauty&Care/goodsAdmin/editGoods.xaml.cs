@@ -46,77 +46,85 @@ namespace Beauty_Care.goodsAdmin
             AppFrame.frameMain.GoBack();
         }
 
-        private void save_Click(object sender, RoutedEventArgs e)
+        private void ShowError(string message)
+        {
+            MessageBox.Show(message, "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private bool ValidateFields()
         {
             StringBuilder errors = new StringBuilder();
-            if (string.IsNullOrEmpty(_currentGoods.article))
-            {
-                errors.AppendLine("Введите артикль");
 
-            }
-            else if (instock.Text == "")
-            {
-                MessageBox.Show("Введите значение 'в наличии'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
-            }
-            if (nameTB.Text == "")
-            {
-                MessageBox.Show("Введите наименование товара!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
-            }
-            else if (compoundTB.Text == "")
-            {
-                MessageBox.Show("Введите состав продукта!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
-            }
-            else if (price.Text == "")
-            {
-                MessageBox.Show("Введите значение 'Цена'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error); return;
-            }
-            else
+            if (string.IsNullOrEmpty(_currentGoods.article))
+                errors.AppendLine("Введите артикль.");
+            if (string.IsNullOrEmpty(instock.Text))
+                errors.AppendLine("Введите значение 'в наличии'.");
+            if (string.IsNullOrEmpty(nameTB.Text))
+                errors.AppendLine("Введите наименование товара.");
+            if (string.IsNullOrEmpty(compoundTB.Text))
+                errors.AppendLine("Введите состав продукта.");
+            if (string.IsNullOrEmpty(price.Text))
+                errors.AppendLine("Введите значение 'Цена'.");
+            if (ComboCategory.SelectedIndex == -1)
+                errors.AppendLine("Выберите категорию.");
+            if (ComboMan.SelectedIndex == -1)
+                errors.AppendLine("Выберите производителя.");
+            if (ComboType.SelectedIndex == -1)
+                errors.AppendLine("Выберите тип продукта.");
+
             if (errors.Length > 0)
             {
-                MessageBox.Show(errors.ToString());
-                return;
+                ShowError(errors.ToString());
+                return false;
             }
-            if (_currentGoods.idGoods == 0)
-            {
-                Entities.GetContext().beautyGoods.Add(_currentGoods);
-            }
+            return true;
+        }
+
+        private void SaveGoods()
+        {
+            if (!ValidateFields()) return;
+
             try
             {
                 int goodsId = _currentGoods.idGoods;
                 var goodsToUpdate = AppConnect.modeldb.beautyGoods.FirstOrDefault(u => u.idGoods == goodsId);
                 int stock = Convert.ToInt32(instock.Text);
                 int cost = Convert.ToInt32(price.Text);
+
                 if (goodsToUpdate != null)
                 {
                     goodsToUpdate.article = article.Text;
                     goodsToUpdate.nameGoods = nameTB.Text;
                     goodsToUpdate.price = cost;
-                    goodsToUpdate.manufacturer = Convert.ToInt32(ComboMan.SelectedIndex + 1);
-                    goodsToUpdate.typeGoods = Convert.ToInt32(ComboType.SelectedIndex + 1);
-                    goodsToUpdate.category = Convert.ToInt32(ComboCategory.SelectedIndex + 1);
+                    goodsToUpdate.manufacturer = ComboMan.SelectedIndex + 1;
+                    goodsToUpdate.typeGoods = ComboType.SelectedIndex + 1;
+                    goodsToUpdate.category = ComboCategory.SelectedIndex + 1;
                     goodsToUpdate.instock = stock;
                     goodsToUpdate.compound = compoundTB.Text;
                     goodsToUpdate.description = desc.Text;
                     goodsToUpdate.image = null;
 
                     AppConnect.modeldb.SaveChanges();
-                    MessageBox.Show("Данные пользователя успешно изменены!",
-                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Данные пользователя успешно изменены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
                     AppFrame.frameMain.GoBack();
                 }
                 else
                 {
-                    MessageBox.Show("Пользователь не найден!",
-                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                    ShowError("Пользователь не найден!");
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                MessageBox.Show("Ошибка: " + ex.Message, "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-        }
 
+        }
+        private void save_Click(object sender, RoutedEventArgs e)
+        { 
+            SaveGoods();
+        }
+          
         private void ComboCategory_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 

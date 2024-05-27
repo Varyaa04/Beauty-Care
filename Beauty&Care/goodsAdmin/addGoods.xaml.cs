@@ -34,69 +34,80 @@ namespace Beauty_Care.goodsAdmin
 
         }
 
+        private void ShowError(string message)
+        {
+            MessageBox.Show(message, "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        private bool ValidateFields()
+        {
+            if (AppConnect.modeldb.beautyGoods.Any(x => x.article == article.Text))
+            {
+                ShowError("Товар с таким артиклем существует!");
+                return false;
+            }
+            if (string.IsNullOrEmpty(article.Text))
+            {
+                ShowError("Введите значение 'артикль'!");
+                return false;
+            }
+            if (string.IsNullOrEmpty(instock.Text))
+            {
+                ShowError("Введите значение 'в наличии'!");
+                return false;
+            }
+            if (string.IsNullOrEmpty(nameTB.Text))
+            {
+                ShowError("Введите наименование товара!");
+                return false;
+            }
+            if (string.IsNullOrEmpty(compoundTB.Text))
+            {
+                ShowError("Введите состав продукта!");
+                return false;
+            }
+            if (string.IsNullOrEmpty(price.Text))
+            {
+                ShowError("Введите значение 'Цена'!");
+                return false;
+            }
+            return true;
+        }
+
+        private beautyGoods CreateGoodsObject()
+        {
+            return new beautyGoods()
+            {
+                article = article.Text,
+                nameGoods = nameTB.Text,
+                price = Convert.ToInt32(price.Text),
+                manufacturer = ComboMan.SelectedIndex + 1,
+                typeGoods = ComboType.SelectedIndex + 1,
+                category = ComboCategory.SelectedIndex + 1,
+                instock = Convert.ToInt32(instock.Text),
+                compound = compoundTB.Text,
+                description = desc.Text,
+                image = null
+            };
+        }
+
         private void save_Click(object sender, RoutedEventArgs e)
         {
-            if (AppConnect.modeldb.beautyGoods.Count(x => x.article == article.Text) > 0)
-            {
-                MessageBox.Show("Товар с таким артиклем существует!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else if (article.Text == "")
-            {
-                MessageBox.Show("Введите значение 'артикль'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else if (instock.Text == "")
-            {
-                MessageBox.Show("Введите значение 'в наличии'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (nameTB.Text == "")
-            {
-                MessageBox.Show("Введите наименование товара!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else if (compoundTB.Text == "")
-            {
-                MessageBox.Show("Введите состав продукта!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else if (price.Text == "")
-            {
-                MessageBox.Show("Введите значение 'Цена'!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else
-            {
-                int stock = Convert.ToInt32(instock.Text);
-                int cost = Convert.ToInt32(price.Text);
-                try
-                {
-                    beautyGoods goodsobj = new beautyGoods()
-                    {
-                        article = article.Text,
-                        nameGoods = nameTB.Text,
-                        price = cost,
-                        manufacturer = Convert.ToInt32(ComboMan.SelectedIndex + 1),
-                        typeGoods = Convert.ToInt32(ComboType.SelectedIndex + 1),
-                        category = Convert.ToInt32(ComboCategory.SelectedIndex + 1),
-                        instock = stock,
-                        compound = compoundTB.Text,
-                        description = desc.Text,
-                        image = null
-                    }; 
-                    AppConnect.modeldb.beautyGoods.Add(goodsobj);
-                    AppConnect.modeldb.SaveChanges();
-                    MessageBox.Show("Товар успешно добавлен!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                    AppFrame.frameMain.GoBack();
-                }
-                catch
-                {
-                    MessageBox.Show("Ошибка при добавлении данных!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                }
-            }
+            if (!ValidateFields()) return;
 
+            beautyGoods goodsobj = CreateGoodsObject();
+            AppConnect.modeldb.beautyGoods.Add(goodsobj);
 
+            try
+            {
+                AppConnect.modeldb.SaveChanges();
+                MessageBox.Show("Товар успешно добавлен!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                AppFrame.frameMain.GoBack();
+            }
+            catch (Exception ex)
+            {
+                ShowError("Ошибка при добавлении данных: " + ex.Message);
+            }
         }
 
         private void BGoBackbutton_Click(object sender, RoutedEventArgs e)

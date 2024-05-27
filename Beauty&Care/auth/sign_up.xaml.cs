@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Text.RegularExpressions;
 
 namespace Beauty_Care.auth
 {
@@ -24,11 +25,11 @@ namespace Beauty_Care.auth
         users user = new users();
         public sign_up()
         {
-            InitializeComponent();
-            inputPhone.MaxLength = 11;
-            inputName.MaxLength = 25;
-            inputPsw.MaxLength = 30;
-            inputLogin.MaxLength = 30;
+                InitializeComponent();
+                inputPhone.MaxLength = 12;
+                inputName.MaxLength = 25;
+                inputPsw.MaxLength = 30;
+                inputLogin.MaxLength = 30;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -38,81 +39,65 @@ namespace Beauty_Care.auth
 
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
-            if(AppConnect.modeldb.users.Count(x => x.login==inputLogin.Text && x.email==inputEmail.Text) > 0)
+            try
             {
-                MessageBox.Show("Пользователь с таким логином и email'ом есть!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            if(inputPhone.Text.Length != 11 || string.IsNullOrWhiteSpace(user.phone))
-            {
-                MessageBox.Show("Номер телефона состоит из 11 цифр!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(user.login))
-            {
-                MessageBox.Show("Введите логин!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(user.nameUser))
-            {
-                MessageBox.Show("Введите имя!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(user.password))
-            {
-                MessageBox.Show("Введите пароль!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(user.email))
-            {
-                MessageBox.Show("Введите почту!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (inputEmail.Text.Contains("@") )
-            {
-                try
+                if (AppConnect.modeldb.users.Any(x => x.login == inputLogin.Text && x.email == inputEmail.Text))
                 {
-                    users userObj = new users()
-                    {
-                        login = inputLogin.Text,
-                        nameUser = inputName.Text,
-                        email = inputEmail.Text,
-                        phone = inputPhone.Text,
-                        password = inputPsw.Text,
-                        roleUsers = 2
-                    };
-                    AppConnect.modeldb.users.Add(userObj);
-                    AppConnect.modeldb.SaveChanges();
-                    MessageBox.Show("Вы успешно зарегистрировались!",
-                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
-                    AppFrame.frameMain.GoBack();
+                    MessageBox.Show("Пользователь с таким логином и email'ом уже существует!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
-                catch
-                {
-                    MessageBox.Show("Ошибка при регистрации!!",
-                        "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
 
+                string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+                if (string.IsNullOrWhiteSpace(inputPhone.Text) || inputPhone.Text.Length < 12)
+                {
+                    MessageBox.Show("Номер телефона должен быть в формате +7XXXXXXXXXX!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }
+
+                if (!Regex.IsMatch(inputEmail.Text, emailPattern))
+                {
+                    MessageBox.Show("Введите корректный email!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(inputLogin.Text) ||
+                    string.IsNullOrWhiteSpace(inputName.Text) ||
+                    string.IsNullOrWhiteSpace(inputPsw.Text))
+                {
+                    MessageBox.Show("Все поля должны быть заполнены!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                users userObj = new users()
+                {
+                    login = inputLogin.Text,
+                    nameUser = inputName.Text,
+                    email = inputEmail.Text,
+                    phone = inputPhone.Text,
+                    password = inputPsw.Text,
+                    roleUsers = 2
+                };
+                AppConnect.modeldb.users.Add(userObj);
+                AppConnect.modeldb.SaveChanges();
+                MessageBox.Show("Вы успешно зарегистрировались!",
+                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
+                AppFrame.frameMain.GoBack();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Введите почту со специальным символом!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+                MessageBox.Show("Ошибка при регистрации: " + ex.Message,
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            
         }
 
         private void inputPswrepeat_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if(inputPsw.Text != inputPswrepeat.Password)
+            if (inputPsw.Text != inputPswrepeat.Password)
             {
                 btnRegister.IsEnabled = false;
                 inputPswrepeat.Background = Brushes.LightCoral;
@@ -148,6 +133,20 @@ namespace Beauty_Care.auth
         private void inputLogin_TouchEnter(object sender, TouchEventArgs e)
         {
 
+        }
+
+        private void inputPhone_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!inputPhone.Text.StartsWith("+7"))
+            {
+                inputPhone.TextChanged -= inputPhone_TextChanged;
+                var currentText = inputPhone.Text;
+                inputPhone.Text = "+7" + currentText.TrimStart('+', '7');
+
+                inputPhone.TextChanged += inputPhone_TextChanged;
+
+                inputPhone.SelectionStart = inputPhone.Text.Length;
+            }
         }
     }
 }

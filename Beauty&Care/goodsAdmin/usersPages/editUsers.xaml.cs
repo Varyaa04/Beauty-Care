@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -32,7 +33,7 @@ namespace Beauty_Care.goodsAdmin
             }
             DataContext = _currentUser;
 
-            phoneT.MaxLength = 11;
+            phoneT.MaxLength = 12;
             nameT.MaxLength = 25;
             passwT.MaxLength = 30;
             loginT.MaxLength = 30;
@@ -45,33 +46,33 @@ namespace Beauty_Care.goodsAdmin
 
         private void save_Click(object sender, RoutedEventArgs e)
         {
-            if (phoneT.Text.Length != 11 || string.IsNullOrWhiteSpace(_currentUser.phone))
+            string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+            if (string.IsNullOrWhiteSpace(phoneT.Text) || phoneT.Text.Length < 12)
             {
-                MessageBox.Show("Номер телефона состоит из 11 цифр!",
+                MessageBox.Show("Номер телефона должен быть в формате +7XXXXXXXXXX!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (string.IsNullOrWhiteSpace(_currentUser.login))
+
+            if (!Regex.IsMatch(emailT1.Text, emailPattern))
             {
-                MessageBox.Show("Введите логин!",
+                MessageBox.Show("Введите корректный email!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (string.IsNullOrWhiteSpace(_currentUser.nameUser))
+
+            if (string.IsNullOrWhiteSpace(loginT.Text) ||
+                string.IsNullOrWhiteSpace(nameT.Text) ||
+                string.IsNullOrWhiteSpace(passwT.Text))
             {
-                MessageBox.Show("Введите имя!",
+                MessageBox.Show("Все поля должны быть заполнены!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            if (string.IsNullOrWhiteSpace(_currentUser.password))
+            if (ComboRole.SelectedIndex == -1)
             {
-                MessageBox.Show("Введите пароль!",
-                    "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            if (string.IsNullOrWhiteSpace(_currentUser.email))
-            {
-                MessageBox.Show("Введите почту!",
+                MessageBox.Show("Выберите роль!",
                     "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
@@ -143,6 +144,20 @@ namespace Beauty_Care.goodsAdmin
         private void BGoBackbutton_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.GoBack();
+        }
+
+        private void phoneT_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (!phoneT.Text.StartsWith("+7"))
+            {
+                phoneT.TextChanged -= phoneT_TextChanged;
+                var currentText = phoneT.Text;
+                phoneT.Text = "+7" + currentText.TrimStart('+', '7');
+
+                phoneT.TextChanged += phoneT_TextChanged;
+
+                phoneT.SelectionStart = phoneT.Text.Length;
+            }
         }
     }
 }

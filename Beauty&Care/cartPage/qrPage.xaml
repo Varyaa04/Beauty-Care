@@ -13,6 +13,5 @@
         <Button x:Name="btnBack" Content="Выйти" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" HorizontalAlignment="Left" Margin="995,29,0,0" VerticalAlignment="Top" Height="41" Width="136" Click="btnBack_Click"/>
         <Image x:Name="img" HorizontalAlignment="Left" Height="441" Margin="360,87,0,0" VerticalAlignment="Top" Width="441"/>
         <Label Content="QR-code заказа" HorizontalAlignment="Center" Margin="0,37,0,0" VerticalAlignment="Top" Width="192" FontFamily="Verdana" FontSize="22"/>
-        <Button x:Name="btnLoginBack" Content="Выйти в главное меню" Background="#FCB4D5" Foreground="White" FontSize="16" FontFamily="Verdana" HorizontalAlignment="Left" Margin="34,29,0,0" VerticalAlignment="Top" Height="41" Width="236" Click="btnLoginBack_Click"/>
     </Grid>
 </Page>

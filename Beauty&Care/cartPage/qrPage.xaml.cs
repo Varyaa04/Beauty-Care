@@ -50,9 +50,6 @@ namespace Beauty_Care.cartPage
             Environment.Exit(0);
         }
 
-        private void btnLoginBack_Click(object sender, RoutedEventArgs e)
-        {
-            AppFrame.frameMain.Navigate(new sign_in());
-        }
+        
     }
 }
