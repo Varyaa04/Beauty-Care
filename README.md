@@ -17,7 +17,7 @@
 Эта структура позволит эффективно управлять всей информацией об уходовых средствах :)
 ---
 Диаграмма БД :
-![image](https://github.com/Varyaa04/Beauty-Care/assets/123052378/9409dd93-d49c-4351-bfe2-c48e55dd1700)
+![image](https://github.com/Varyaa04/Beauty-Care/assets/123052378/65d48093-6fdb-42d8-b954-692f016c6fc1)
 
 Заполненная главная таблица с товарами:
 ![image](https://github.com/Varyaa04/Beauty-Care/assets/123052378/11c5169a-4bf9-4e59-8940-1d1cc988e7d7)
