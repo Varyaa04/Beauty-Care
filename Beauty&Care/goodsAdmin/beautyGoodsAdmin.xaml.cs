@@ -128,14 +128,6 @@ namespace Beauty_Care.goodsAdmin
 
         }
         
-        private void buttonReset_Click(object sender, RoutedEventArgs e)
-        {
-            textboxSearch.Text = string.Empty;
-            comboFilter.SelectedIndex = -1;
-            comboSort.SelectedIndex = -1;
-            findGoods();
-        }
-
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.Navigate(new addGoods());
@@ -225,6 +217,25 @@ namespace Beauty_Care.goodsAdmin
 
         private void comboFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            findGoods();
+        }
+
+        private void buttonResetSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+            textboxSearch.Text = string.Empty;
+            findGoods();
+        }
+
+        private void buttonResetFilter_Click(object sender, RoutedEventArgs e)
+        {
+            comboFilter.SelectedIndex = -1;
+            findGoods();
+        }
+
+        private void buttonResetSort_Click(object sender, RoutedEventArgs e)
+        {
+            comboSort.SelectedIndex = -1;
             findGoods();
         }
     }

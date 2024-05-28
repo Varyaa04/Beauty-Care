@@ -128,14 +128,6 @@ namespace Beauty_Care.goods
             findGoods();
         }
 
-        private void buttonReset_Click(object sender, RoutedEventArgs e)
-        {
-            textboxSearch.Text = string.Empty;
-            comboFilter.SelectedIndex = -1;
-            comboSort.SelectedIndex = -1;
-            findGoods();
-        }
-
         private void addBasket_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -186,5 +178,25 @@ namespace Beauty_Care.goods
         {
             AppFrame.frameMain.Navigate(new cartPages());
         }
+
+        private void buttonResetSearch_Click(object sender, RoutedEventArgs e)
+        {
+
+            textboxSearch.Text = string.Empty;
+            findGoods();
+        }
+
+        private void buttonResetFilter_Click(object sender, RoutedEventArgs e)
+        {
+            comboFilter.SelectedIndex = -1;
+            findGoods();
+        }
+
+        private void buttonResetSort_Click(object sender, RoutedEventArgs e)
+        {
+            comboSort.SelectedIndex = -1;
+            findGoods();
+        }
+
     }
 }

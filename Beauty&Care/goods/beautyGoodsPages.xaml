@@ -70,19 +70,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="289,-77,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="265" Foreground="#FF9E275D" Grid.Column="2"/>
-        <TextBox x:Name="textboxSearch" HorizontalAlignment="Left" Margin="30,-54,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="27" TextChanged="TextBox_TextChanged" FontSize="14"/>
-        <ComboBox x:Name="comboSort" HorizontalAlignment="Left" Margin="348,-85,0,0" VerticalAlignment="Top" Width="190"  RenderTransformOrigin="0.5,0.5" SelectionChanged="comboSort_SelectionChanged" FontSize="14" Background="#FF9E275D" Foreground="#FF9E275D" BorderBrush="#FFFCB4D5" OpacityMask="#FFBF5050" Grid.ColumnSpan="2">
-            <ComboBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="2.579"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="-0.495"/>
-                </TransformGroup>
-            </ComboBox.RenderTransform>
+        <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="294,-54,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="265" Foreground="#FF9E275D" Grid.Column="2"/>
+        <TextBox x:Name="textboxSearch" HorizontalAlignment="Left" Margin="20,-66,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="27" TextChanged="TextBox_TextChanged" FontSize="16" FontFamily="Verdana"/>
+        <ComboBox x:Name="comboSort" HorizontalAlignment="Left" Margin="65,-94,0,0" VerticalAlignment="Top" Width="190"  RenderTransformOrigin="0.5,0.5" SelectionChanged="comboSort_SelectionChanged" FontSize="16" Background="#FF9E275D" Foreground="#FF9E275D" BorderBrush="#FFFCB4D5" OpacityMask="#FFBF5050" Grid.ColumnSpan="2" Grid.Column="1" FontFamily="Verdana">
         </ComboBox>
-        <ComboBox x:Name="comboFilter" HorizontalAlignment="Left" Margin="350,-45,0,0" VerticalAlignment="Top" Width="190" FontSize="14" BorderBrush="#FFFCB4D5" Foreground="#FF9E275D" Grid.ColumnSpan="2" SelectionChanged="comboFilter_SelectionChanged">
+        <ComboBox x:Name="comboFilter" HorizontalAlignment="Left" Margin="65,-44,0,0" VerticalAlignment="Top" Width="190" FontSize="16" BorderBrush="#FFFCB4D5" Foreground="#FF9E275D" Grid.ColumnSpan="2" SelectionChanged="comboFilter_SelectionChanged" Grid.Column="1" FontFamily="Verdana">
             <ComboBox.Background>
                 <LinearGradientBrush EndPoint="0,1">
                     <GradientStop Color="#FFF0F0F0"/>
@@ -90,10 +82,13 @@
                 </LinearGradientBrush>
             </ComboBox.Background>
         </ComboBox>
-        <TextBlock x:Name="tbSearch" HorizontalAlignment="Left" Margin="30,-82,0,0" TextWrapping="Wrap" Text="Поиск по названию:" VerticalAlignment="Top" FontSize="16"/>
-        <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="242,-86,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top" FontSize="16"/>
-        <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="241,-48,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top" FontSize="16"/>
-        <Button x:Name="buttonReset" Content="Сбросить" HorizontalAlignment="Left" Margin="130,-73,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonReset_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="1" Grid.ColumnSpan="2"/>
-        <Button x:Name="btnCart" Grid.Column="2" Content="Корзина" HorizontalAlignment="Left" Margin="104,-75,0,0" VerticalAlignment="Top" Height="32" Width="85"  Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="btnCart_Click" />
+        <TextBlock x:Name="tbSearch" HorizontalAlignment="Left" Margin="20,-94,0,0" TextWrapping="Wrap" Text="Поиск по названию:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>
+        <TextBlock x:Name="tbSort" HorizontalAlignment="Left" Margin="384,-98,0,0" TextWrapping="Wrap" Text="Сортировка:" VerticalAlignment="Top" FontSize="16" Grid.ColumnSpan="2" FontFamily="Verdana" RenderTransformOrigin="0.488,0.103"/>
+        <TextBlock x:Name="tbFilter" HorizontalAlignment="Left" Margin="383,-48,0,0" TextWrapping="Wrap" Text="Фильтрация:" VerticalAlignment="Top" FontSize="16" Grid.ColumnSpan="2" FontFamily="Verdana"/>
+        <Button x:Name="buttonResetSort" Content="Сбросить" HorizontalAlignment="Left" Margin="124,-98,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonResetSort_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="2" FontFamily="Verdana"/>
+        <Button x:Name="btnCart" Grid.Column="2" Content="Корзина" HorizontalAlignment="Left" Margin="426,-108,0,0" VerticalAlignment="Top" Height="39" Width="116"  Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="btnCart_Click" />
+        <Button x:Name="buttonResetFilter" Content="Сбросить" HorizontalAlignment="Left" Margin="124,-49,0,0" VerticalAlignment="Top" Height="30" Width="95" Click="buttonResetFilter_Click" FontSize="16"  Background="#FCB4D5" Foreground="White" Grid.Column="2" FontFamily="Verdana"/>
+        <Button x:Name="buttonResetSearch" Content="Сбросить" HorizontalAlignment="Left" Margin="230,-68,0,0" VerticalAlignment="Top" Height="30" Width="95" FontSize="16"  Background="#FCB4D5" Foreground="White" Click="buttonResetSearch_Click"/>
+
     </Grid>
 </Page>

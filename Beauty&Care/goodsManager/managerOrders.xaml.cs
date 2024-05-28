@@ -75,6 +75,13 @@ namespace Beauty_Care.goodsManager
             AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
         }
 
-
+        private void Page_IsVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+            if (Visibility == Visibility.Visible)
+            {
+                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                ListOrders.ItemsSource = Entities.GetContext().ordersManager.GroupBy(x => x.idOrder).ToList();
+            }
+        }
     }
 }

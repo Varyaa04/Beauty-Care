@@ -47,7 +47,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <Label x:Name="labelGoods" Content="Товары:" HorizontalAlignment="Left" Margin="22,154,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>
-        <ComboBox x:Name="comboStatus" SelectedItem="{Binding orders.idStatus}" DisplayMemberPath="nameStatus" HorizontalAlignment="Left" Margin="845,111,0,0" VerticalAlignment="Top" Width="180" Height="30" FontFamily="Verdana" FontSize="16"/>
+        <ComboBox x:Name="comboStatus" ItemsSource="{Binding status}" SelectedValue="{Binding orders.idStatus}" SelectedValuePath="idStatus" DisplayMemberPath="nameStatus" HorizontalAlignment="Left" Margin="845,111,0,0" VerticalAlignment="Top" Width="180" Height="30" FontFamily="Verdana" FontSize="16"/>
         <Button x:Name="btnChange" Content="Изменить" HorizontalAlignment="Left" Background="#FCB4D5" Margin="1060,102,0,0" VerticalAlignment="Top" Height="40" Width="90" FontFamily="Verdana" FontSize="16" Foreground="White" Click="btnChange_Click"/>
         <Label x:Name="labelName" Content="" HorizontalAlignment="Left" Margin="985,265,0,0" VerticalAlignment="Top" Height="39" Width="185" Background="{x:Null}" Panel.ZIndex="1" FontSize="16" FontFamily="Verdana"/>
         <Label Content="Имя пользователя:" HorizontalAlignment="Left" Margin="788,270,0,0" VerticalAlignment="Top" Panel.ZIndex="1" FontSize="16" FontFamily="Verdana"/>

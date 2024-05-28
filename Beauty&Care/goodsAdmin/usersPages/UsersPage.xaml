@@ -70,8 +70,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button x:Name="btnAdd" Content="Добавить нового пользователя" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="898,-91,0,0" VerticalAlignment="Top" Height="38" Width="202" Click="btnAdd_Click"/>
-        <Button x:Name="btnBack" Content="Назад" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="28,-91,0,0" VerticalAlignment="Top" Height="37" Width="112" Click="btnBack_Click"/>
-
+        <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="875,-48,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="265" Foreground="#FF9E275D"/>
+        <Button x:Name="btnAdd" Content="Добавить нового пользователя" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="843,-100,0,0" VerticalAlignment="Top" Height="38" Width="297" Click="btnAdd_Click" FontFamily="Verdana" FontSize="16"/>
+        <Button x:Name="btnBack" Content="Назад" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="28,-91,0,0" VerticalAlignment="Top" Height="37" Width="112" Click="btnBack_Click" FontFamily="Verdana" FontSize="16"/>
+        <TextBox x:Name="textboxSearch" HorizontalAlignment="Left" Margin="255,-86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="28" TextChanged="TextBox_TextChanged" FontSize="16" FontFamily="Verdana"/>
+        <Button x:Name="buttonResetSearch" Content="Сбросить" HorizontalAlignment="Left" Margin="475,-88,0,0" VerticalAlignment="Top" Height="30" Width="95" FontSize="16"  Background="#FCB4D5" Foreground="White" Click="buttonResetSearch_Click"/>
+        <TextBlock x:Name="tbSearch" HorizontalAlignment="Left" Margin="199,-110,0,0" TextWrapping="Wrap" Text="Поиск по логину:" VerticalAlignment="Top" FontSize="16" FontFamily="Verdana"/>
     </Grid>
 </Page>

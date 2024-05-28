@@ -26,7 +26,18 @@ namespace Beauty_Care.goodsAdmin.usersPages
         public UsersPage()
         {
             InitializeComponent();
-            ListUsers.ItemsSource = AppConnect.modeldb.users.ToList();
+            List<users> usersL = AppConnect.modeldb.users.ToList();
+
+            ListUsers.ItemsSource = usersL;
+
+            if (usersL.Count > 0)
+            {
+                tbCounter.Text = "Найдено " + usersL.Count + " пользователей";
+            }
+            else
+            {
+                tbCounter.Text = "Ничего не найдено";
+            }
         }
 
         private void pageVisible(object sender, DependencyPropertyChangedEventArgs e)
@@ -96,6 +107,36 @@ namespace Beauty_Care.goodsAdmin.usersPages
                     MessageBox.Show(ex.Message.ToString());
                 }
             }
+        }
+
+        public void findUsers()
+        {
+            List<users> user = AppConnect.modeldb.users.ToList();
+
+            if (textboxSearch != null)
+            {
+                user = user.Where(x => x.login.ToLower().Contains(textboxSearch.Text.ToLower())).ToList();
+            }
+
+            if (user.Count > 0)
+            {
+                tbCounter.Text = "Найдено " + user.Count + " пользователей";
+            }
+            else
+            {
+                tbCounter.Text = "Ничего не найдено";
+            }
+            ListUsers.ItemsSource = user;
+        }
+        private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            findUsers();
+        }
+
+        private void buttonResetSearch_Click(object sender, RoutedEventArgs e)
+        {
+            textboxSearch.Text = string.Empty;
+            findUsers();
         }
     }
 }
