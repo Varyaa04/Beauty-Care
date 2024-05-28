@@ -25,11 +25,11 @@ namespace Beauty_Care.auth
         users user = new users();
         public sign_up()
         {
-                InitializeComponent();
-                inputPhone.MaxLength = 12;
-                inputName.MaxLength = 25;
-                inputPsw.MaxLength = 30;
-                inputLogin.MaxLength = 30;
+            InitializeComponent();
+            inputPhone.MaxLength = 12;
+            inputName.MaxLength = 25;
+            inputPsw.MaxLength = 30;
+            inputLogin.MaxLength = 30;
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -48,22 +48,6 @@ namespace Beauty_Care.auth
                     return;
                 }
 
-                string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
-
-                if (string.IsNullOrWhiteSpace(inputPhone.Text) || inputPhone.Text.Length < 12)
-                {
-                    MessageBox.Show("Номер телефона должен быть в формате +7XXXXXXXXXX!",
-                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
-                if (!Regex.IsMatch(inputEmail.Text, emailPattern))
-                {
-                    MessageBox.Show("Введите корректный email!",
-                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return;
-                }
-
                 if (string.IsNullOrWhiteSpace(inputLogin.Text) ||
                     string.IsNullOrWhiteSpace(inputName.Text) ||
                     string.IsNullOrWhiteSpace(inputPsw.Text))
@@ -72,6 +56,26 @@ namespace Beauty_Care.auth
                         "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
+
+
+                string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+                if (!Regex.IsMatch(inputEmail.Text, emailPattern))
+                {
+                    MessageBox.Show("Введите корректный email!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+                if (string.IsNullOrWhiteSpace(inputPhone.Text) || inputPhone.Text.Length < 12)
+                {
+                    MessageBox.Show("Номер телефона должен быть в формате +7XXXXXXXXXX!",
+                        "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+
+
+
 
                 users userObj = new users()
                 {
@@ -120,6 +124,11 @@ namespace Beauty_Care.auth
             else
             {
             }
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                inputEmail.Focus();
+            }
         }
 
         private void inputPhone_KeyDown(object sender, KeyEventArgs e)
@@ -128,12 +137,13 @@ namespace Beauty_Care.auth
             {
                 e.Handled = true;
             }
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                inputPsw.Focus();
+            }
         }
 
-        private void inputLogin_TouchEnter(object sender, TouchEventArgs e)
-        {
-
-        }
 
         private void inputPhone_TextChanged(object sender, TextChangedEventArgs e)
         {
@@ -146,6 +156,38 @@ namespace Beauty_Care.auth
                 inputPhone.TextChanged += inputPhone_TextChanged;
 
                 inputPhone.SelectionStart = inputPhone.Text.Length;
+            }
+        }
+
+        private void inputLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                inputName.Focus();
+            }
+        }
+
+        private void inputEmail_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                inputPhone.Focus();
+            }
+        }
+
+        private void inputPsw_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                inputPswrepeat.Focus();
+            }
+        }
+
+        private void inputPswrepeat_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                btnRegister.Focus();
             }
         }
     }

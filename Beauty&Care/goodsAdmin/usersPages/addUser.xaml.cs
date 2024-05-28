@@ -121,8 +121,10 @@ namespace Beauty_Care.goodsAdmin.usersPages
             {
                 e.Handled = true;
             }
-            else
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
             {
+                passwT.Focus();
             }
         }
 
@@ -150,6 +152,43 @@ namespace Beauty_Care.goodsAdmin.usersPages
                 phoneT.TextChanged += phoneT_TextChanged;
 
                 phoneT.SelectionStart = phoneT.Text.Length;
+            }
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                emailT1.Focus();
+            }
+        }
+
+        private void loginT_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                nameT.Focus();
+            }
+        }
+
+        private void passwT_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                ComboRole.Focus();
+            }
+        }
+
+        private void ComboRole_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                phoneT.Focus();
+            }
+        }
+
+        private void emailT1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                save.Focus();
             }
         }
     }

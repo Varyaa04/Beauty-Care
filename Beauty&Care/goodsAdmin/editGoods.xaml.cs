@@ -157,6 +157,11 @@ namespace Beauty_Care.goodsAdmin
             {
                 e.Handled = true;
             }
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                nameTB.Focus();
+            }
         }
 
         private void nameTB_KeyDown(object sender, KeyEventArgs e)
@@ -164,6 +169,11 @@ namespace Beauty_Care.goodsAdmin
             if ((e.Key < Key.A || e.Key > Key.Z) && e.Key != Key.Back)
             {
                 e.Handled = true;
+            }
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                ComboCategory.Focus();
             }
         }
 
@@ -173,6 +183,11 @@ namespace Beauty_Care.goodsAdmin
             {
                 e.Handled = true;
             }
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                price.Focus();
+            }
         }
 
         private void price_KeyDown(object sender, KeyEventArgs e)
@@ -180,6 +195,51 @@ namespace Beauty_Care.goodsAdmin
             if ((e.Key < Key.D0 || e.Key > Key.D9) && e.Key != Key.Back)
             {
                 e.Handled = true;
+            }
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                ComboType.Focus();
+            }
+        }
+
+        private void ComboCategory_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                instock.Focus();
+            }
+        }
+
+        private void ComboType_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                ComboMan.Focus();
+            }
+        }
+
+        private void ComboMan_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                compoundTB.Focus();
+            }
+        }
+
+        private void compoundTB_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                desc.Focus();   
+            }
+        }
+
+        private void desc_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                save.Focus();
             }
         }
     }
