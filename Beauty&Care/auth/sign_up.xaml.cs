@@ -57,6 +57,12 @@ namespace Beauty_Care.auth
                     return;
                 }
 
+                if(inputPsw.Text != inputPswrepeat.Password)
+                {
+                    MessageBox.Show("Пароли не совпадают!",
+                       "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
 
@@ -101,7 +107,7 @@ namespace Beauty_Care.auth
 
         private void inputPswrepeat_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            if (inputPsw.Text != inputPswrepeat.Password)
+            if (inputPsw.Text != inputPswrepeat.Password || inputPswrepeat.Password == "")
             {
                 btnRegister.IsEnabled = false;
                 inputPswrepeat.Background = Brushes.LightCoral;
@@ -188,6 +194,22 @@ namespace Beauty_Care.auth
             if (e.Key == Key.Tab || e.Key == Key.Enter)
             {
                 btnRegister.Focus();
+            }
+        }
+
+        private void inputPsw_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (inputPsw.Text != inputPswrepeat.Password || inputPswrepeat.Password == "")
+            {
+                btnRegister.IsEnabled = false;
+                inputPswrepeat.Background = Brushes.LightCoral;
+                inputPswrepeat.BorderBrush = Brushes.Red;
+            }
+            else
+            {
+                btnRegister.IsEnabled = true;
+                inputPswrepeat.Background = Brushes.LightGreen;
+                inputPswrepeat.BorderBrush = Brushes.Green;
             }
         }
     }

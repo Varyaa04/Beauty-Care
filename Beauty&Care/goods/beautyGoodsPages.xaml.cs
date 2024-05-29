@@ -1,4 +1,6 @@
 ﻿using Beauty_Care.cartPage;
+using Beauty_Care.auth;
+using Beauty_Care.goodsManager;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,9 +46,9 @@ namespace Beauty_Care.goods
             comboSort.Items.Add("По названию от А-Я");
             comboSort.Items.Add("По названию от Я-А");
 
-            comboFilter.ItemsSource = Entities.GetContext().category.Select(x =>  x.nameCategory).ToList();
+            comboFilter.ItemsSource = Entities3.GetContext().category.Select(x => x.nameCategory).ToList();
 
-            if( authUser != null)
+            if (authUser != null)
             {
                 _authOrd = authUser;
             }
@@ -111,7 +113,7 @@ namespace Beauty_Care.goods
             return products.ToArray();
 
         }
-       
+
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             findGoods();
@@ -132,13 +134,13 @@ namespace Beauty_Care.goods
         {
             try
             {
-                ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
+                ListGoods.ItemsSource = Entities3.GetContext().beautyGoods.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
 
                 int selectedGoodsId = ID;
-                var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
+                var order = Entities3.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
                 if (order == null)
                 {
                     order = new orders()
@@ -146,8 +148,8 @@ namespace Beauty_Care.goods
                         idUsers = idUsers,
                         idStatus = 1
                     };
-                    Entities.GetContext().orders.Add(order);
-                    Entities.GetContext().SaveChanges();
+                    Entities3.GetContext().orders.Add(order);
+                    Entities3.GetContext().SaveChanges();
                 }
 
                 var cartnew = new cart()
@@ -156,8 +158,8 @@ namespace Beauty_Care.goods
                     idGoods = selectedGoodsId
                 };
 
-                Entities.GetContext().cart.Add(cartnew);
-                Entities.GetContext().SaveChanges();
+                Entities3.GetContext().cart.Add(cartnew);
+                Entities3.GetContext().SaveChanges();
 
 
                 MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -198,5 +200,35 @@ namespace Beauty_Care.goods
             findGoods();
         }
 
+        private void btnEx_Click(object sender, RoutedEventArgs e)
+        {
+            var userObj = AppConnect.modeldb.users;
+            int us = Convert.ToInt32(App.Current.Properties["roleUser"].ToString());
+            if (us == 1)
+            {
+                if (MessageBox.Show("Вы точно хотите вернуться в главное меню?", "Подтверждение",
+                             MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    AppFrame.frameMain.Navigate(new sign_in());
+                }
+            }
+            else if (us == 2)
+            {
+                if (MessageBox.Show("Вы точно хотите вернуться в главное меню?", "Подтверждение",
+              MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    AppFrame.frameMain.Navigate(new sign_in());
+                }
+            }
+            else if (us == 3)
+            {
+                if (MessageBox.Show("Вы точно хотите вернуться назад?", "Подтверждение",
+              MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    AppFrame.frameMain.Navigate(new managerOrders());
+                }
+            }
+           
+        }
     }
 }

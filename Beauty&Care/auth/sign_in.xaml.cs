@@ -35,13 +35,14 @@ namespace Beauty_Care.auth
             try
             {
                 var password = AppConnect.modeldb.users.FirstOrDefault(x => x.password == inputPsw.Password);
-                if (password == null)
-                {
-                    MessageBox.Show("неверный пароль",
-                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Information);
-                }
+                var login = AppConnect.modeldb.users.FirstOrDefault(x => x.login == inputLogin.Text);
                 var userObj = AppConnect.modeldb.users.FirstOrDefault(x => x.login == inputLogin.Text && x.password == inputPsw.Password);
-                if (userObj == null)
+               if (password == null)
+                {
+                    MessageBox.Show("Неверный пароль",
+                    "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else if (userObj == null)
                 {
                     MessageBox.Show("Такого пользователя не существует!", "Ошибка авторизации!",
                         MessageBoxButton.OK, MessageBoxImage.Error);

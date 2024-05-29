@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Beauty_Care.goods;
+using Beauty_Care.auth;
 
 namespace Beauty_Care.goodsManager
 {
@@ -30,14 +31,18 @@ namespace Beauty_Care.goodsManager
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            AppFrame.frameMain.Navigate(new auth.sign_in());
+            if (MessageBox.Show("Вы точно хотите выйти в главное меню?", "Подтверждение удаления",
+                          MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                AppFrame.frameMain.Navigate(new sign_in());
+            }
         }
 
         private void btnMore(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
             int IDOrder = int.Parse(((b.Parent as StackPanel).Children[1] as TextBlock).Text);
-            ordersManager selectedOrder = Entities.GetContext().ordersManager
+            ordersManager selectedOrder = Entities3.GetContext().ordersManager
                 .FirstOrDefault(om => om.idOrder == IDOrder);
             if (selectedOrder != null)
             {
@@ -55,7 +60,7 @@ namespace Beauty_Care.goodsManager
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
 
-                ListOrders.ItemsSource = Entities.GetContext().ordersManager.ToList();
+                ListOrders.ItemsSource = Entities3.GetContext().ordersManager.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 int IDOrder = int.Parse(((b.Parent as StackPanel).Children[1] as TextBlock).Text);
@@ -79,8 +84,8 @@ namespace Beauty_Care.goodsManager
         {
             if (Visibility == Visibility.Visible)
             {
-                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                ListOrders.ItemsSource = Entities.GetContext().ordersManager.GroupBy(x => x.idOrder).ToList();
+                Entities3.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                ListOrders.ItemsSource = Entities3.GetContext().ordersManager.GroupBy(x => x.idOrder).ToList();
             }
         }
     }

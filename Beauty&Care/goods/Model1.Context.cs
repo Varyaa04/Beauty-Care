@@ -15,18 +15,18 @@ namespace Beauty_Care.goods
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class Entities : DbContext
+    public partial class Entities3 : DbContext
     {
-        public static Entities _context;
-        public Entities()
-            : base("name=Entities")
+        private static Entities3 _context;
+        public Entities3()
+            : base("name=Entities3")
         {
         }
     
-        public static Entities GetContext()
+        public static Entities3 GetContext()
         {
-            if (_context == null)
-                _context = new Entities();
+            if (_context == null )
+                _context = new Entities3();
             return _context;
         }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

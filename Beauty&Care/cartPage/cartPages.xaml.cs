@@ -35,25 +35,26 @@ namespace Beauty_Care.cartPage
         {
             InitializeComponent();
 
-            var orderobj = Entities.GetContext().orders
+            var orderobj = Entities3.GetContext().orders
                               .Where(x => x.idUsers == idusercart)
                               .Select(x => x.idOrder)
                               .ToList();
 
-            var cartobj = Entities.GetContext().cart
+            var cartobj = Entities3.GetContext().cart
                                .Where(c => orderobj.Contains(c.idOrder))
                                .Select(x => x.idGoods)
                                .ToList();
-            var goodsInCart = Entities.GetContext().beautyGoods
+            var goodsInCart = Entities3.GetContext().beautyGoods
                                          .Where(x => cartobj.Contains(x.idGoods))
                                          .ToList();
             ListOrders.ItemsSource = goodsInCart;
 
+            var cartt = Entities3.GetContext().cart.ToArray();
 
-            if (ListOrders.Items.Count > 0)
+            if (cartt.Count() > 0)
             {
                 btnCheckout.IsEnabled = true;
-                tbCounter.Text = "Всего в корзине " + ListOrders.Items.Count + " товаров";
+                tbCounter.Text = "Всего в корзине " + cartt.Count() + " товаров";
             }
             else
             {
@@ -90,7 +91,7 @@ namespace Beauty_Care.cartPage
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
 
-                ListOrders.ItemsSource = Entities.GetContext().cart.ToList();
+                ListOrders.ItemsSource = Entities3.GetContext().cart.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 Console.WriteLine(ID);
@@ -159,7 +160,7 @@ namespace Beauty_Care.cartPage
                 document.Add(paragraph1);
                 decimal sum = 0;
 
-                var goodsobj = Entities.GetContext().cart
+                var goodsobj = Entities3.GetContext().cart
                                      .Where(x => x.orders.idUsers == idusercart)
                                      .ToList();
                 foreach (var item in goodsobj)
@@ -167,7 +168,7 @@ namespace Beauty_Care.cartPage
                     if (item is cart data)
                     {
 
-                        Image img = Image.GetInstance("C:\\Users\\10210808\\Desktop\\q\\Beauty&Care\\" + data.beautyGoods.CurrentPhoto);
+                        Image img = Image.GetInstance("C:\\Users\\10210808\\Desktop\\practica\\Beauty&Care\\" + data.beautyGoods.CurrentPhoto);
                         img.ScaleAbsolute(100f, 100f);
                         document.Add(img);
                         document.Add(new Paragraph("Название: " + data.beautyGoods.nameGoods, font));
@@ -201,15 +202,15 @@ namespace Beauty_Care.cartPage
         {
             if (Visibility == Visibility.Visible)
             {
-                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                ListOrders.ItemsSource = Entities.GetContext().cart.ToList();
+                Entities3.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                ListOrders.ItemsSource = Entities3.GetContext().cart.ToList();
             }
         }
 
         public void RemoveItemsFromCart()
         {
 
-            var context = Entities.GetContext();
+            var context = Entities3.GetContext();
             var itemsToDelete = context.cart
             .Where(x => x.orders.idUsers == idusercart)
             .ToList();
@@ -224,8 +225,8 @@ namespace Beauty_Care.cartPage
         public void addManager()
         {
             int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
-            var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
-            var cartItems = Entities.GetContext().cart.Where(c => c.orders.idUsers == idUsers);
+            var order = Entities3.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
+            var cartItems = Entities3.GetContext().cart.Where(c => c.orders.idUsers == idUsers);
 
             order = new orders()
             {
@@ -233,8 +234,8 @@ namespace Beauty_Care.cartPage
                 idStatus = 1
             };
 
-            Entities.GetContext().orders.Add(order);
-            Entities.GetContext().SaveChanges();
+            Entities3.GetContext().orders.Add(order);
+            Entities3.GetContext().SaveChanges();
 
             foreach (var cartItem in cartItems)
             {
@@ -244,10 +245,10 @@ namespace Beauty_Care.cartPage
                     idGoods = cartItem.idGoods
                 };
 
-                Entities.GetContext().ordersManager.Add(cartnew);
+                Entities3.GetContext().ordersManager.Add(cartnew);
             }
 
-            Entities.GetContext().SaveChanges();
+            Entities3.GetContext().SaveChanges();
         }
 
     }

@@ -27,12 +27,11 @@ namespace Beauty_Care.goods
         public int category { get; set; }
         public int typeGoods { get; set; }
         public int instock { get; set; }
-        public decimal price { get; set; }
+        public int price { get; set; }
         public int manufacturer { get; set; }
         public string compound { get; set; }
         public string description { get; set; }
         public string image { get; set; }
-
         public string CurrentPhoto
         {
             get
@@ -47,7 +46,6 @@ namespace Beauty_Care.goods
                 }
             }
         }
-
         public virtual category category1 { get; set; }
         public virtual manufacturer manufacturer1 { get; set; }
         public virtual typeGoods typeGoods1 { get; set; }

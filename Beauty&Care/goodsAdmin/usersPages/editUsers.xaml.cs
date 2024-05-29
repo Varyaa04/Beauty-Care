@@ -38,7 +38,7 @@ namespace Beauty_Care.goodsAdmin
             passwT.MaxLength = 30;
             loginT.MaxLength = 30;
 
-            ComboRole.ItemsSource = Entities.GetContext().role.ToList();
+            ComboRole.ItemsSource = Entities3.GetContext().role.ToList();
             AppConnect.modeldb.users.ToArray();
 
         }
@@ -80,7 +80,7 @@ namespace Beauty_Care.goodsAdmin
             {
                 if (_currentUser.idUser == 0)
                 {
-                    Entities.GetContext().users.Add(_currentUser);
+                    Entities3.GetContext().users.Add(_currentUser);
                 }
                 try
                 {

@@ -1,4 +1,5 @@
 ﻿using Beauty_Care.goods;
+using Beauty_Care.auth;
 using Beauty_Care.cartPage;
 using System;
 using System.Collections.Generic;
@@ -42,7 +43,7 @@ namespace Beauty_Care.goodsAdmin
             comboSort.Items.Add("По названию от А-Я");
             comboSort.Items.Add("По названию от Я-А");
 
-            comboFilter.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
+            comboFilter.ItemsSource = Entities3.GetContext().category.Select(x => x.nameCategory).ToList();
 
             if(authUser != null)
             {
@@ -112,18 +113,17 @@ namespace Beauty_Care.goodsAdmin
 
         private void btnDel_Click(object sender, RoutedEventArgs e)
         {
-            if (MessageBox.Show("Вы точно хотите удалить выбранного пользователя?", "Подтверждение удаления",
+            if (MessageBox.Show("Вы точно хотите удалить выбранный товар?", "Подтверждение удаления",
                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
+                ListGoods.ItemsSource = Entities3.GetContext().beautyGoods.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 Console.WriteLine(ID);
                 AppConnect.modeldb.beautyGoods.Remove(
                     AppConnect.modeldb.beautyGoods.Where(x => x.idGoods == ID).First());
                 AppConnect.modeldb.SaveChanges();
-                AppFrame.frameMain.GoBack();
-                AppFrame.frameMain.Navigate(new UsersPage());
+                AppFrame.frameMain.Navigate(new beautyGoodsAdmin((sender as Button).DataContext as users));
             }
 
         }
@@ -142,8 +142,8 @@ namespace Beauty_Care.goodsAdmin
         {
             if (Visibility == Visibility.Visible)
             {
-                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
+                Entities3.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                ListGoods.ItemsSource = Entities3.GetContext().beautyGoods.ToList();
             }
         }
 
@@ -151,13 +151,13 @@ namespace Beauty_Care.goodsAdmin
         {
             try
             {
-                ListGoods.ItemsSource = Entities.GetContext().beautyGoods.ToList();
+                ListGoods.ItemsSource = Entities3.GetContext().beautyGoods.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
 
                 int selectedGoodsId = ID;
-                var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
+                var order = Entities3.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
                 if (order == null)
                 {
                     order = new orders()
@@ -165,8 +165,8 @@ namespace Beauty_Care.goodsAdmin
                         idUsers = idUsers,
                         idStatus = 1
                     };
-                    Entities.GetContext().orders.Add(order);
-                    Entities.GetContext().SaveChanges();
+                    Entities3.GetContext().orders.Add(order);
+                    Entities3.GetContext().SaveChanges();
                 }
 
                 var cartnew = new cart()
@@ -175,8 +175,8 @@ namespace Beauty_Care.goodsAdmin
                     idGoods = selectedGoodsId
                 };
 
-                Entities.GetContext().cart.Add(cartnew);
-                Entities.GetContext().SaveChanges();
+                Entities3.GetContext().cart.Add(cartnew);
+                Entities3.GetContext().SaveChanges();
 
 
                 MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -237,6 +237,15 @@ namespace Beauty_Care.goodsAdmin
         {
             comboSort.SelectedIndex = -1;
             findGoods();
+        }
+
+        private void btnEx_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Вы точно хотите выйти в главное меню?", "Подтверждение",
+                          MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                AppFrame.frameMain.Navigate(new sign_in());
+            }
         }
     }
 }

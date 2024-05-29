@@ -47,7 +47,7 @@ namespace Beauty_Care.goods
                 int idUsers = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
 
                 int selectedGoodsId = ID;
-                var order = Entities.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
+                var order = Entities3.GetContext().orders.FirstOrDefault(o => o.idUsers == idUsers);
                 if (order == null)
                 {
                     order = new orders()
@@ -55,8 +55,8 @@ namespace Beauty_Care.goods
                         idUsers = idUsers,
                         idStatus = 1
                     };
-                    Entities.GetContext().orders.Add(order);
-                    Entities.GetContext().SaveChanges();
+                    Entities3.GetContext().orders.Add(order);
+                    Entities3.GetContext().SaveChanges();
                 }
 
                 var cartnew = new cart()
@@ -65,8 +65,8 @@ namespace Beauty_Care.goods
                     idGoods = selectedGoodsId
                 };
 
-                Entities.GetContext().cart.Add(cartnew);
-                Entities.GetContext().SaveChanges();
+                Entities3.GetContext().cart.Add(cartnew);
+                Entities3.GetContext().SaveChanges();
 
 
                 MessageBox.Show("Товар успешно добавлен в корзину!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);

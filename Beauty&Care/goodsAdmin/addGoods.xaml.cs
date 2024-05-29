@@ -24,8 +24,8 @@ namespace Beauty_Care.goodsAdmin
         {
             InitializeComponent();
 
-            ComboCategory.ItemsSource = Entities.GetContext().category.Select(x => x.nameCategory).ToList();
-            ComboMan.ItemsSource = Entities.GetContext().manufacturer.Select(x => x.namemManufacturer).ToList();
+            ComboCategory.ItemsSource = Entities3.GetContext().category.Select(x => x.nameCategory).ToList();
+            ComboMan.ItemsSource = Entities3.GetContext().manufacturer.Select(x => x.namemManufacturer).ToList();
 
             article.MaxLength = 16;
             nameTB.MaxLength = 30;
@@ -120,21 +120,21 @@ namespace Beauty_Care.goodsAdmin
 
             if (ComboCategory.SelectedIndex == 0)
             {
-                ComboType.ItemsSource = Entities.GetContext().typeGoods
+                ComboType.ItemsSource = Entities3.GetContext().typeGoods
                                            .Where(x => x.idType == 1 || x.idType == 2 || x.idType == 3)
                                            .Select(x => x.nameType)
                                            .ToList();
             }
             else if (ComboCategory.SelectedIndex == 1)
             {
-                ComboType.ItemsSource = Entities.GetContext().typeGoods
+                ComboType.ItemsSource = Entities3.GetContext().typeGoods
                                            .Where(x => x.idType == 4 || x.idType == 5 || x.idType == 6)
                                            .Select(x => x.nameType)
                                            .ToList();
             }
             else if (ComboCategory.SelectedIndex == 2)
             {
-                ComboType.ItemsSource = Entities.GetContext().typeGoods
+                ComboType.ItemsSource = Entities3.GetContext().typeGoods
                                            .Where(x => x.idType == 8 || x.idType == 7)
                                            .Select(x => x.nameType)
                                            .ToList();

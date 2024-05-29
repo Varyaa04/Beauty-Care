@@ -47,7 +47,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <Label x:Name="txtOrder" Content="Заказы" HorizontalAlignment="Left" Margin="524,-70,0,0" VerticalAlignment="Top" FontFamily="Verdana" FontSize="26"/>
-        <Button Content="Назад" HorizontalAlignment="Left" Margin="24,-73,0,0" VerticalAlignment="Top" Height="38" Width="116" Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="Button_Click"/>
+        <Button Content="Выход" HorizontalAlignment="Left" Margin="24,-73,0,0" VerticalAlignment="Top" Height="38" Width="116" Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="Button_Click"/>
         <Button x:Name="btnCatalog" Content="Перейти в каталог" HorizontalAlignment="Left" Margin="900,-70,0,0" VerticalAlignment="Top" Height="38" Width="211" Background="#FCB4D5" Foreground="White" FontFamily="Verdana" FontSize="16" Click="btnCatalog_Click"/>
     </Grid>
 </Page>

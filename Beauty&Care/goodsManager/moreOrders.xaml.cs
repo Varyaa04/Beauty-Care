@@ -33,12 +33,12 @@ namespace Beauty_Care.goodsManager
 
                 var currentOrderId = _currentOrders.idOrder;
 
-                var goodsInOrder = Entities.GetContext().beautyGoods
+                var goodsInOrder = Entities3.GetContext().beautyGoods
                     .Where(bg => bg.ordersManager.Any(om => om.idOrder == currentOrderId))
                     .ToList();
                 listgoodsorder.ItemsSource = goodsInOrder;
 
-                var user = Entities.GetContext().users
+                var user = Entities3.GetContext().users
                     .FirstOrDefault(u => u.orders.Any(o => o.idOrder == currentOrderId));
 
                 labeluser.Content = user?.nameUser;
@@ -46,9 +46,9 @@ namespace Beauty_Care.goodsManager
                 labelPhone.Content = user?.phone;
                 labelEmai.Content = user?.email;
 
-                var statusOrder = Entities.GetContext().status
+                var statusOrder = Entities3.GetContext().status
                     .FirstOrDefault(s => s.orders.Any(o => o.idOrder == currentOrderId));
-                comboStatus.ItemsSource = Entities.GetContext().status.ToList();
+                comboStatus.ItemsSource = Entities3.GetContext().status.ToList();
                 comboStatus.SelectedValue = statusOrder?.idStatus;
             }
             else

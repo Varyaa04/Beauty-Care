@@ -15,7 +15,7 @@
           <Property Name="category" Type="int" Nullable="false" />
           <Property Name="typeGoods" Type="int" Nullable="false" />
           <Property Name="instock" Type="int" Nullable="false" />
-          <Property Name="price" Type="money" Nullable="false" />
+          <Property Name="price" Type="int" Nullable="false" />
           <Property Name="manufacturer" Type="int" Nullable="false" />
           <Property Name="compound" Type="nvarchar(max)" Nullable="false" />
           <Property Name="description" Type="nvarchar(max)" />
@@ -100,7 +100,7 @@
           <Property Name="password" Type="nvarchar(max)" Nullable="false" />
           <Property Name="roleUsers" Type="int" Nullable="false" />
           <Property Name="email" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="phone" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="phone" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <Association Name="FK_beautyGoods_category">
           <End Role="category" Type="Self.category" Multiplicity="1">
@@ -341,7 +341,7 @@
           <Property Name="category" Type="Int32" Nullable="false" />
           <Property Name="typeGoods" Type="Int32" Nullable="false" />
           <Property Name="instock" Type="Int32" Nullable="false" />
-          <Property Name="price" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="price" Type="Int32" Nullable="false" />
           <Property Name="manufacturer" Type="Int32" Nullable="false" />
           <Property Name="compound" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
@@ -444,7 +444,7 @@
           <Property Name="password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="roleUsers" Type="Int32" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="phone" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="orders" Relationship="Self.FK_orders_users1" FromRole="users" ToRole="orders" />
           <NavigationProperty Name="role" Relationship="Self.FK_users_role" FromRole="users" ToRole="role" />
         </EntityType>
@@ -588,7 +588,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Entities3" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="beautyGoods" EntityType="Self.beautyGoods" />
           <EntitySet Name="cart" EntityType="Self.cart" />
           <EntitySet Name="category" EntityType="Self.category" />
@@ -687,7 +687,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities1">
+        <EntityContainerMapping StorageEntityContainer="Хранилище ModelContainer" CdmEntityContainer="Entities3">
           <EntitySetMapping Name="beautyGoods">
             <EntityTypeMapping TypeName="Model.beautyGoods">
               <MappingFragment StoreEntitySet="beautyGoods">

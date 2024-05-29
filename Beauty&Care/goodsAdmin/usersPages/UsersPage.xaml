@@ -32,10 +32,10 @@
                             <ColumnDefinition Width="205"/>
                         </Grid.ColumnDefinitions>
                         <StackPanel Grid.Column="1" Width="auto" Orientation="Vertical" Margin="0,0,0,74">
-                            <TextBlock Width="auto" TextWrapping="Wrap" Height="auto"   Margin="5,30,0,0" TextAlignment="Center">
-                            <Run Text="{Binding NameUsers}"/>
+                            <TextBlock Width="auto" TextWrapping="Wrap" Height="39"   Margin="5,30,0,0" TextAlignment="Center">
+                            <Run Text="{Binding nameUser}"/>
                             </TextBlock>
-                            <TextBlock Width="543" TextWrapping="Wrap" Height="auto" Margin="0,5,0,0">
+                            <TextBlock Width="567" TextWrapping="Wrap" Height="auto" Margin="0,5,0,0">
                             <Run Text="Логин: " />
                             <Run Text="{Binding login}"/>
                             </TextBlock>
@@ -58,7 +58,7 @@
                         <StackPanel Grid.Column="2" Width="auto" Orientation="Vertical" Margin="0,69,0,98">
                             <TextBlock Width="auto" TextWrapping="Wrap" Height="auto" Margin="0,15,0,0" >
                              <Run Text="Роль: " />
-                            <Run Text="{Binding role1.nameRole}"/>
+                            <Run Text="{Binding role.nameRole}"/>
                             </TextBlock>
                         </StackPanel>
                         <StackPanel Grid.Column="2" Margin="151,0,-151,58" Orientation="Horizontal" Grid.ColumnSpan="2">
@@ -70,7 +70,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="875,-48,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="265" Foreground="#FF9E275D"/>
+        <TextBlock x:Name="tbCounter" HorizontalAlignment="Left" Margin="735,-48,0,0" TextWrapping="Wrap" Text="Ничего не найдено" VerticalAlignment="Top" FontFamily="Verdana" FontSize="24" Width="405" Foreground="#FF9E275D"/>
         <Button x:Name="btnAdd" Content="Добавить нового пользователя" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="843,-100,0,0" VerticalAlignment="Top" Height="38" Width="297" Click="btnAdd_Click" FontFamily="Verdana" FontSize="16"/>
         <Button x:Name="btnBack" Content="Назад" HorizontalAlignment="Left" Background="#FCB4D5" Foreground="White" Margin="28,-91,0,0" VerticalAlignment="Top" Height="37" Width="112" Click="btnBack_Click" FontFamily="Verdana" FontSize="16"/>
         <TextBox x:Name="textboxSearch" HorizontalAlignment="Left" Margin="255,-86,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="190" Height="28" TextChanged="TextBox_TextChanged" FontSize="16" FontFamily="Verdana"/>

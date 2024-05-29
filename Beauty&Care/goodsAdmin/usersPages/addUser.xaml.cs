@@ -28,7 +28,7 @@ namespace Beauty_Care.goodsAdmin.usersPages
         {
             InitializeComponent();
 
-            ComboRole.ItemsSource = Entities.GetContext().role.Select(x => x.nameRole).ToList();
+            ComboRole.ItemsSource = Entities3.GetContext().role.Select(x => x.nameRole).ToList();
 
             phoneT.MaxLength = 12;
             nameT.MaxLength = 25;
@@ -134,6 +134,11 @@ namespace Beauty_Care.goodsAdmin.usersPages
             {
                 e.Handled = true;
             }
+
+            if (e.Key == Key.Tab || e.Key == Key.Enter)
+            {
+                emailT1.Focus();
+            }
         }
 
         private void BGoBackbutton_Click(object sender, RoutedEventArgs e)
@@ -152,12 +157,9 @@ namespace Beauty_Care.goodsAdmin.usersPages
                 phoneT.TextChanged += phoneT_TextChanged;
 
                 phoneT.SelectionStart = phoneT.Text.Length;
-            }
+            };
 
-            if (e.Key == Key.Tab || e.Key == Key.Enter)
-            {
-                emailT1.Focus();
-            }
+
         }
 
         private void loginT_KeyDown(object sender, KeyEventArgs e)

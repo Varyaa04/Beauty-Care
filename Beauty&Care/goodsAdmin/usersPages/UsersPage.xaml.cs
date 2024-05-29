@@ -44,8 +44,8 @@ namespace Beauty_Care.goodsAdmin.usersPages
         {
             if (Visibility == Visibility.Visible)
             {
-                Entities.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
-                ListUsers.ItemsSource = Entities.GetContext().users.ToList();
+                Entities3.GetContext().ChangeTracker.Entries().ToList().ForEach(p => p.Reload());
+                ListUsers.ItemsSource = Entities3.GetContext().users.ToList();
             }
         }
 
@@ -70,7 +70,7 @@ namespace Beauty_Care.goodsAdmin.usersPages
             if (MessageBox.Show("Вы точно хотите удалить выбранного пользователя?", "Подтверждение удаления",
                 MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                ListUsers.ItemsSource = Entities.GetContext().users.ToList();
+                ListUsers.ItemsSource = Entities3.GetContext().users.ToList();
                 Button b = sender as Button;
                 int ID = int.Parse(((b.Parent as StackPanel).Children[0] as TextBlock).Text);
                 Console.WriteLine(ID);
@@ -83,30 +83,6 @@ namespace Beauty_Care.goodsAdmin.usersPages
 
             var userDel = ListUsers.SelectedItems.Cast<users>().ToList();
 
-            if (MessageBox.Show($"Вы точно хотите удалить выбранных пользoвателей ({userDel.Count()})?", "Внимание",
-                MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
-            {
-                try
-                {
-                    var context = Entities.GetContext();
-                    foreach (var item in userDel)
-                    {
-                        var user = context.users.Find(item.idUser);
-                        if (user != null)
-                        {
-                            context.users.Remove(user);
-                        }
-                    }
-                    context.SaveChanges();
-                    MessageBox.Show("Данные удалены");
-                    ListUsers.SelectedItem = null;
-
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message.ToString());
-                }
-            }
         }
 
         public void findUsers()

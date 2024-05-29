@@ -43,6 +43,7 @@ namespace Beauty_Care.cartPage
 
             img.Source = bitmap;
             qr++;
+
         }
 
         private void btnBack_Click(object sender, RoutedEventArgs e)
@@ -50,6 +51,22 @@ namespace Beauty_Care.cartPage
             Environment.Exit(0);
         }
 
-        
+        private void btnCat_Click(object sender, RoutedEventArgs e)
+        {
+            var userObj = AppConnect.modeldb.users;
+            int us = Convert.ToInt32(App.Current.Properties["roleUser"].ToString());
+            if (us == 1)
+            {
+                AppFrame.frameMain.Navigate(new beautyGoodsAdmin((sender as Button).DataContext as users));
+            }
+            else if (us == 2)
+            {
+                AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
+            }
+            else if (us == 3)
+            {
+                AppFrame.frameMain.Navigate(new beautyGoodsPages((sender as Button).DataContext as users));
+            }
+        }
     }
 }

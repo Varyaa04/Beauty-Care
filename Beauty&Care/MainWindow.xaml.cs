@@ -21,7 +21,7 @@ namespace Beauty_Care
         public MainWindow()
         {
             InitializeComponent();
-            AppConnect.modeldb = new Entities();
+            AppConnect.modeldb = new Entities3();
             AppFrame.frameMain = FrmMain;
 
             FrmMain.Navigate(new auth.sign_in());
@@ -34,7 +34,7 @@ namespace Beauty_Care
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var dbContext = Entities.GetContext();
+            var dbContext = Entities3.GetContext();
 
             if (dbContext.cart.Any())
             {

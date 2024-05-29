@@ -32,13 +32,15 @@ namespace Beauty_Care.goodsAdmin
             }
             DataContext = _currentGoods;
 
-            ComboCategory.ItemsSource = Entities.GetContext().category.ToList();
-            ComboMan.ItemsSource = Entities.GetContext().manufacturer.ToList();
+            ComboCategory.ItemsSource = Entities3.GetContext().category.ToList();
+            ComboMan.ItemsSource = Entities3.GetContext().manufacturer.ToList();
+            ComboType.ItemsSource = Entities3.GetContext().typeGoods.ToList();
 
             article.MaxLength = 16;
             nameTB.MaxLength = 30;
             instock.MaxLength = 3;
             price.MaxLength = 8;
+
         }
 
         private void BGoBackbutton_Click(object sender, RoutedEventArgs e)
@@ -102,7 +104,7 @@ namespace Beauty_Care.goodsAdmin
                     goodsToUpdate.instock = stock;
                     goodsToUpdate.compound = compoundTB.Text;
                     goodsToUpdate.description = desc.Text;
-                    goodsToUpdate.image = null;
+                    goodsToUpdate.image = goodsToUpdate.image;
 
                     AppConnect.modeldb.SaveChanges();
                     MessageBox.Show("Данные пользователя успешно изменены!", "Уведомление", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -130,21 +132,21 @@ namespace Beauty_Care.goodsAdmin
 
             if (ComboCategory.SelectedIndex == 0)
             {
-                ComboType.ItemsSource = Entities.GetContext().typeGoods
+                ComboType.ItemsSource = Entities3.GetContext().typeGoods
                                            .Where(x => x.idType == 1 || x.idType == 2 || x.idType == 3)
                                            .Select(x => x.nameType)
                                            .ToList();
             }
             else if (ComboCategory.SelectedIndex == 1)
             {
-                ComboType.ItemsSource = Entities.GetContext().typeGoods
+                ComboType.ItemsSource = Entities3.GetContext().typeGoods
                                            .Where(x => x.idType == 4 || x.idType == 5 || x.idType == 6)
                                            .Select(x => x.nameType)
                                            .ToList();
             }
             else if (ComboCategory.SelectedIndex == 2)
             {
-                ComboType.ItemsSource = Entities.GetContext().typeGoods
+                ComboType.ItemsSource = Entities3.GetContext().typeGoods
                                            .Where(x => x.idType == 8 || x.idType == 7)
                                            .Select(x => x.nameType)
                                            .ToList();
@@ -241,6 +243,11 @@ namespace Beauty_Care.goodsAdmin
             {
                 save.Focus();
             }
+        }
+
+        private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
