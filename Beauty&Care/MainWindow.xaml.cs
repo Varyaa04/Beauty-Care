@@ -27,11 +27,6 @@ namespace Beauty_Care
             FrmMain.Navigate(new auth.sign_in());
         }
 
-        private void FrmMain_Navigated(object sender, NavigationEventArgs e)
-        {
-
-        }
-
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             var dbContext = Entities3.GetContext();

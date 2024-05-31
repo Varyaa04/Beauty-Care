@@ -36,10 +36,6 @@ namespace Beauty_Care.goodsAdmin.usersPages
             loginT.MaxLength = 30;
         }
 
-        private void ComboMan_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
 
         private void save_Click(object sender, RoutedEventArgs e)
         {

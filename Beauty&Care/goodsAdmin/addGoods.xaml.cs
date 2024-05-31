@@ -31,7 +31,6 @@ namespace Beauty_Care.goodsAdmin
             nameTB.MaxLength = 30;
             instock.MaxLength = 3;
             price.MaxLength = 8;
-
         }
 
         private void ShowError(string message)
@@ -94,7 +93,6 @@ namespace Beauty_Care.goodsAdmin
         private void save_Click(object sender, RoutedEventArgs e)
         {
             if (!ValidateFields()) return;
-
             beautyGoods goodsobj = CreateGoodsObject();
             AppConnect.modeldb.beautyGoods.Add(goodsobj);
 

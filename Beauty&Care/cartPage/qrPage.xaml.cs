@@ -27,9 +27,7 @@ namespace Beauty_Care.cartPage
         public qrPage()
         {
             InitializeComponent();
-
             int qr = 1;
-
             BitmapImage bitmap = new BitmapImage();
             BarcodeGenerator gen = new BarcodeGenerator(EncodeTypes.QR, "https://masterpiecer-images.s3.yandex.net/5e8dde6f838711ee83aad20dae950626:upscaled");
             gen.Parameters.Barcode.XDimension.Pixels = 34;

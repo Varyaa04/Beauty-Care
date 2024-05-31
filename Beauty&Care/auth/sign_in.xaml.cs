@@ -84,7 +84,6 @@ namespace Beauty_Care.auth
                     "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-
         private void inputLogin_KeyDown(object sender, KeyEventArgs e)
         {
             if(e.Key == Key.Tab || e.Key == Key.Enter)
@@ -92,7 +91,6 @@ namespace Beauty_Care.auth
                 inputPsw.Focus();
             }
         }
-
         private void inputPsw_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Tab || e.Key == Key.Enter)

@@ -9,7 +9,7 @@
         Background="#FCB4D5" Width="1200" MinWidth="1200" MinHeight="700" MaxWidth="1200" MaxHeight="700" Closing="Window_Closing" ShowActivated="False" WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Hidden" Icon="/bow.png"
         >
     <Grid>
-        <Frame x:Name="FrmMain" Content="Frame" HorizontalAlignment="Center" Height="584" Margin="0,90,0,0" VerticalAlignment="Top" Width="1180" Background="#F9C7DE" Navigated="FrmMain_Navigated" NavigationUIVisibility="Hidden" >
+        <Frame x:Name="FrmMain" Content="Frame" HorizontalAlignment="Center" Height="584" Margin="0,90,0,0" VerticalAlignment="Top" Width="1180" Background="#F9C7DE" NavigationUIVisibility="Hidden" >
             <UIElement.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>

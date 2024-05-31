@@ -30,7 +30,6 @@ namespace Beauty_Care.cartPage
     public partial class cartPages : Page
     {
         int idusercart = Convert.ToInt32(App.Current.Properties["idUser"].ToString());
-
         public cartPages()
         {
             InitializeComponent();

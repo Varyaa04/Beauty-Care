@@ -245,9 +245,5 @@ namespace Beauty_Care.goodsAdmin
             }
         }
 
-        private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
     }
 }

@@ -58,7 +58,6 @@ namespace Beauty_Care.goods
                     Entities3.GetContext().orders.Add(order);
                     Entities3.GetContext().SaveChanges();
                 }
-
                 var cartnew = new cart()
                 {
                     idOrder = order.idOrder,

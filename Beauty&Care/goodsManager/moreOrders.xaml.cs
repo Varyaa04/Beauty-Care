@@ -58,7 +58,6 @@ namespace Beauty_Care.goodsManager
             }
         }
 
-
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
             AppFrame.frameMain.GoBack();

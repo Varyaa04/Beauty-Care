@@ -64,6 +64,7 @@ namespace Beauty_Care.auth
                     return;
                 }
 
+
                 string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
 
                 if (!Regex.IsMatch(inputEmail.Text, emailPattern))
@@ -79,9 +80,6 @@ namespace Beauty_Care.auth
                         "Уведомление", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
-
-
-
 
                 users userObj = new users()
                 {
@@ -120,7 +118,6 @@ namespace Beauty_Care.auth
                 inputPswrepeat.BorderBrush = Brushes.Green;
             }
         }
-
         private void inputName_KeyDown(object sender, KeyEventArgs e)
         {
             if ((e.Key < Key.A || e.Key > Key.Z) && e.Key != Key.Back)

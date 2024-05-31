@@ -55,7 +55,6 @@ namespace Beauty_Care.goods
             DataContext = _authOrd;
         }
 
-
         beautyGoods[] findGoods()
         {
 

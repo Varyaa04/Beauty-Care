@@ -78,7 +78,6 @@ namespace Beauty_Care.goodsAdmin
                 }
             }
 
-
             if (comboSort.SelectedIndex >= 0)
             {
                 switch (comboSort.SelectedIndex)
@@ -97,6 +96,7 @@ namespace Beauty_Care.goodsAdmin
                         break;
                 }
             }
+
             if (products.Count > 0)
             {
                 tbCounter.Text = "Найдено " + products.Count + " товаров";
@@ -105,6 +105,7 @@ namespace Beauty_Care.goodsAdmin
             {
                 tbCounter.Text = "Ничего не найдено";
             }
+
             ListGoods.ItemsSource = products;
             return products.ToArray();
 
